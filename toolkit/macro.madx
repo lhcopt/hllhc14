@@ -3062,10 +3062,10 @@ sphi_IRirn:=sin(phi_IRirn*pi/180.);
 !on_sepirn =on_sepirn ;
 !phi_IRirn =phi_IRirn ;
 xingsl=0.9;
-on_xirnhs  :=xingsl*on_xirn*cphi_IRirn;
-on_xirnvs  :=xingsl*on_xirn*sphi_IRirn;
-on_xirnhl  :=(1-xingsl)*on_xirn*cphi_IRirn;
-on_xirnvl  :=(1-xingsl)*on_xirn*sphi_IRirn;
+on_xirnhs  :=(1-cd2q4)*on_xirn*cphi_IRirn;
+on_xirnvs  :=(1-cd2q4)*on_xirn*sphi_IRirn;
+on_xirnhl  :=(cd2q4)*on_xirn*cphi_IRirn;
+on_xirnvl  :=(cd2q4)*on_xirn*sphi_IRirn;
 on_sepirnh:=-on_sepirn*sphi_IRirn;
 on_sepirnv:= on_sepirn*cphi_IRirn;
 on_oirnh  := on_oirn*cphi_IRirn;
@@ -3074,22 +3074,26 @@ on_airnh  :=-on_airn*sphi_IRirn;
 on_airnv  := on_airn*cphi_IRirn;
 !show,on_xirn,on_sepirn,phi_IRirn;
 show,cphi_IRirn,sphi_IRirn;
-show,on_xirnh,on_sepirnh,on_airnh,on_oirnh;
-show,on_xirnv,on_sepirnv,on_airnv,on_oirnv;
+show,on_xirnhs,on_xirnhl,on_sepirnh,on_airnh,on_oirnh;
+show,on_xirnvs,on_xirnvl,on_sepirnv,on_airnv,on_oirnv;
 };
 
 
 _save_optics_disp: macro={
-on_dx1h:=on_disp*on_x1h;
-on_dx1v:=on_disp*on_x1v;
-on_dx5h:=on_disp*on_x5h;
-on_dx5v:=on_disp*on_x5v;
+on_dx1hs:=on_disp*on_x1hs;
+on_dx1vs:=on_disp*on_x1vs;
+on_dx1hl:=on_disp*on_x1hl;
+on_dx1vl:=on_disp*on_x1vl;
+on_dx5hs:=on_disp*on_x5hs;
+on_dx5vs:=on_disp*on_x5vs;
+on_dx5hl:=on_disp*on_x5hl;
+on_dx5vl:=on_disp*on_x5vl;
 on_dsep1h:=on_disp*on_sep1h;
 on_dsep1v:=on_disp*on_sep1v;
 on_dsep5h:=on_disp*on_sep5h;
 on_dsep5v:=on_disp*on_sep5v;
 show,on_disp;
-show,on_dx1h,on_dx1v,on_dx5h,on_dx5v;
+show,on_dx1hs,on_dx1vs,on_dx1hl,on_dx1vl,on_dx5hs,on_dx5vs,on_dx5hl,on_dx5vl;
 show,on_dsep1h,on_dsep1v,on_dsep5h,on_dsep5v;
 }
 
@@ -3953,7 +3957,8 @@ on_sep2v           := on_sep2*cphi_ir2   ;
 on_x5hs            := (1-cd2q4)*on_x5*cphi_ir5    ;
 on_x5hl            := (cd2q4)*on_x5*cphi_ir5    ;
 on_sep5h           := -on_sep5*sphi_ir5  ;
-on_x5v             := on_x5*sphi_ir5     ;
+on_x5vs            := (1-cd2q4)*on_x5*sphi_ir5     ;
+on_x5vl            := (cd2q4)*on_x5*sphi_ir5     ;
 on_sep5v           := on_sep5*cphi_ir5   ;
 on_x8h             := on_x8*cphi_ir8     ;
 on_sep8h           := -on_sep8*sphi_ir8  ;

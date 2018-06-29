@@ -66,22 +66,27 @@ match, sequence=lhcb1,lhcb2, beta0= birirnb1,birirnb2,
   acbxhv2.rirn:=cmcb12*acbxhv1.rirn;
   vary, name=acbxhv3.lirn,step=1.e-12,lower=-climmcbxfa,upper=climmcbxfa;
   vary, name=acbxhv3.rirn,step=1.e-12,lower=-climmcbxfa,upper=climmcbxfa;
-  acbrdhv4.lirnb1:=(1-cd2q4)*acbrdhv4.lirnb1aux;
-  acbrdhv4.lirnb2:=(1-cd2q4)*acbrdhv4.lirnb2aux;
-  acbrdhv4.rirnb1:=(1-cd2q4)*acbrdhv4.rirnb1aux;
-  acbrdhv4.rirnb2:=(1-cd2q4)*acbrdhv4.rirnb2aux;
-  acbyhvs4.lirnb1:=cd2q4*acbrdhv4.lirnb1aux;
-  acbyhvs4.lirnb2:=cd2q4*acbrdhv4.lirnb2aux;
-  acbyhvs4.rirnb1:=cd2q4*acbrdhv4.rirnb1aux;
-  acbyhvs4.rirnb2:=cd2q4*acbrdhv4.rirnb2aux;
-  acbyhv4.lirnb1 :=acbyhvs4.lirnb1;
-  acbyhv4.lirnb2 :=acbyhvs4.lirnb2;
-  acbyhv4.rirnb1 :=acbyhvs4.rirnb1;
-  acbyhv4.rirnb2 :=acbyhvs4.rirnb2;
+
   vary, name=acbrdhv4.lirnb1aux,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
   vary, name=acbrdhv4.lirnb2aux,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
   vary, name=acbrdhv4.rirnb1aux,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
   vary, name=acbrdhv4.rirnb2aux,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
+
+  acbrdhv4.lirnb1:=(1-cd2q4)*acbrdhv4.lirnb1aux;
+  acbrdhv4.lirnb2:=(1-cd2q4)*acbrdhv4.lirnb2aux;
+  acbrdhv4.rirnb1:=(1-cd2q4)*acbrdhv4.rirnb1aux;
+  acbrdhv4.rirnb2:=(1-cd2q4)*acbrdhv4.rirnb2aux;
+
+  acbyhvs4.lirnb1:=cd2q4*acbrdhv4.lirnb1aux;
+  acbyhvs4.lirnb2:=cd2q4*acbrdhv4.lirnb2aux;
+  acbyhvs4.rirnb1:=cd2q4*acbrdhv4.rirnb1aux;
+  acbyhvs4.rirnb2:=cd2q4*acbrdhv4.rirnb2aux;
+
+  acbyhv4.lirnb1 :=acbyhvs4.lirnb1;
+  acbyhv4.lirnb2 :=acbyhvs4.lirnb2;
+  acbyhv4.rirnb1 :=acbyhvs4.rirnb1;
+  acbyhv4.rirnb2 :=acbyhvs4.rirnb2;
+
   jacobian, calls = 10, tolerance=1.e-30,bisec=3;
   endmatch;
   tar_on_xirnhv=tar;
@@ -124,22 +129,27 @@ match, sequence=lhcb1,lhcb2, beta0= birirnb1,birirnb2,
   acbxhv2.rirn:=cmcb12*acbxhv1.rirn;
   vary, name=acbxhv3.lirn,step=1.e-12,lower=-climmcbxfa,upper=climmcbxfa;
   vary, name=acbxhv3.rirn,step=1.e-12,lower=-climmcbxfa,upper=climmcbxfa;
+
   vary, name=acbrdhv4.lirnb1aux,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
   vary, name=acbrdhv4.lirnb2aux,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
   vary, name=acbrdhv4.rirnb1aux,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
   vary, name=acbrdhv4.rirnb2aux,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
+
   acbrdhv4.lirnb1:=(1-cd2q4)*acbrdhv4.lirnb1aux;
   acbrdhv4.lirnb2:=(1-cd2q4)*acbrdhv4.lirnb2aux;
   acbrdhv4.rirnb1:=(1-cd2q4)*acbrdhv4.rirnb1aux;
   acbrdhv4.rirnb2:=(1-cd2q4)*acbrdhv4.rirnb2aux;
+
   acbyhvs4.lirnb1:=cd2q4*acbrdhv4.lirnb1aux;
   acbyhvs4.lirnb2:=cd2q4*acbrdhv4.lirnb2aux;
   acbyhvs4.rirnb1:=cd2q4*acbrdhv4.rirnb1aux;
   acbyhvs4.rirnb2:=cd2q4*acbrdhv4.rirnb2aux;
+
   acbyhv4.lirnb1 :=acbyhvs4.lirnb1;
   acbyhv4.lirnb2 :=acbyhvs4.lirnb2;
   acbyhv4.rirnb1 :=acbyhvs4.rirnb1;
   acbyhv4.rirnb2 :=acbyhvs4.rirnb2;
+
   jacobian, calls = 10, tolerance=1.e-30,bisec=3;
   endmatch;
   tar_on_sepirnhv=tar;
@@ -577,6 +587,7 @@ exec,mktable_orbit15(1,v,y,orbit_ir1v);
 exec,mktable_orbit15(5,h,x,orbit_ir5h);
 exec,mktable_orbit15(5,v,y,orbit_ir5v);
 
+
 setvars_const,table=orbit_ir1h;
 setvars_const,table=orbit_ir1v;
 setvars_const,table=orbit_ir5h;
@@ -629,10 +640,15 @@ exec,match_off(5,h,x,2);
 exec,match_off(5,v,y,2);
 
 
-setvars_knob,table=knob_on_x1h  ,knob=on_x1h;
-setvars_knob,table=knob_on_x1v  ,knob=on_x1v;
-setvars_knob,table=knob_on_x5h  ,knob=on_x5h;
-setvars_knob,table=knob_on_x5v  ,knob=on_x5v;
+setvars_knob,table=knob_on_x1hs  ,knob=on_x1hs;
+setvars_knob,table=knob_on_x1vs  ,knob=on_x1vs;
+setvars_knob,table=knob_on_x1hl  ,knob=on_x1hl;
+setvars_knob,table=knob_on_x1vl  ,knob=on_x1vl;
+setvars_knob,table=knob_on_x5hs  ,knob=on_x5hs;
+setvars_knob,table=knob_on_x5vs  ,knob=on_x5vs;
+setvars_knob,table=knob_on_x5hl  ,knob=on_x5hl;
+setvars_knob,table=knob_on_x5vl  ,knob=on_x5vl;
+
 
 setvars_knob,table=knob_on_sep1h,knob=on_sep1h;
 setvars_knob,table=knob_on_sep1v,knob=on_sep1v;
@@ -685,7 +701,7 @@ setvars_knob,table=knob_on_ccsr1vb2,knob=on_ccsr1vb2;
 setvars_knob,table=knob_on_ccsr5hb2,knob=on_ccsr5hb2;
 setvars_knob,table=knob_on_ccsr5vb2,knob=on_ccsr5vb2;
 
-value,tar_on_x1h,tar_on_x1v,tar_on_x5h,tar_on_x5v;
+value,tar_on_x1hs,tar_on_x1vs,tar_on_x1hl,tar_on_x1vl,tar_on_x5hs,tar_on_x5vs,tar_on_x5hl,tar_on_x5vl;
 value,tar_on_sep1h,tar_on_sep1v,tar_on_sep5h,tar_on_sep5v;
 value,tar_on_a1h,tar_on_a1v,tar_on_a5h,tar_on_a5v;
 value,tar_on_o1h,tar_on_o1v,tar_on_o5h,tar_on_o5v;
