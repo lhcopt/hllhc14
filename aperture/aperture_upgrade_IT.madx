@@ -1,0 +1,137 @@
+! write_OCTAGON(xx1,yy1,xx2,yy2): macro = {
+!  printf,text=" %g  %g",value=xx1,yy1;
+!  printf,text=" %g  %g",value=xx2,yy2;
+!  printf,text="-%g  %g",value=xx2,yy2;
+!  printf,text="-%g  %g",value=xx1,yy1;
+!  printf,text="-%g -%g",value=xx1,yy1;
+!  printf,text="-%g -%g",value=xx2,yy2;
+!  printf,text=" %g -%g",value=xx2,yy2;
+!  printf,text=" %g -%g",value=xx1,yy1;
+!  printf,text=" %g  %g",value=xx1,yy1;
+! };
+
+aperture_def(eee,ttt,ap1,ap2,ap3,ap4,rtol,htol,vtol): macro={
+eeeL1,APERTYPE=ttt,APERTURE:={ap1,ap2,ap3,ap4},APER_TOL:={rtol,htol,vtol};
+eeeR1,APERTYPE=ttt,APERTURE:={ap1,ap2,ap3,ap4},APER_TOL:={rtol,htol,vtol};
+eeeL5,APERTYPE=ttt,APERTURE:={ap1,ap2,ap3,ap4},APER_TOL:={rtol,htol,vtol};
+eeeR5,APERTYPE=ttt,APERTURE:={ap1,ap2,ap3,ap4},APER_TOL:={rtol,htol,vtol};
+};
+
+aperture_2in1_def(eee,ttt,ap1,ap2,ap3,ap4,rtol,htol,vtol): macro={
+eeeL1.B1,APERTYPE=ttt,APERTURE:={ap1,ap2,ap3,ap4},APER_TOL:={rtol,htol,vtol};
+eeeR1.B1,APERTYPE=ttt,APERTURE:={ap1,ap2,ap3,ap4},APER_TOL:={rtol,htol,vtol};
+eeeL1.B2,APERTYPE=ttt,APERTURE:={ap1,ap2,ap3,ap4},APER_TOL:={rtol,htol,vtol};
+eeeR1.B2,APERTYPE=ttt,APERTURE:={ap1,ap2,ap3,ap4},APER_TOL:={rtol,htol,vtol};
+eeeL5.B1,APERTYPE=ttt,APERTURE:={ap1,ap2,ap3,ap4},APER_TOL:={rtol,htol,vtol};
+eeeR5.B1,APERTYPE=ttt,APERTURE:={ap1,ap2,ap3,ap4},APER_TOL:={rtol,htol,vtol};
+eeeL5.B2,APERTYPE=ttt,APERTURE:={ap1,ap2,ap3,ap4},APER_TOL:={rtol,htol,vtol};
+eeeR5.B2,APERTYPE=ttt,APERTURE:={ap1,ap2,ap3,ap4},APER_TOL:={rtol,htol,vtol};
+};
+
+
+OCTA2015=6; ! default
+
+if (bs_type==0){ bs_type= OCTA2015; };
+if (ap_mqx==0){ ap_mqx=150; };
+if (bs_type == OCTA2015) {
+! r1_Q1=51-1.5*(1-no_bs_tol);      !C. Garion 9/5/2015
+! r2_Q1=51-1.5*(1-no_bs_tol);      !C. Garion 9/5/2015
+  r1_Q1=99.7/2-2.38*(1-no_bs_tol); !C. Garion 30/11/2015
+  r2_Q1=99.7/2-2.38*(1-no_bs_tol); !C. Garion 30/11/2015
+  r_Q1=sqrt((sqrt(2)*r1_Q1-r2_Q1)^2+r2_Q1^2)/1e3;
+  g_Q1=r1_Q1/1e3;
+  hv_Q1=r1_Q1/1e3;
+  angle1_Q1=pi/4-acos(g_Q1/r_Q1); !22.5 regular octagon
+  angle2_Q1=pi/2-angle1_Q1;
+  value,r_Q1,g_Q1,angle1_Q1,angle2_Q1;
+
+  !r1_Q23=114/2-1.5*(1-no_bs_tol); !C. Garion 9/5/2015 1.5 mech tol
+  !r2_Q23=122/2-1.5*(1-no_bs_tol); !C. Garion 9/5/2015 1.5 mech tol
+  r1_Q23=110.7/2-2.2*(1-no_bs_tol); !C. Garion 30/11/2015 1.5 mech tol
+  r2_Q23=119.7/2-2.2*(1-no_bs_tol); !C. Garion 30/11/2015 1.5 mech tol
+  r_Q23=sqrt((sqrt(2)*r1_Q23-r2_Q23)^2+r2_Q23^2)/1e3;
+  g_Q23=r1_Q23/1e3;
+  hv_Q23=r2_Q23/1e3;
+  angle1_Q23=pi/4-acos(g_Q23/r_Q23); !22.5 regular octagon
+  angle2_Q23=pi/2-angle1_Q23;
+  value,r_Q23,g_Q23,angle1_Q23,angle2_Q23;
+
+};
+
+!r_TAS   := 0.0270;     ! was 24 mm in slhcv1 and 25 mm in slhcv2 and 30 mm in slhc3, hllhc1.1
+r_TAS   := 0.0300;     ! was 24 mm in slhcv1 and 25 mm in slhcv2 and 30 mm in slhc3, hllhc1.1
+r_BPMSQW:= 0.075;      ! was 60 mm in slhcv1 and slhcv2
+r_BPMSQ1:= 0.112/2;      ! was 60 mm in slhcv1 and slhcv2
+r_BPMSQ := 0.123/2;      ! was 60 mm in slhcv1 and slhcv2
+r_BPMSQ4:= 0.150/2;      ! was 60 mm in slhcv1 and slhcv2
+r_BPMSQ4W:= 0.150/2;      ! was 60 mm in slhcv1 and slhcv2
+
+
+! F. Galan 15/1/2017 0.5 mechanical tolerances should be addeded, however ground motion should be smaller since we can realign every YTS.
+! Fiducializatin of 0.5 mm should be also Ok
+
+!(r,h,v) tolerance for TAS-IT-CP-D1
+
+r_tol_TAS:=0.0020+r_tol_TAS_mod; h_tol_TAS:=0.0005+h_tol_TAS_mod; v_tol_TAS:=0.0005+v_tol_TAS_mod;
+r_tol_IT :=0.0006+r_tol_IT_mod; h_tol_IT :=0.0010+h_tol_IT_mod; v_tol_IT :=0.0010+v_tol_IT_mod;
+r_tol_Q1 :=r_tol_IT; h_tol_Q1 :=h_tol_IT+h_tol_Q1_mod; v_tol_Q1 :=v_tol_IT+v_tol_Q1_mod;
+r_tol_Q2 :=r_tol_IT; h_tol_Q2 :=h_tol_IT+h_tol_Q2_mod; v_tol_Q2 :=v_tol_IT+v_tol_Q2_mod;
+r_tol_Q3 :=r_tol_IT; h_tol_Q3 :=h_tol_IT+h_tol_Q3_mod; v_tol_Q3 :=v_tol_IT+v_tol_Q3_mod;
+
+r_tol_BPM:=0.0025; h_tol_BPM:=0.0000+h_tol_BPM_mod; v_tol_BPM:=0.0000+v_tol_BPM_mod;
+r_tol_D1 :=0.0006; h_tol_D1 :=0.0010+h_tol_D1_mod; v_tol_D1 :=0.0010+v_tol_D1_mod;
+
+
+r_DFXJ:= 0.150/2;
+r_tol_DFXJ:=0.0020+r_tol_TAS_mod; h_tol_DFXJ:=0.0005+h_tol_TAS_mod; v_tol_DFXJ:=0.0005+v_tol_TAS_mod;
+
+
+exec, aperture_def(TAXS.1,     RECTELLIPSE, r_TAS, r_TAS, r_TAS,     r_TAS,      r_tol_TAS,h_tol_TAS,v_tol_TAS);
+
+exec, aperture_def(MQXFA.A1,   OCTAGON,     hv_q1, hv_q1 ,angle1_q1, angle2_q1,  r_tol_Q1, h_tol_Q1, v_tol_Q1);
+exec, aperture_def(MQXFA.B1,   OCTAGON,     hv_q1, hv_q1 ,angle1_q1, angle2_q1,  r_tol_Q1, h_tol_Q1, v_tol_Q1);
+
+exec, aperture_def(MQXFB.A2,   OCTAGON,     hv_q23,hv_q23,angle1_q23,angle2_q23, r_tol_Q2, h_tol_Q2, v_tol_Q2);
+exec, aperture_def(MQXFB.B2,   OCTAGON,     hv_q23,hv_q23,angle1_q23,angle2_q23, r_tol_Q2, h_tol_Q2, v_tol_Q2);
+
+exec, aperture_def(MQXFA.A3,   OCTAGON,     hv_q23,hv_q23,angle1_q23,angle2_q23, r_tol_Q3, h_tol_Q3, v_tol_Q3);
+exec, aperture_def(MQXFA.B3,   OCTAGON,     hv_q23,hv_q23,angle1_q23,angle2_q23, r_tol_Q3, h_tol_Q3, v_tol_Q3);
+
+exec, aperture_def(MCBXFBH.A2, OCTAGON,     hv_q23,hv_q23,angle1_q23,angle2_q23, r_tol_Q2, h_tol_Q2, v_tol_Q2);
+exec, aperture_def(MCBXFBV.A2, OCTAGON,     hv_q23,hv_q23,angle1_q23,angle2_q23, r_tol_Q2, h_tol_Q2, v_tol_Q2);
+exec, aperture_def(MCBXFBH.B2, OCTAGON,     hv_q23,hv_q23,angle1_q23,angle2_q23, r_tol_Q2, h_tol_Q2, v_tol_Q2);
+exec, aperture_def(MCBXFBV.B2, OCTAGON,     hv_q23,hv_q23,angle1_q23,angle2_q23, r_tol_Q2, h_tol_Q2, v_tol_Q2);
+
+exec, aperture_def(MCBXFAV.3,  OCTAGON,     hv_q23,hv_q23,angle1_q23,angle2_q23, r_tol_Q3, h_tol_Q3, v_tol_Q3);
+exec, aperture_def(MCBXFAH.3,  OCTAGON,     hv_q23,hv_q23,angle1_q23,angle2_q23, r_tol_Q3, h_tol_Q3, v_tol_Q3);
+exec, aperture_def(MQSXF.3,    OCTAGON,     hv_q23,hv_q23,angle1_q23,angle2_q23, r_tol_Q3, h_tol_Q3, v_tol_Q3);
+exec, aperture_def(MCSXF.3,    OCTAGON,     hv_q23,hv_q23,angle1_q23,angle2_q23, r_tol_Q3, h_tol_Q3, v_tol_Q3);
+exec, aperture_def(MCTXF.3,    OCTAGON,     hv_q23,hv_q23,angle1_q23,angle2_q23, r_tol_Q3, h_tol_Q3, v_tol_Q3);
+exec, aperture_def(MCTSXF.3,   OCTAGON,     hv_q23,hv_q23,angle1_q23,angle2_q23, r_tol_Q3, h_tol_Q3, v_tol_Q3);
+exec, aperture_def(MCSSXF.3,   OCTAGON,     hv_q23,hv_q23,angle1_q23,angle2_q23, r_tol_Q3, h_tol_Q3, v_tol_Q3);
+exec, aperture_def(MCOSXF.3,   OCTAGON,     hv_q23,hv_q23,angle1_q23,angle2_q23, r_tol_Q3, h_tol_Q3, v_tol_Q3);
+exec, aperture_def(MCOXF.3,    OCTAGON,     hv_q23,hv_q23,angle1_q23,angle2_q23, r_tol_Q3, h_tol_Q3, v_tol_Q3);
+exec, aperture_def(MCDSXF.3,   OCTAGON,     hv_q23,hv_q23,angle1_q23,angle2_q23, r_tol_Q3, h_tol_Q3, v_tol_Q3);
+exec, aperture_def(MCDXF.3,    OCTAGON,     hv_q23,hv_q23,angle1_q23,angle2_q23, r_tol_Q3, h_tol_Q3, v_tol_Q3);
+
+exec, aperture_def(MBXF.4,    OCTAGON,      hv_q23,hv_q23,angle1_q23,angle2_q23, r_tol_D1, h_tol_D1, v_tol_D1);
+
+exec, aperture_def(DFXJ.4,    RECTELLIPSE,  r_DFXJ,r_DFXJ,r_DFXJ,    r_DFXJ,     r_tol_DFXJ,h_tol_DFXJ,v_tol_DFXJ);
+
+!exec, aperture_2in1_def(BPMSQW.1 , RECTELLIPSE, r_BPMSQW, r_BPMSQW, r_BPMSQW, r_BPMSQW, r_tol_BPM, h_tol_BPM, v_tol_BPM);
+!exec, aperture_2in1_def(BPMSQ.1  , RECTELLIPSE, r_BPMSQ1 , r_BPMSQ1 , r_BPMSQ1 , r_BPMSQ1 , r_tol_BPM, h_tol_BPM, v_tol_BPM);
+!exec, aperture_2in1_def(BPMSQ.A2, RECTELLIPSE, r_BPMSQ , r_BPMSQ , r_BPMSQ , r_BPMSQ , r_tol_BPM, h_tol_BPM, v_tol_BPM);
+!exec, aperture_2in1_def(BPMSQT.B2, RECTELLIPSE, r_BPMSQ , r_BPMSQ , r_BPMSQ , r_BPMSQ , r_tol_BPM, h_tol_BPM, v_tol_BPM);
+!exec, aperture_2in1_def(BPMSQ.A3, RECTELLIPSE, r_BPMSQ , r_BPMSQ , r_BPMSQ , r_BPMSQ , r_tol_BPM, h_tol_BPM, v_tol_BPM);
+!exec, aperture_2in1_def(BPMSQ.B3 , RECTELLIPSE, r_BPMSQ , r_BPMSQ , r_BPMSQ , r_BPMSQ , r_tol_BPM, h_tol_BPM, v_tol_BPM);
+!exec, aperture_2in1_def(BPMSQ.4  , RECTELLIPSE, r_BPMSQ , r_BPMSQ , r_BPMSQ , r_BPMSQ , r_tol_BPM, h_tol_BPM, v_tol_BPM);
+!exec, aperture_2in1_def(BPMSQW.4  , RECTELLIPSE, r_BPMSQ4 , r_BPMSQ4 , r_BPMSQ4 , r_BPMSQ4 , r_tol_BPM, h_tol_BPM, v_tol_BPM);
+
+exec, aperture_2in1_def(BPMSQW.1, OCTAGON,     hv_q1 ,hv_q1, angle1_q1 ,angle2_q1 , r_tol_Q1,h_tol_Q1,v_tol_Q1);
+exec, aperture_2in1_def(BPMSQ.1,  OCTAGON,     hv_q23,hv_q23,angle1_q23,angle2_q23, r_tol_Q3,h_tol_Q3,v_tol_Q3);
+exec, aperture_2in1_def(BPMSQ.A2, OCTAGON,     hv_q23,hv_q23,angle1_q23,angle2_q23, r_tol_Q3,h_tol_Q3,v_tol_Q3);
+exec, aperture_2in1_def(BPMSQT.B2,OCTAGON,     hv_q23,hv_q23,angle1_q23,angle2_q23, r_tol_Q3,h_tol_Q3,v_tol_Q3);
+exec, aperture_2in1_def(BPMSQ.A3, OCTAGON,     hv_q23,hv_q23,angle1_q23,angle2_q23, r_tol_Q3,h_tol_Q3,v_tol_Q3);
+exec, aperture_2in1_def(BPMSQ.B3, OCTAGON,     hv_q23,hv_q23,angle1_q23,angle2_q23, r_tol_Q3,h_tol_Q3,v_tol_Q3);
+exec, aperture_2in1_def(BPMSQ.4,  OCTAGON,     hv_q23,hv_q23,angle1_q23,angle2_q23, r_tol_Q3,h_tol_Q3,v_tol_Q3);
+exec, aperture_2in1_def(BPMSQW.4, RECTELLIPSE, r_BPMSQ4W,r_BPMSQ4W,r_BPMSQ4W,r_BPMSQ4W,r_tol_BPM,h_tol_BPM,v_tol_BPM);
