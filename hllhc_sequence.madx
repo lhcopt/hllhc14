@@ -1889,8 +1889,8 @@ if (mylhcbeam>2){
 install_mbh(mbm,mbn,irn,ira,irb): macro={
 print, text="installing MBH in Qmbn  IRirn in the ARCirairb";
 
-abh.airnirb=ab.airnirb/2;   kbh.airnirb=(2*sin(abh.airnirb/2))/l.mbh;
-abh.airairn=ab.airairn/2;   kbh.airairn=(2*sin(abh.airairn/2))/l.mbh;
+abh.airnirb=ab.airnirb/2;   kbh.airnirb=abh.airnirb/l.mbh;
+abh.airairn=ab.airairn/2;   kbh.airairn=abh.airairn/l.mbh;
 
 !tolerances from DS MB Q13-Q7
 mbh_sag=l.MBH/ab.a78*2*(1/cos(ab.a78/4)-1)+(0.7225*0.0051/4); !sagitta + drift
