@@ -473,15 +473,15 @@ exec,install_ir15_cmn(MCBXFBV.B2,  posMCBXFBb );
 ! layout
 
                          !V1.3  V1.2
-l.MQSXF   = 0.807-200 ;  !0.807 0.716 a2 corrector
-l.MCSXF   = 0.111+ 60 ;  !0.111 0.121 b3 corrector
-l.MCSSXF  = 0.111+ 60 ;  !0.111 0.121 a3 corrector
-l.MCOXF   = 0.087+ 50 ;  !0.087 0.137 b4 corrector
-l.MCOSXF  = 0.087+ 50 ;  !0.087 0.137 a4 corrector
-l.MCDXF   = 0.095+ 50 ;  !0.095 0.079 b5 corrector
-l.MCDSXF  = 0.095+ 50 ;  !0.095 0.079 a5 corrector
-l.MCTXF   = 0.430+  0 ;  !0.430 0.339 b6 corrector
-l.MCTSXF  = 0.089+  0 ;  !0.089 0.087 a6 corrector
+l.MQSXF   = 0.807-0.200 ;  !0.807 0.716 a2 corrector
+l.MCSXF   = 0.111+0.060 ;  !0.111 0.121 b3 corrector
+l.MCSSXF  = 0.111+0.060 ;  !0.111 0.121 a3 corrector
+l.MCOXF   = 0.087+0.050 ;  !0.087 0.137 b4 corrector
+l.MCOSXF  = 0.087+0.050 ;  !0.087 0.137 a4 corrector
+l.MCDXF   = 0.095+0.050 ;  !0.095 0.079 b5 corrector
+l.MCDSXF  = 0.095+0.050 ;  !0.095 0.079 a5 corrector
+l.MCTXF   = 0.430+0.000 ;  !0.430 0.339 b6 corrector
+l.MCTSXF  = 0.089+0.000;  !0.089 0.087 a6 corrector
 
 
 ! Q3|.5} 1.00 {.5  | MCBXFA  | .5
@@ -546,16 +546,17 @@ Kmin_MCDXF := -Kmax_MCDXF ;
 Kmin_MCDSXF:= -Kmax_MCDSXF;
 Kmin_MCTSXF:= -Kmax_MCTSXF;
 
-Imax_MCTXF = 167;
-Imax_MCBXFA=2500;
-Imax_MCBXFB=2500;
-Imax_MQSXF = 182;
-Imax_MCDSXF= 139;
-Imax_MCDXF = 139;
-Imax_MCOSXF= 132;
-Imax_MCOXF = 132;
-Imax_MCSSXF= 132;
-Imax_MCSXF = 132;
+Imax_MCBXFA =2500;
+Imax_MCBXFB =2500;
+Imax_MQSXF  = 182;
+Imax_MCSSXF = 132;
+Imax_MCSXF  = 132;
+Imax_MCOSXF = 120;
+Imax_MCOXF  = 120;
+Imax_MCDSXF = 139;
+Imax_MCDXF  = 139;
+Imax_MCTXF  = 167;
+Imax_MCTSXF = 157;
 
 ! cabling
 MCBXFAH, Kmax:=Kmax_MCBXFA, Kmin:=Kmin_MCBXFA;
@@ -2059,8 +2060,8 @@ Option, -echo,-warn,-info;
 
 };
 
-seqedit,sequence=lhcb1;flatten;cycle,start=IP3;flatten;endedit;
-seqedit,sequence=lhcb2;flatten;cycle,start=IP3;flatten;endedit;
+!seqedit,sequence=lhcb1;flatten;cycle,start=IP3;flatten;endedit;
+!seqedit,sequence=lhcb2;flatten;cycle,start=IP3;flatten;endedit;
 
 
 if (mbh_ir1q8 >0){ exec,install_mbh(b,8 ,1,8,2); };
@@ -2084,5 +2085,55 @@ if (mbh_ir7q10>0){ exec,install_mbh(b,10,7,6,8); };
 
 LAGRF400.B1=0.5;
 LAGRF400.B2=0.;
+
+!-----
+!IR7 MQW
+!-----
+
+seqedit,sequence=lhcb1;
+remove,element=mqwa.c5l7.b1;
+remove,element=mqwa.d5l7.b1;
+remove,element=mqwa.e5l7.b1;
+remove,element=mqwb.5l7.b1;
+remove,element=mqwa.c5r7.b1;
+remove,element=mqwa.d5r7.b1;
+remove,element=mqwa.e5r7.b1;
+remove,element=mqwb.5r7.b1;
+endedit;
+
+seqedit,sequence=lhcb2;
+remove,element=mqwa.c5l7.b2;
+remove,element=mqwa.d5l7.b2;
+remove,element=mqwa.e5l7.b2;
+remove,element=mqwb.5l7.b2;
+remove,element=mqwa.c5r7.b2;
+remove,element=mqwa.d5r7.b2;
+remove,element=mqwa.e5r7.b2;
+remove,element=mqwb.5r7.b2;
+endedit;
+
+seqedit,sequence=lhcb1;
+install,element=mqwa.c5l7.b1,at=-130.966,from=IP7;
+install,element=mqwa.d5l7.b1,at=-134.766,from=IP7;
+install,element=mqwa.e5l7.b1,at=-138.566,from=IP7;
+install,element=mqwa.c5r7.b1,at= 130.966,from=IP7;
+install,element=mqwa.d5r7.b1,at= 134.766,from=IP7;
+install,element=mqwa.e5r7.b1,at= 138.566,from=IP7;
+endedit;
+
+seqedit,sequence=lhcb2;
+install,element=mqwa.c5l7.b2,at=-130.966*bv_aux,from=IP7;
+install,element=mqwa.d5l7.b2,at=-134.766*bv_aux,from=IP7;
+install,element=mqwa.e5l7.b2,at=-138.566*bv_aux,from=IP7;
+install,element=mqwa.c5r7.b2,at= 130.966*bv_aux,from=IP7;
+install,element=mqwa.d5r7.b2,at= 134.766*bv_aux,from=IP7;
+install,element=mqwa.e5r7.b2,at= 138.566*bv_aux,from=IP7;
+endedit;
+
+
+!-----
+!IR2 TCLD
+!-----
+
 
 endedit;
