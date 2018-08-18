@@ -472,15 +472,16 @@ exec,install_ir15_cmn(MCBXFBV.B2,  posMCBXFBb );
 
 ! layout
 
-l.MQSXF   = 0.807    ;   !0.716 a2 corrector
-l.MCTXF   = 0.430    ;   !0.339 b6 corrector
-l.MCTSXF  = 0.089    ;   !0.087 a6 corrector
-l.MCDXF   = 0.095    ;   !0.079 b5 corrector
-l.MCDSXF  = 0.095    ;   !0.079 a5 corrector
-l.MCOXF   = 0.087    ;   !0.137 b4 corrector
-l.MCOSXF  = 0.087    ;   !0.137 a4 corrector
-l.MCSXF   = 0.111    ;   !0.121 b3 corrector
-l.MCSSXF  = 0.111    ;   !0.121 a3 corrector
+                         !V1.3  V1.2
+l.MQSXF   = 0.807-200 ;  !0.807 0.716 a2 corrector
+l.MCSXF   = 0.111+ 60 ;  !0.111 0.121 b3 corrector
+l.MCSSXF  = 0.111+ 60 ;  !0.111 0.121 a3 corrector
+l.MCOXF   = 0.087+ 50 ;  !0.087 0.137 b4 corrector
+l.MCOSXF  = 0.087+ 50 ;  !0.087 0.137 a4 corrector
+l.MCDXF   = 0.095+ 50 ;  !0.095 0.079 b5 corrector
+l.MCDSXF  = 0.095+ 50 ;  !0.095 0.079 a5 corrector
+l.MCTXF   = 0.430+  0 ;  !0.430 0.339 b6 corrector
+l.MCTSXF  = 0.089+  0 ;  !0.089 0.087 a6 corrector
 
 
 ! Q3|.5} 1.00 {.5  | MCBXFA  | .5
@@ -523,15 +524,15 @@ MCSSXF  : MULTIPOLE , Lrad := l.MCSSXF  ; ! (a3)
 
 Kmax_MCBXFA:= 4.5000 / l.MCBXFA                     ;!4.5000Tm@50mm
 Rref_mpcorr = 0.05; !50mm reference radius for multipole correctors
-Kmax_MQSXF := 1.0000 / l.MQSXF/Rref_mpcorr          ;!1.0000Tm@50mm
+Kmax_MQSXF := 0.7000 / l.MQSXF/Rref_mpcorr          ;!1.0000Tm@50mm
+Kmax_MCSXF := 0.0950 / l.MCSXF /Rref_mpcorr^2 *   2.;!0.0630Tm@50mm
+Kmax_MCSSXF:= 0.0950 / l.MCSSXF/Rref_mpcorr^2 *   2.;!0.0630Tm@50mm
+Kmax_MCOXF := 0.0690 / l.MCOXF /Rref_mpcorr^3 *   6.;!0.0460Tm@50mm
+Kmax_MCOSXF:= 0.0690 / l.MCOSXF/Rref_mpcorr^3 *   6.;!0.0460Tm@50mm
+Kmax_MCDXF := 0.0370 / l.MCDXF /Rref_mpcorr^4 *  24.;!0.0250Tm@50mm
+Kmax_MCDSXF:= 0.0370 / l.MCDSXF/Rref_mpcorr^4 *  24.;!0.0250Tm@50mm
 Kmax_MCTXF := 0.0860 / l.MCTXF /Rref_mpcorr^5 * 120.;!0.0860Tm@50mm
 Kmax_MCTSXF:= 0.0170 / l.MCTSXF/Rref_mpcorr^5 * 120.;!0.0170Tm@50mm
-Kmax_MCDXF := 0.0250 / l.MCDXF /Rref_mpcorr^4 *  24.;!0.0250Tm@50mm
-Kmax_MCDSXF:= 0.0250 / l.MCDSXF/Rref_mpcorr^4 *  24.;!0.0250Tm@50mm
-Kmax_MCOXF := 0.0460 / l.MCOXF /Rref_mpcorr^3 *   6.;!0.0460Tm@50mm
-Kmax_MCOSXF:= 0.0460 / l.MCOSXF/Rref_mpcorr^3 *   6.;!0.0460Tm@50mm
-Kmax_MCSXF := 0.0630 / l.MCSXF /Rref_mpcorr^2 *   2.;!0.0630Tm@50mm
-Kmax_MCSSXF:= 0.0630 / l.MCSSXF/Rref_mpcorr^2 *   2.;!0.0630Tm@50mm
 
 
 Kmin_MCBXFA:= -Kmax_MCBXFA ;
