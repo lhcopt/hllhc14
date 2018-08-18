@@ -671,6 +671,7 @@ DFXJ : PLACEHOLDER, L:= l.DFXJ;
 
 !posD1 := posMCSSXF+(l.MBXF+l.MCSSXF)/2.+2;
 posD1 = posQ3b+(l.MQXFA+l.MBXF)/2+1.047+7.954+1.050;
+posVMBXFend = 82;
 
 posDFXJ := 82.127+l.DFXJ/2;
 !posBPMWC := posD1 + l.MBXF/2 + 0.90; ! to be checked with long range
@@ -681,6 +682,12 @@ MBXF.4L1: MBXF,angle:= ad1.lr1, K0 := kd1.lr1, polarity=+1 *bv_aux;
 MBXF.4R1: MBXF,angle:=-ad1.lr1, K0 :=-kd1.lr1, polarity=-1 *bv_aux;
 MBXF.4L5: MBXF,angle:= ad1.lr5, K0 := kd1.lr5, polarity=+1 *bv_aux;
 MBXF.4R5: MBXF,angle:=-ad1.lr5, K0 :=-kd1.lr5, polarity=-1 *bv_aux;
+
+VMBXF.4L1: marker;
+VMBXF.4R1: marker;
+VMBXF.4L5: marker;
+VMBXF.4R5: marker;
+
 
 !BPMWC.4L1.B1: BPMWC;
 !BPMWC.4R1.B1: BPMWC;
@@ -701,6 +708,7 @@ DFXJ.4R5: DFXJ;
 !exec,install_ir15_b12(BPMWC.4, posBPMWC  );
 exec,install_ir15_cmn(MBXF.4,  posD1);
 exec,install_ir15_cmn(DFXJ.4,  posDFXJ);
+exec,install_ir15_cmn(VMBXF.4, posVMBXF);
 
 !===============================================
 !BPM triplet D1

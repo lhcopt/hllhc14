@@ -115,6 +115,7 @@ exec, aperture_def(MCDSXF.3,   OCTAGON,     hv_q23,hv_q23,angle1_q23,angle2_q23,
 exec, aperture_def(MCDXF.3,    OCTAGON,     hv_q23,hv_q23,angle1_q23,angle2_q23, r_tol_Q3, h_tol_Q3, v_tol_Q3);
 
 exec, aperture_def(MBXF.4,    OCTAGON,      hv_q23,hv_q23,angle1_q23,angle2_q23, r_tol_D1, h_tol_D1, v_tol_D1);
+exec, aperture_def(VMBXF.4,   OCTAGON,      hv_q23,hv_q23,angle1_q23,angle2_q23, r_tol_D1, h_tol_D1, v_tol_D1);
 
 exec, aperture_def(DFXJ.4,    RECTELLIPSE,  r_DFXJ,r_DFXJ,r_DFXJ,    r_DFXJ,     r_tol_DFXJ,h_tol_DFXJ,v_tol_DFXJ);
 
