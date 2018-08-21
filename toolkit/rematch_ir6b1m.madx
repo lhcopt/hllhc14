@@ -128,8 +128,8 @@ if (NRJ<451){constraint, sequence=lhcb1,range=TCDSA.4L6.B1,betx < 175; };
 constraint,expr= refdxq5l6b1<0.7; !was 0.5
 constraint,expr= refdxq4r6b1<0.7; !was 0.5
 constraint,expr= abs(refdxtcdqb1)<0.5;
-constraint,sequence=lhcb2,range=MQY.5R6.B1,bety<905;
-constraint,sequence=lhcb2,range=MQY.4L6.B1,bety<1500;
+!constraint,sequence=lhcb2,range=MQY.5R6.B1,bety<905;
+!constraint,sequence=lhcb2,range=MQY.4L6.B1,bety<1500;
 
 if (dmuxkickb1_bdsa>0){ constraint,expr=refdmuxkickb1_bdsa=dmuxkickb1_bdsa;};
 

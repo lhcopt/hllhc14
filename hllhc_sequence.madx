@@ -473,15 +473,15 @@ exec,install_ir15_cmn(MCBXFBV.B2,  posMCBXFBb );
 ! layout
 
                          !V1.3  V1.2
-l.MQSXF   = 0.807-0.200 ;  !0.807 0.716 a2 corrector
-l.MCSXF   = 0.111+0.060 ;  !0.111 0.121 b3 corrector
-l.MCSSXF  = 0.111+0.060 ;  !0.111 0.121 a3 corrector
-l.MCOXF   = 0.087+0.050 ;  !0.087 0.137 b4 corrector
-l.MCOSXF  = 0.087+0.050 ;  !0.087 0.137 a4 corrector
-l.MCDXF   = 0.095+0.050 ;  !0.095 0.079 b5 corrector
-l.MCDSXF  = 0.095+0.050 ;  !0.095 0.079 a5 corrector
-l.MCTXF   = 0.430+0.000 ;  !0.430 0.339 b6 corrector
-l.MCTSXF  = 0.089+0.000;  !0.089 0.087 a6 corrector
+l.MQSXF   = 0.462 ;  !0.807 0.716 a2 corrector
+l.MCSXF   = 0.171 ;  !0.111 0.121 b3 corrector
+l.MCSSXF  = 0.171 ;  !0.111 0.121 a3 corrector
+l.MCOXF   = 0.151 ;  !0.087 0.137 b4 corrector
+l.MCOSXF  = 0.151 ;  !0.087 0.137 a4 corrector
+l.MCDXF   = 0.138 ;  !0.095 0.079 b5 corrector
+l.MCDSXF  = 0.138 ;  !0.095 0.079 a5 corrector
+l.MCTXF   = 0.465 ;  !0.430 0.339 b6 corrector
+l.MCTSXF  = 0.092;  !0.089 0.087 a6 corrector
 
 
 ! Q3|.5} 1.00 {.5  | MCBXFA  | .5
@@ -1899,8 +1899,8 @@ if (mylhcbeam>2){
 install_mbh(mbm,mbn,irn,ira,irb): macro={
 print, text="installing MBH in Qmbn  IRirn in the ARCirairb";
 
-abh.airnirb=ab.airnirb/2;   kbh.airnirb=abh.airnirb/l.mbh;
-abh.airairn=ab.airairn/2;   kbh.airairn=abh.airairn/l.mbh;
+abh.airnirb:=ab.airnirb/2;   kbh.airnirb:=abh.airnirb/l.mbh;
+abh.airairn:=ab.airairn/2;   kbh.airairn:=abh.airairn/l.mbh;
 
 !tolerances from DS MB Q13-Q7
 mbh_sag=l.MBH/ab.a78*2*(1/cos(ab.a78/4)-1)+(0.7225*0.0051/4); !sagitta + drift
@@ -1934,14 +1934,14 @@ mech_sep_mbh_rirnb2:=-0.194+mbh_shift*2;
 };
 
 
-mbh.ambnrirn.b1:mbh, angle:= abh.airnirb, k0= kbh.airnirb,  polarity=+1, mech_sep:=mech_sep_mbh_rirnb1;
-mbh.bmbnrirn.b1:mbh, angle:= abh.airnirb, k0= kbh.airnirb,  polarity=+1, mech_sep:=mech_sep_mbh_rirnb1;
-mbh.ambnlirn.b2:mbh, angle:=-abh.airairn, k0=-kbh.airairn,  polarity=+1, mech_sep:=mech_sep_mbh_lirnb2;
-mbh.bmbnlirn.b2:mbh, angle:=-abh.airairn, k0=-kbh.airairn,  polarity=+1, mech_sep:=mech_sep_mbh_lirnb2;
-mbh.ambnrirn.b2:mbh, angle:=-abh.airnirb, k0=-kbh.airnirb,  polarity=+1, mech_sep:=mech_sep_mbh_rirnb2;
-mbh.bmbnrirn.b2:mbh, angle:=-abh.airnirb, k0=-kbh.airnirb,  polarity=+1, mech_sep:=mech_sep_mbh_rirnb2;
-mbh.ambnlirn.b1:mbh, angle:= abh.airairn, k0= kbh.airairn,  polarity=+1, mech_sep:=mech_sep_mbh_lirnb1;
-mbh.bmbnlirn.b1:mbh, angle:= abh.airairn, k0= kbh.airairn,  polarity=+1, mech_sep:=mech_sep_mbh_lirnb1;
+mbh.ambnrirn.b1:mbh, angle:= abh.airnirb, k0:= kbh.airnirb,  polarity=+1, mech_sep:=mech_sep_mbh_rirnb1;
+mbh.bmbnrirn.b1:mbh, angle:= abh.airnirb, k0:= kbh.airnirb,  polarity=+1, mech_sep:=mech_sep_mbh_rirnb1;
+mbh.ambnlirn.b2:mbh, angle:=-abh.airairn, k0:=-kbh.airairn,  polarity=+1, mech_sep:=mech_sep_mbh_lirnb2;
+mbh.bmbnlirn.b2:mbh, angle:=-abh.airairn, k0:=-kbh.airairn,  polarity=+1, mech_sep:=mech_sep_mbh_lirnb2;
+mbh.ambnrirn.b2:mbh, angle:=-abh.airnirb, k0:=-kbh.airnirb,  polarity=+1, mech_sep:=mech_sep_mbh_rirnb2;
+mbh.bmbnrirn.b2:mbh, angle:=-abh.airnirb, k0:=-kbh.airnirb,  polarity=+1, mech_sep:=mech_sep_mbh_rirnb2;
+mbh.ambnlirn.b1:mbh, angle:= abh.airairn, k0:= kbh.airairn,  polarity=+1, mech_sep:=mech_sep_mbh_lirnb1;
+mbh.bmbnlirn.b1:mbh, angle:= abh.airairn, k0:= kbh.airairn,  polarity=+1, mech_sep:=mech_sep_mbh_lirnb1;
 
 
 
@@ -2003,6 +2003,7 @@ remove,element=tcld.mbnrirn.b1  ;
 remove,element=e.tcld.mbnrirn.b1;
 remove,element=mbh.bmbnrirn.b1   ;
 remove,element=mbh.bmbnlirn.b1   ;
+remove,element=vtcld.mbnrirn.b1;
 install,element=mbh.ambnlirn.b1  ,at=pos_mbl-4.454,from=ipirn;
 install,element=vtcld.mbnrirn.b1 ,at=pos_mbl    ,from=ipirn;
 install,element=mbh.bmbnlirn.b1  ,at=pos_mbl+4.454,from=ipirn;
@@ -2044,6 +2045,7 @@ remove,element=e.tcld.mbnlirn.b2;
 remove,element=e.tcld.mbnrirn.b2;
 remove,element=mbh.bmbnlirn.b2   ;
 remove,element=mbh.bmbnrirn.b2   ;
+remove,element=vtcld.mbnrirn.b2;
 install,element=mbh.ambnlirn.b2,  at=pos_mbl-bv_aux*4.454,from=ipirn;
 install,element=s.tcld.mbnlirn.b2,at=pos_mbl-bv_aux*0.5,from=ipirn;
 install,element=tcld.mbnlirn.b2  ,at=pos_mbl           ,from=ipirn;
@@ -2060,8 +2062,6 @@ Option, -echo,-warn,-info;
 
 };
 
-!seqedit,sequence=lhcb1;flatten;cycle,start=IP3;flatten;endedit;
-!seqedit,sequence=lhcb2;flatten;cycle,start=IP3;flatten;endedit;
 
 
 if (mbh_ir1q8 >0){ exec,install_mbh(b,8 ,1,8,2); };
@@ -2090,6 +2090,7 @@ LAGRF400.B2=0.;
 !IR7 MQW
 !-----
 
+if(bv_aux ==1){
 seqedit,sequence=lhcb1;
 remove,element=mqwa.c5l7.b1;
 remove,element=mqwa.d5l7.b1;
@@ -2100,6 +2101,7 @@ remove,element=mqwa.d5r7.b1;
 remove,element=mqwa.e5r7.b1;
 remove,element=mqwb.5r7.b1;
 endedit;
+};
 
 seqedit,sequence=lhcb2;
 remove,element=mqwa.c5l7.b2;
@@ -2112,6 +2114,7 @@ remove,element=mqwa.e5r7.b2;
 remove,element=mqwb.5r7.b2;
 endedit;
 
+if(bv_aux ==1){
 seqedit,sequence=lhcb1;
 install,element=mqwa.c5l7.b1,at=-130.966,from=IP7;
 install,element=mqwa.d5l7.b1,at=-134.766,from=IP7;
@@ -2120,6 +2123,7 @@ install,element=mqwa.c5r7.b1,at= 130.966,from=IP7;
 install,element=mqwa.d5r7.b1,at= 134.766,from=IP7;
 install,element=mqwa.e5r7.b1,at= 138.566,from=IP7;
 endedit;
+}
 
 seqedit,sequence=lhcb2;
 install,element=mqwa.c5l7.b2,at=-130.966*bv_aux,from=IP7;
@@ -2132,8 +2136,147 @@ endedit;
 
 
 !-----
-!IR2 TCLD
+!IR2 TCLD, TDIS
+!-----
+! https://indico.cern.ch/event/680374/9/12/2017
+! https://indico.cern.ch/event/680374/contributions/2787337/attachments/1570745/2477819/ICL_Meeting_-_11TTCLD_-_CCTCLD_v.3.pptx
+
+posTCLD.2=425.71735;
+value,posTCLD.2;
+
+
+TCLD.11R2.B1: TCLD;
+TCLD.11L2.B2: TCLD;
+
+
+if(bv_aux ==1){
+  seqedit,sequence=lhcb1;
+  remove,element=TCLD.11R2.B1;
+  remove,element=LECL.11R2.B1;
+  install,element=TCLD.11R2.B1,  at=posTCLD.2,from=ip2;
+  endedit;
+};
+
+seqedit,sequence=lhcb2;
+remove,element=TCLD.11L2.B2;
+remove,element=LEBR.11L2.B2;
+install,element=TCLD.11L2.B2,  at=-posTCLD.2*bv_aux,from=ip2;
+endedit;
+
+l.TDIS               = 5.74; ! all three modules together
+posTDIS = 78.293+l.TDIS/2;
+TDIS : RCOLLIMATOR, L := l.TDIS;
+TDIS.4L2.B1:TDIS;
+TDIS.4R8.B2:TDIS;
+
+if(bv_aux ==1){
+  seqedit,sequence=lhcb1;
+  remove,element=TDI.4L2.B1;
+  remove,element=TDIS.4L2.B1;
+  install,element=TDIS.4L2.B1,  at=-posTDIS,from=ip2;
+  endedit;
+};
+
+seqedit,sequence=lhcb2;
+remove,element=TDI.4R8.B2;
+remove,element=TDIS.4R8.B2;
+install,element=TDIS.4R8.B2,  at= posTDIS*bv_aux,from=ip8;
+endedit;
+
+
+
+
+
+!-----
+!IR8 TANB
+!https://edms.cern.ch/ui/file/1970117/0.1/LHC-TANB-EC-0001-0-1.pdf
+!-----
+l.TANB=0.605;
+posTANB=119.4855;
+posBPMWB.8=114.8305;
+TANB: RCOLLIMATOR,  L := l.TANB;
+
+TANB.4L8.B1: TANB; TANB.4L8.B1: TANB;
+TANB.4R8.B2: TANB; TANB.4R8.B2: TANB;
+
+if(bv_aux ==1){
+  seqedit,sequence=lhcb1;
+  remove,element=TANB.4L8.B1;
+  remove,element=TANB.4R8.B1;
+  remove,element=BPMWB.4L8.B1;
+  remove,element=BPMWB.4R8.B1;
+  install,element=TANB.4L8.B1,  at=– posTANB,from=ip8;
+  install,element=TANB.4R8.B1,  at= posTANB,from=ip8;
+  install,element=BPMWB.4L8.B1, at= -posBPMWB.8,from=ip8
+  install,element=BPMWB.4R8.B1, at=  posBPMWB.8,from=ip8
+  endedit;
+};
+
+seqedit,sequence=lhcb2;
+remove,element=TANB.4L8.B2;
+remove,element=TANB.4R8.B2;
+ remove,element=BPMWB.4L8.B2;
+ remove,element=BPMWB.4R8.B2;
+install,element=TANB.4L8.B2,  at=–posTANB*bv_aux,from=ip8;
+install,element=TANB.4R8.B2,  at= posTANB*bv_aux,from=ip8;
+install,element=BPMWB.4L8.B2, at= -posBPMWB.8*bv_aux,from=ip8
+install,element=BPMWB.4R8.B2, at=  posBPMWB.8*bv_aux,from=ip8
+endedit;
+
+
+
+!-----
+!IR4 BGV, BSRT
 !-----
 
+posBGV = 200;
+posBSRTD4 = 117.114;
 
+BGV.7L4.B2: marker; BGV.7R4.B1: marker;
+BSRTD4.5L4.B1: marker; BSRTD4.5R4.B2: marker;
+
+if(bv_aux ==1){
+seqedit,sequence=lhcb1;
+remove,element=BGV.7R4.B1;
+remove,element=BSRTD4.5L4.B1;
 endedit;
+}
+
+seqedit,sequence=lhcb2;
+remove,element=BGV.7L4.B2;
+remove,element=BSRTD4.5R4.B2;
+endedit;
+
+if(bv_aux ==1){
+seqedit,sequence=lhcb1;
+install,element=BGV.7R4.B1, at=posBGV, from=IP4;
+install,element=BSRTD4.5L4.B1, at=-posBSRTD4, from=IP4;
+endedit;
+}
+
+seqedit,sequence=lhcb2;
+install,element=BGV.7L4.B2, at=-posBGV*bv_aux, from=IP4;
+install,element=BSRTD4.5R4.B2, at= posBSRTD4, from=IP4;
+endedit;
+
+ELENS.5L4.B1: marker;
+ELENS.5L4.B2: marker;
+ELENS.5R4.B1: marker;
+ELENS.5R4.B2: marker;
+
+if(bv_aux ==1){
+  seqedit,sequence=lhcb1;
+  remove,element=ELENS.5L4.B1;
+  remove,element=ELENS.5R4.B1;
+  install,element=ELENS.5L4.B1,  at=-40,from=ip4;
+  install,element=ELENS.5R4.B1,  at= 40,from=ip4;
+  endedit;
+};
+
+seqedit,sequence=lhcb2;
+remove,element=ELENS.5L4.B2;
+remove,element=ELENS.5R4.B2;
+install,element=ELENS.5L4.B2,  at=-40*bv_aux,from=ip4;
+install,element=ELENS.5R4.B2,  at= 40*bv_aux,from=ip4;
+endedit;
+

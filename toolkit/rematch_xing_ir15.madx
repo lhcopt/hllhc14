@@ -1,12 +1,11 @@
 scale = 23348.89927;
 
 
-climmcbxfb = 2.5/scale;!2.5 Tm integrated strength, MCBXFB[HV][12]
-climmcbxfa = 4.5/scale;!4.5 Tm integrated strength, MCBXFA[HV]3
-climmcbrd  = 5.0/scale;!5.0 Tm integrated strength, MCBXFA[HV]3
-climmcby4  = 2.697/scale;!2.697 Tm integrated strength, MCBY[HV].4
-climmcby5  = 2.697/scale;!2.697 Tm integrated strength, MCBY[HV].5
-climmcbc   = 2.799/scale;!take lower limit for l.mcbch = 0.9 m (l.mcbcv = 0.904) and 3.11 T maximum field
+CLIMmcbxfb = 2.5/scale;!2.5 Tm integrated strength, MCBXFB[HV][12]
+CLIMmcbxfa = 4.5/scale;!4.5 Tm integrated strength, MCBXFA[HV]3
+CLIMmcbrd  = 5.0/scale;!5.0 Tm integrated strength, MCBXFA[HV]3
+CLIMmcby4  = 2.25/scale;!2.5*0.9 Tm at 4.5K
+CLIMmcbc   = 2.1/scale;!2.33*0.9 Tm at 4.5K
 
 
 if (on_holdselect==0){
@@ -60,17 +59,17 @@ match, sequence=lhcb1,lhcb2, beta0= birirnb1,birirnb2,
   constraint, sequence=lhcb2,range=ipirn, xy = 0;
   constraint, sequence=lhcb1,range=e.ds.rirn.b1,xy = 0.0, pxy = 0.0;
   constraint, sequence=lhcb2,range=e.ds.rirn.b2,xy = 0.0, pxy = 0.0;
-  vary, name=acbxhv1.lirn,step=1.e-12,lower=-climmcbxfb,upper=climmcbxfb;
-  vary, name=acbxhv1.rirn,step=1.e-12,lower=-climmcbxfb,upper=climmcbxfb;
+  vary, name=acbxhv1.lirn,step=1.e-12,lower=-CLIMmcbxfb,upper=CLIMmcbxfb;
+  vary, name=acbxhv1.rirn,step=1.e-12,lower=-CLIMmcbxfb,upper=CLIMmcbxfb;
   acbxhv2.lirn:=cmcb12*acbxhv1.lirn;
   acbxhv2.rirn:=cmcb12*acbxhv1.rirn;
-  vary, name=acbxhv3.lirn,step=1.e-12,lower=-climmcbxfa,upper=climmcbxfa;
-  vary, name=acbxhv3.rirn,step=1.e-12,lower=-climmcbxfa,upper=climmcbxfa;
+  vary, name=acbxhv3.lirn,step=1.e-12,lower=-CLIMmcbxfa,upper=CLIMmcbxfa;
+  vary, name=acbxhv3.rirn,step=1.e-12,lower=-CLIMmcbxfa,upper=CLIMmcbxfa;
 
-  vary, name=acbrdhv4.lirnb1aux,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
-  vary, name=acbrdhv4.lirnb2aux,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
-  vary, name=acbrdhv4.rirnb1aux,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
-  vary, name=acbrdhv4.rirnb2aux,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
+  vary, name=acbrdhv4.lirnb1aux,step=1.e-12,lower=-CLIMmcbrd,upper=CLIMmcbrd;
+  vary, name=acbrdhv4.lirnb2aux,step=1.e-12,lower=-CLIMmcbrd,upper=CLIMmcbrd;
+  vary, name=acbrdhv4.rirnb1aux,step=1.e-12,lower=-CLIMmcbrd,upper=CLIMmcbrd;
+  vary, name=acbrdhv4.rirnb2aux,step=1.e-12,lower=-CLIMmcbrd,upper=CLIMmcbrd;
 
   acbrdhv4.lirnb1:=(1-cd2q4)*acbrdhv4.lirnb1aux;
   acbrdhv4.lirnb2:=(1-cd2q4)*acbrdhv4.lirnb2aux;
@@ -123,17 +122,17 @@ match, sequence=lhcb1,lhcb2, beta0= birirnb1,birirnb2,
   constraint, sequence=lhcb2,range=ipirn, xy  = -psep*xyhv, pxy=0;
   constraint, sequence=lhcb1,range=e.ds.rirn.b1,xy = 0.0, pxy = 0.0;
   constraint, sequence=lhcb2,range=e.ds.rirn.b2,xy = 0.0, pxy = 0.0;
-  vary, name=acbxhv1.lirn,step=1.e-12,lower=-climmcbxfb,upper=climmcbxfb;
-  vary, name=acbxhv1.rirn,step=1.e-12,lower=-climmcbxfb,upper=climmcbxfb;
+  vary, name=acbxhv1.lirn,step=1.e-12,lower=-CLIMmcbxfb,upper=CLIMmcbxfb;
+  vary, name=acbxhv1.rirn,step=1.e-12,lower=-CLIMmcbxfb,upper=CLIMmcbxfb;
   acbxhv2.lirn:=cmcb12*acbxhv1.lirn;
   acbxhv2.rirn:=cmcb12*acbxhv1.rirn;
-  vary, name=acbxhv3.lirn,step=1.e-12,lower=-climmcbxfa,upper=climmcbxfa;
-  vary, name=acbxhv3.rirn,step=1.e-12,lower=-climmcbxfa,upper=climmcbxfa;
+  vary, name=acbxhv3.lirn,step=1.e-12,lower=-CLIMmcbxfa,upper=CLIMmcbxfa;
+  vary, name=acbxhv3.rirn,step=1.e-12,lower=-CLIMmcbxfa,upper=CLIMmcbxfa;
 
-  vary, name=acbrdhv4.lirnb1aux,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
-  vary, name=acbrdhv4.lirnb2aux,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
-  vary, name=acbrdhv4.rirnb1aux,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
-  vary, name=acbrdhv4.rirnb2aux,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
+  vary, name=acbrdhv4.lirnb1aux,step=1.e-12,lower=-CLIMmcbrd,upper=CLIMmcbrd;
+  vary, name=acbrdhv4.lirnb2aux,step=1.e-12,lower=-CLIMmcbrd,upper=CLIMmcbrd;
+  vary, name=acbrdhv4.rirnb1aux,step=1.e-12,lower=-CLIMmcbrd,upper=CLIMmcbrd;
+  vary, name=acbrdhv4.rirnb2aux,step=1.e-12,lower=-CLIMmcbrd,upper=CLIMmcbrd;
 
   acbrdhv4.lirnb1:=(1-cd2q4)*acbrdhv4.lirnb1aux;
   acbrdhv4.lirnb2:=(1-cd2q4)*acbrdhv4.lirnb2aux;
@@ -199,13 +198,11 @@ create,table=knob_on_oirnhv,
 setvars_const,table=knob_on_oirnhv;
 
 brho=23348.89927;
-limitMCBXH1 := 2.5/brho *.42;
-limitMCBXH2 := 2.5/brho *.35;
-limitMCBXH3 := 4.5/brho *.22;
-limitMCBRD  := 5.0/brho *.05;
-limitMCBYY  := 2.8/brho *.27;
-limitMCBY   := 2.8/brho *.90;
-limitMCBC   := 2.1/brho *.90;
+limitMCBXH1 := 2.5/brho *.40;
+limitMCBXH2 := 2.5/brho *.15;
+limitMCBXH3 := 4.5/brho *.05;
+limitMCBY   := 2.8/brho *.33;
+limitMCBC   := 2.1/brho *.33;
 
 use, sequence= lhcb1,range=s.ds.lirn.b1/e.ds.rirn.b1;
 use, sequence= lhcb2,range=s.ds.lirn.b2/e.ds.rirn.b2;
@@ -216,14 +213,14 @@ match, sequence=lhcb1,lhcb2, beta0= birirnb1,birirnb2,
   constraint, sequence=lhcb2,range=ipirn, xy  =  off*xyhv, pxy=0;
   constraint, sequence=lhcb1,range=e.ds.rirn.b1,xy = 0.0, pxy = 0.0;
   constraint, sequence=lhcb2,range=e.ds.rirn.b2,xy = 0.0, pxy = 0.0;
-  if (xhv>0){
-  constraint, sequence=lhcb1,range=MQY.4Rirn.B1,x=q4x;
-  constraint, sequence=lhcb2,range=MQY.4Lirn.B2,x=q4x;
-  };
-  if (yhv>0){
-  constraint, sequence=lhcb1,range=MQY.4Lirn.B1,y=q4y;
-  constraint, sequence=lhcb2,range=MQY.4Rirn.B2,y=q4y;
-  };
+  !if (xhv>0){
+  !constraint, sequence=lhcb1,range=MQY.4Rirn.B1,x=q4x;
+  !constraint, sequence=lhcb2,range=MQY.4Lirn.B2,x=q4x;
+  !};
+  !if (yhv>0){
+  !constraint, sequence=lhcb1,range=MQY.4Lirn.B1,y=q4y;
+  !constraint, sequence=lhcb2,range=MQY.4Rirn.B2,y=q4y;
+  !};
   !acbxhv1.rirn:=-acbxhv1.lirn;
   !acbxhv2.rirn:=-acbxhv2.lirn;
   !acbxhv3.rirn:=-acbxhv3.lirn;
@@ -233,10 +230,10 @@ match, sequence=lhcb1,lhcb2, beta0= birirnb1,birirnb2,
   vary,name=acbxhv2.rirn, step=1.0E-15,lower=-limitMCBXH2,upper=limitMCBXH2;
   vary,name=acbxhv3.lirn, step=1.0E-15,lower=-limitMCBXH3,upper=limitMCBXH3;
   vary,name=acbxhv3.rirn, step=1.0E-15,lower=-limitMCBXH3,upper=limitMCBXH3;
-  vary,name=acbyhvs4.lirnb1, step=1.0E-12,lower=-limitMCBYY,upper=limitMCBYY;
-  vary,name=acbyhvs4.rirnb1, step=1.0E-12,lower=-limitMCBYY,upper=limitMCBYY;
-  vary,name=acbyhvs4.lirnb2, step=1.0E-12,lower=-limitMCBYY,upper=limitMCBYY;
-  vary,name=acbyhvs4.rirnb2, step=1.0E-12,lower=-limitMCBYY,upper=limitMCBYY;
+  vary,name=acbyhvs4.lirnb1, step=1.0E-12,lower=-limitMCBY,upper=limitMCBY;
+  vary,name=acbyhvs4.rirnb1, step=1.0E-12,lower=-limitMCBY,upper=limitMCBY;
+  vary,name=acbyhvs4.lirnb2, step=1.0E-12,lower=-limitMCBY,upper=limitMCBY;
+  vary,name=acbyhvs4.rirnb2, step=1.0E-12,lower=-limitMCBY,upper=limitMCBY;
   acbyhv4.lirnb1 :=acbyhvs4.lirnb1;
   acbyhv4.lirnb2 :=acbyhvs4.lirnb2;
   acbyhv4.rirnb1 :=acbyhvs4.rirnb1;
@@ -296,16 +293,16 @@ match, sequence=lhcb1,lhcb2, beta0= birirnb1,birirnb2,
   constraint, sequence=lhcb2,range=ipirn, pxy  =  aoff*pxyhv, xy=0;
   constraint, sequence=lhcb1,range=e.ds.rirn.b1,xy = 0.0, pxy = 0.0;
   constraint, sequence=lhcb2,range=e.ds.rirn.b2,xy = 0.0, pxy = 0.0;
-  vary, name=acbxhv1.lirn,step=1.e-12,lower=-climmcbxfb,upper=climmcbxfb;
+  vary, name=acbxhv1.lirn,step=1.e-12,lower=-CLIMmcbxfb,upper=CLIMmcbxfb;
   acbxhv2.lirn:=cmcb12*acbxhv1.lirn;
-  vary, name=acbxhv3.lirn,step=1.e-12,lower=-climmcbxfa,upper=climmcbxfa;
-  vary, name=acbxhv1.rirn,step=1.e-12,lower=-climmcbxfb,upper=climmcbxfb;
+  vary, name=acbxhv3.lirn,step=1.e-12,lower=-CLIMmcbxfa,upper=CLIMmcbxfa;
+  vary, name=acbxhv1.rirn,step=1.e-12,lower=-CLIMmcbxfb,upper=CLIMmcbxfb;
   acbxhv2.rirn:=cmcb12*acbxhv1.rirn;
-  vary, name=acbxhv3.rirn,step=1.e-12,lower=-climmcbxfa,upper=climmcbxfa;
-  vary, name=acbrdhv4.lirnb1,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
-  vary, name=acbrdhv4.lirnb2,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
-  vary, name=acbrdhv4.rirnb1,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
-  vary, name=acbrdhv4.rirnb2,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
+  vary, name=acbxhv3.rirn,step=1.e-12,lower=-CLIMmcbxfa,upper=CLIMmcbxfa;
+  vary, name=acbrdhv4.lirnb1,step=1.e-12,lower=-CLIMmcbrd,upper=CLIMmcbrd;
+  vary, name=acbrdhv4.lirnb2,step=1.e-12,lower=-CLIMmcbrd,upper=CLIMmcbrd;
+  vary, name=acbrdhv4.rirnb1,step=1.e-12,lower=-CLIMmcbrd,upper=CLIMmcbrd;
+  vary, name=acbrdhv4.rirnb2,step=1.e-12,lower=-CLIMmcbrd,upper=CLIMmcbrd;
   !acbyhvs4.lirnb1:=cd2q4*acbrdhv4.lirnb1;
   !acbyhvs4.lirnb2:=cd2q4*acbrdhv4.lirnb2;
   !acbyhvs4.rirnb1:=cd2q4*acbrdhv4.rirnb1;
@@ -374,32 +371,32 @@ match, sequence=lhcb1,lhcb2, beta0= birirnb1,birirnb2,
   constraint, sequence=lhcb1,range=acfca.drirn.b1, xy  =  ocpp, pxy=0.0;
   constraint, sequence=lhcb2,range=acfca.drirn.b2, xy  =  ocpp, pxy=0.0;
 
-  vary, name=acbxhv1.lirn,step=1.e-12,lower=-climmcbxfb,upper=climmcbxfb;
-  vary, name=acbxhv1.rirn,step=1.e-12,lower=-climmcbxfb,upper=climmcbxfb;
+  vary, name=acbxhv1.lirn,step=1.e-12,lower=-CLIMmcbxfb,upper=CLIMmcbxfb;
+  vary, name=acbxhv1.rirn,step=1.e-12,lower=-CLIMmcbxfb,upper=CLIMmcbxfb;
   acbxhv2.lirn:=cmcb12*acbxhv1.lirn;
   acbxhv2.rirn:=cmcb12*acbxhv1.rirn;
-  vary, name=acbxhv3.lirn,step=1.e-12,lower=-climmcbxfa,upper=climmcbxfa;
-  vary, name=acbxhv3.rirn,step=1.e-12,lower=-climmcbxfa,upper=climmcbxfa;
-  vary, name=acbrdhv4.lirnb1,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
-  vary, name=acbrdhv4.lirnb2,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
-  vary, name=acbrdhv4.rirnb1,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
-  vary, name=acbrdhv4.rirnb2,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
-  vary,name=acbyhvs4.lirnb1, step=1.0E-12,lower=-climmcby4,upper=climmcby4;
-  vary,name=acbyhvs4.rirnb1, step=1.0E-12,lower=-climmcby4,upper=climmcby4;
-  vary,name=acbyhvs4.lirnb2, step=1.0E-12,lower=-climmcby4,upper=climmcby4;
-  vary,name=acbyhvs4.rirnb2, step=1.0E-12,lower=-climmcby4,upper=climmcby4;
+  vary, name=acbxhv3.lirn,step=1.e-12,lower=-CLIMmcbxfa,upper=CLIMmcbxfa;
+  vary, name=acbxhv3.rirn,step=1.e-12,lower=-CLIMmcbxfa,upper=CLIMmcbxfa;
+  vary, name=acbrdhv4.lirnb1,step=1.e-12,lower=-CLIMmcbrd,upper=CLIMmcbrd;
+  vary, name=acbrdhv4.lirnb2,step=1.e-12,lower=-CLIMmcbrd,upper=CLIMmcbrd;
+  vary, name=acbrdhv4.rirnb1,step=1.e-12,lower=-CLIMmcbrd,upper=CLIMmcbrd;
+  vary, name=acbrdhv4.rirnb2,step=1.e-12,lower=-CLIMmcbrd,upper=CLIMmcbrd;
+  vary,name=acbyhvs4.lirnb1, step=1.0E-12,lower=-CLIMmcby4,upper=CLIMmcby4;
+  vary,name=acbyhvs4.rirnb1, step=1.0E-12,lower=-CLIMmcby4,upper=CLIMmcby4;
+  vary,name=acbyhvs4.lirnb2, step=1.0E-12,lower=-CLIMmcby4,upper=CLIMmcby4;
+  vary,name=acbyhvs4.rirnb2, step=1.0E-12,lower=-CLIMmcby4,upper=CLIMmcby4;
   acbyhv4.lirnb1 :=acbyhvs4.lirnb1;
   acbyhv4.lirnb2 :=acbyhvs4.lirnb2;
   acbyhv4.rirnb1 :=acbyhvs4.rirnb1;
   acbyhv4.rirnb2 :=acbyhvs4.rirnb2;
-  vary,name=acbchv5.lirnb1, step=1.0e-12,lower=-climmcbc,upper=climmcbc;
-  vary,name=acbchv5.lirnb2, step=1.0e-12,lower=-climmcbc,upper=climmcbc;
-  vary,name=acbchv5.rirnb1, step=1.0e-12,lower=-climmcbc,upper=climmcbc;
-  vary,name=acbchv5.rirnb2, step=1.0e-12,lower=-climmcbc,upper=climmcbc;
-  vary,name=acbchv6.lirnb1, step=1.0e-12,lower=-climmcbc,upper=climmcbc;
-  vary,name=acbchv6.lirnb2, step=1.0e-12,lower=-climmcbc,upper=climmcbc;
-  vary,name=acbchv6.rirnb1, step=1.0e-12,lower=-climmcbc,upper=climmcbc;
-  vary,name=acbchv6.rirnb2, step=1.0e-12,lower=-climmcbc,upper=climmcbc;
+  vary,name=acbchv5.lirnb1, step=1.0e-12,lower=-CLIMmcbc,upper=CLIMmcbc;
+  vary,name=acbchv5.lirnb2, step=1.0e-12,lower=-CLIMmcbc,upper=CLIMmcbc;
+  vary,name=acbchv5.rirnb1, step=1.0e-12,lower=-CLIMmcbc,upper=CLIMmcbc;
+  vary,name=acbchv5.rirnb2, step=1.0e-12,lower=-CLIMmcbc,upper=CLIMmcbc;
+  vary,name=acbchv6.lirnb1, step=1.0e-12,lower=-CLIMmcbc,upper=CLIMmcbc;
+  vary,name=acbchv6.lirnb2, step=1.0e-12,lower=-CLIMmcbc,upper=CLIMmcbc;
+  vary,name=acbchv6.rirnb1, step=1.0e-12,lower=-CLIMmcbc,upper=CLIMmcbc;
+  vary,name=acbchv6.rirnb2, step=1.0e-12,lower=-CLIMmcbc,upper=CLIMmcbc;
 
   jacobian, calls = 10, tolerance=1.e-30,bisec=3;
   endmatch;
@@ -467,32 +464,32 @@ match, sequence=lhcb1,lhcb2, beta0= birirnb1,birirnb2,
   constraint, sequence=lhcb1,range=acfca.drirn.b1, xy  =  off*1e-3, pxy=0.0;
   constraint, sequence=lhcb2,range=acfca.drirn.b2, xy  = occm*off*1e-3, pxy=0.0;
 
-  vary, name=acbxhv1.lirn,step=1.e-12,lower=-climmcbxfb,upper=climmcbxfb;
-  vary, name=acbxhv1.rirn,step=1.e-12,lower=-climmcbxfb,upper=climmcbxfb;
+  vary, name=acbxhv1.lirn,step=1.e-12,lower=-CLIMmcbxfb,upper=CLIMmcbxfb;
+  vary, name=acbxhv1.rirn,step=1.e-12,lower=-CLIMmcbxfb,upper=CLIMmcbxfb;
   acbxhv2.lirn:=cmcb12*acbxhv1.lirn;
   acbxhv2.rirn:=cmcb12*acbxhv1.rirn;
-  vary, name=acbxhv3.lirn,step=1.e-12,lower=-climmcbxfa,upper=climmcbxfa;
-  vary, name=acbxhv3.rirn,step=1.e-12,lower=-climmcbxfa,upper=climmcbxfa;
-  vary, name=acbrdhv4.lirnb1,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
-  vary, name=acbrdhv4.lirnb2,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
-  vary, name=acbrdhv4.rirnb1,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
-  vary, name=acbrdhv4.rirnb2,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
-  vary,name=acbyhvs4.lirnb1, step=1.0E-12,lower=-climmcby4,upper=climmcby4;
-  vary,name=acbyhvs4.rirnb1, step=1.0E-12,lower=-climmcby4,upper=climmcby4;
-  vary,name=acbyhvs4.lirnb2, step=1.0E-12,lower=-climmcby4,upper=climmcby4;
-  vary,name=acbyhvs4.rirnb2, step=1.0E-12,lower=-climmcby4,upper=climmcby4;
+  vary, name=acbxhv3.lirn,step=1.e-12,lower=-CLIMmcbxfa,upper=CLIMmcbxfa;
+  vary, name=acbxhv3.rirn,step=1.e-12,lower=-CLIMmcbxfa,upper=CLIMmcbxfa;
+  vary, name=acbrdhv4.lirnb1,step=1.e-12,lower=-CLIMmcbrd,upper=CLIMmcbrd;
+  vary, name=acbrdhv4.lirnb2,step=1.e-12,lower=-CLIMmcbrd,upper=CLIMmcbrd;
+  vary, name=acbrdhv4.rirnb1,step=1.e-12,lower=-CLIMmcbrd,upper=CLIMmcbrd;
+  vary, name=acbrdhv4.rirnb2,step=1.e-12,lower=-CLIMmcbrd,upper=CLIMmcbrd;
+  vary,name=acbyhvs4.lirnb1, step=1.0E-12,lower=-CLIMmcby4,upper=CLIMmcby4;
+  vary,name=acbyhvs4.rirnb1, step=1.0E-12,lower=-CLIMmcby4,upper=CLIMmcby4;
+  vary,name=acbyhvs4.lirnb2, step=1.0E-12,lower=-CLIMmcby4,upper=CLIMmcby4;
+  vary,name=acbyhvs4.rirnb2, step=1.0E-12,lower=-CLIMmcby4,upper=CLIMmcby4;
   acbyhv4.lirnb1 :=acbyhvs4.lirnb1;
   acbyhv4.lirnb2 :=acbyhvs4.lirnb2;
   acbyhv4.rirnb1 :=acbyhvs4.rirnb1;
   acbyhv4.rirnb2 :=acbyhvs4.rirnb2;
-  vary,name=acbchv5.lirnb1, step=1.0E-12,lower=-climmcbc,upper=climmcbc;
-  vary,name=acbchv5.lirnb2, step=1.0E-12,lower=-climmcbc,upper=climmcbc;
-  vary,name=acbchv5.rirnb1, step=1.0E-12,lower=-climmcbc,upper=climmcbc;
-  vary,name=acbchv5.rirnb2, step=1.0E-12,lower=-climmcbc,upper=climmcbc;
-  vary,name=acbchv6.lirnb1, step=1.0E-12,lower=-climmcbc,upper=climmcbc;
-  vary,name=acbchv6.lirnb2, step=1.0E-12,lower=-climmcbc,upper=climmcbc;
-  vary,name=acbchv6.rirnb1, step=1.0E-12,lower=-climmcbc,upper=climmcbc;
-  vary,name=acbchv6.rirnb2, step=1.0E-12,lower=-climmcbc,upper=climmcbc;
+  vary,name=acbchv5.lirnb1, step=1.0E-12,lower=-CLIMmcbc,upper=CLIMmcbc;
+  vary,name=acbchv5.lirnb2, step=1.0E-12,lower=-CLIMmcbc,upper=CLIMmcbc;
+  vary,name=acbchv5.rirnb1, step=1.0E-12,lower=-CLIMmcbc,upper=CLIMmcbc;
+  vary,name=acbchv5.rirnb2, step=1.0E-12,lower=-CLIMmcbc,upper=CLIMmcbc;
+  vary,name=acbchv6.lirnb1, step=1.0E-12,lower=-CLIMmcbc,upper=CLIMmcbc;
+  vary,name=acbchv6.lirnb2, step=1.0E-12,lower=-CLIMmcbc,upper=CLIMmcbc;
+  vary,name=acbchv6.rirnb1, step=1.0E-12,lower=-CLIMmcbc,upper=CLIMmcbc;
+  vary,name=acbchv6.rirnb2, step=1.0E-12,lower=-CLIMmcbc,upper=CLIMmcbc;
 
   jacobian, calls = 10, tolerance=1.e-30,bisec=3;
   endmatch;
@@ -541,26 +538,26 @@ match, sequence=lhcb1,lhcb2, beta0= birirnb1,birirnb2,
   constraint, sequence=lhcb1,range=acfca.drirn.b1, xy  =  off*1e-3;
   constraint, sequence=lhcb2,range=acfca.drirn.b2, xy  =  off*1e-3;
 
-  vary,name=acbrdhv4.lirnb1,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
-  vary,name=acbrdhv4.lirnb2,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
-  vary,name=acbrdhv4.rirnb1,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
-  vary,name=acbrdhv4.rirnb2,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
-  vary,name=acbyhvs4.lirnb1, step=1.0E-12,lower=-climmcby4,upper=climmcby4;
-  vary,name=acbyhvs4.rirnb1, step=1.0E-12,lower=-climmcby4,upper=climmcby4;
-  vary,name=acbyhvs4.lirnb2, step=1.0E-12,lower=-climmcby4,upper=climmcby4;
-  vary,name=acbyhvs4.rirnb2, step=1.0E-12,lower=-climmcby4,upper=climmcby4;
+  vary,name=acbrdhv4.lirnb1,step=1.e-12,lower=-CLIMmcbrd,upper=CLIMmcbrd;
+  vary,name=acbrdhv4.lirnb2,step=1.e-12,lower=-CLIMmcbrd,upper=CLIMmcbrd;
+  vary,name=acbrdhv4.rirnb1,step=1.e-12,lower=-CLIMmcbrd,upper=CLIMmcbrd;
+  vary,name=acbrdhv4.rirnb2,step=1.e-12,lower=-CLIMmcbrd,upper=CLIMmcbrd;
+  vary,name=acbyhvs4.lirnb1, step=1.0E-12,lower=-CLIMmcby4,upper=CLIMmcby4;
+  vary,name=acbyhvs4.rirnb1, step=1.0E-12,lower=-CLIMmcby4,upper=CLIMmcby4;
+  vary,name=acbyhvs4.lirnb2, step=1.0E-12,lower=-CLIMmcby4,upper=CLIMmcby4;
+  vary,name=acbyhvs4.rirnb2, step=1.0E-12,lower=-CLIMmcby4,upper=CLIMmcby4;
   acbyhv4.lirnb1 :=acbyhvs4.lirnb1;
   acbyhv4.lirnb2 :=acbyhvs4.lirnb2;
   acbyhv4.rirnb1 :=acbyhvs4.rirnb1;
   acbyhv4.rirnb2 :=acbyhvs4.rirnb2;
-  vary,name=acbchv5.lirnb1, step=1.0E-12,lower=-climmcbc,upper=climmcbc;
-  vary,name=acbchv5.lirnb2, step=1.0E-12,lower=-climmcbc,upper=climmcbc;
-  vary,name=acbchv5.rirnb1, step=1.0E-12,lower=-climmcbc,upper=climmcbc;
-  vary,name=acbchv5.rirnb2, step=1.0E-12,lower=-climmcbc,upper=climmcbc;
-  vary,name=acbchv6.lirnb1, step=1.0E-12,lower=-climmcbc,upper=climmcbc;
-  vary,name=acbchv6.lirnb2, step=1.0E-12,lower=-climmcbc,upper=climmcbc;
-  vary,name=acbchv6.rirnb1, step=1.0E-12,lower=-climmcbc,upper=climmcbc;
-  vary,name=acbchv6.rirnb2, step=1.0E-12,lower=-climmcbc,upper=climmcbc;
+  vary,name=acbchv5.lirnb1, step=1.0E-12,lower=-CLIMmcbc,upper=CLIMmcbc;
+  vary,name=acbchv5.lirnb2, step=1.0E-12,lower=-CLIMmcbc,upper=CLIMmcbc;
+  vary,name=acbchv5.rirnb1, step=1.0E-12,lower=-CLIMmcbc,upper=CLIMmcbc;
+  vary,name=acbchv5.rirnb2, step=1.0E-12,lower=-CLIMmcbc,upper=CLIMmcbc;
+  vary,name=acbchv6.lirnb1, step=1.0E-12,lower=-CLIMmcbc,upper=CLIMmcbc;
+  vary,name=acbchv6.lirnb2, step=1.0E-12,lower=-CLIMmcbc,upper=CLIMmcbc;
+  vary,name=acbchv6.rirnb1, step=1.0E-12,lower=-CLIMmcbc,upper=CLIMmcbc;
+  vary,name=acbchv6.rirnb2, step=1.0E-12,lower=-CLIMmcbc,upper=CLIMmcbc;
 
   jacobian, calls = 10, tolerance=1.e-30,bisec=3;
   endmatch;
@@ -631,13 +628,14 @@ exec,match_ccs(5,h,x);
 exec,match_ccs(5,v,y);
 
 
-if (q4x==0){q4x=-0.0030;};
-if (q4y==0){q4y=-0.0030;};
+if (q4x==0){q4x=-0.00075;};
+if (q4y==0){q4y=-0.00075;};
 !if (is_thin==1){ q4y=-0.00340; };
-exec,match_off(1,h,x,2);
-exec,match_off(1,v,y,2);
-exec,match_off(5,h,x,2);
-exec,match_off(5,v,y,2);
+ipoff=0.5;
+exec,match_off(1,h,x,ipoff);
+exec,match_off(1,v,y,ipoff);
+exec,match_off(5,h,x,ipoff);
+exec,match_off(5,v,y,ipoff);
 
 
 setvars_knob,table=knob_on_x1hs  ,knob=on_x1hs;

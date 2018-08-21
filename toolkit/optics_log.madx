@@ -114,6 +114,8 @@ make_opticstbl_ir4(irr):macro={
     kqtl11.r4b2,kqt12.r4b2,kqt13.r4b2,
     betxip4b1,betyip4b1,alfxip4b1,alfyip4b1,dxip4b1,dpxip4b1,
     betxip4b2,betyip4b2,alfxip4b2,alfyip4b2,dxip4b2,dpxip4b2,
+    refbetx_el4b1,refbety_el4b1,refbetx_bsrtb1,refbety_bsrtb1,
+    refbetx_el4b2,refbety_el4b2,refbetx_bsrtb2,refbety_bsrtb2,
     muxip4b1,muyip4b1, muxip4b2,muyip4b2,
     muxip4b1_l,muyip4b1_l,muxip4b1_r,muyip4b1_r,
     muxip4b2_l,muyip4b2_l,muxip4b2_r,muyip4b2_r,
@@ -315,3 +317,63 @@ system, "date '+timestamp=%s;' >tmp_ttstamp";
 call,file=tmp_ttstamp;
 system, "rm tmp_ttstamp";
 };
+
+
+
+make_opticstbl_all(sq1): macro={
+exec,make_opticstbl_ir1hl(ir1sq1);
+exec,make_opticstbl_ir2(ir2sq1);
+exec,make_opticstbl_ir3(ir3sq1);
+exec,make_opticstbl_ir4(ir4sq1);
+exec,make_opticstbl_ir5hl(ir5sq1);
+exec,make_opticstbl_ir6(ir6sq1);
+exec,make_opticstbl_ir7(ir7sq1);
+exec,make_opticstbl_ir8(ir8sq1);
+exec,make_opticstbl_arc(arcsq1);
+};
+
+
+
+fill_opticstbl_all(sq1): macro={
+scxir5=betx_ip5/betx0_ip5; scyir5=bety_ip5/bety0_ip5;
+scxir1=betx_ip1/betx0_ip1; scyir1=bety_ip1/bety0_ip1;
+fill,table=ir1sq1;
+fill,table=ir2sq1;
+fill,table=ir3sq1;
+fill,table=ir4sq1;
+fill,table=ir5sq1;
+fill,table=ir6sq1;
+fill,table=ir7sq1;
+fill,table=ir8sq1;
+fill,table=arcsq1;
+};
+
+
+write_opticstbl_all(sq1): macro={
+scxir5=betx_ip5/betx0_ip5; scyir5=bety_ip5/bety0_ip5;
+scxir1=betx_ip1/betx0_ip1; scyir1=bety_ip1/bety0_ip1;
+write,table=ir1sq1,file=ir1sq1.tfs;
+write,table=ir2sq1,file=ir2sq1.tfs;
+write,table=ir3sq1,file=ir3sq1.tfs;
+write,table=ir4sq1,file=ir4sq1.tfs;
+write,table=ir5sq1,file=ir5sq1.tfs;
+write,table=ir6sq1,file=ir6sq1.tfs;
+write,table=ir7sq1,file=ir7sq1.tfs;
+write,table=ir8sq1,file=ir8sq1.tfs;
+write,table=arcsq1,file=arcsq1.tfs;
+};
+
+
+setvarslin_opticstbl_all(sq1,ttt,aaa,bbb): macro={
+setvars_lin,table=ir1sq1,row1=aaa,row2=bbb,param=ttt;
+setvars_lin,table=ir2sq1,row1=aaa,row2=bbb,param=ttt;
+setvars_lin,table=ir3sq1,row1=aaa,row2=bbb,param=ttt;
+setvars_lin,table=ir4sq1,row1=aaa,row2=bbb,param=ttt;
+setvars_lin,table=ir5sq1,row1=aaa,row2=bbb,param=ttt;
+setvars_lin,table=ir6sq1,row1=aaa,row2=bbb,param=ttt;
+setvars_lin,table=ir7sq1,row1=aaa,row2=bbb,param=ttt;
+setvars_lin,table=ir8sq1,row1=aaa,row2=bbb,param=ttt;
+setvars_lin,table=arcsq1,row1=aaa,row2=bbb,param=ttt;
+};
+
+

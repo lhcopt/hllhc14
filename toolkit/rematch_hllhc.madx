@@ -1,3 +1,5 @@
+exec, round_phases;
+
 exec,rematch_arc(1,2,12);
 exec,rematch_arc(2,3,23);
 exec,rematch_arc(3,4,34);
@@ -23,8 +25,8 @@ on_holdselect=1; jac_calls=   15;jac_tol=1e-20; jac_bisec=3;
 
 if (sc79==0){sc79=0.999;};
 if (sch==0) {sch =0.99; };
-if (imb==0) {imb=1.60;};
-if (scl==0) {scl=0.05;};
+if (imb==0) {imb=1.10;};
+if (scl==0) {scl=0.12;};
 grad=132.6; bmaxds=500;
 betxip5b1=betx0_IP5; betyip5b1=bety0_IP5;
 betxip5b2=betx0_IP5; betyip5b2=bety0_IP5;

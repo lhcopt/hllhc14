@@ -118,10 +118,10 @@ if(betytcdsb2>0){
 if(betytcdqb2>0){
   constraint,expr=refbetytcdqb2> betytcdqb2;
 } else {
-  constraint, sequence=lhcb1,range=TCDQA.A4L6.B2,bety >145;
+  constraint, sequence=lhcb2,range=TCDQA.A4L6.B2,bety >145;
 };
-constraint, sequence=lhcb1,range=TCDSA.4L6.B1,bety > 170;
-if (NRJ<451){constraint, sequence=lhcb1,range=TCDSA.4L6.B1,betx < 175; };
+constraint, sequence=lhcb1,range=TCDSA.4R6.B2,bety > 170;
+if (NRJ<451){constraint, sequence=lhcb1,range=TCDSA.4R6.B2,betx < 175; };
 
 !dispersion in straight section <0.5
 constraint,expr=refdxq5r6b2<1.0; !was 0.5
