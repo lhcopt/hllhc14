@@ -2169,6 +2169,8 @@ TDIS : RCOLLIMATOR, L := l.TDIS;
 TDIS.4L2.B1:TDIS;
 TDIS.4R8.B2:TDIS;
 
+value,posTDIS;
+
 if(bv_aux ==1){
   seqedit,sequence=lhcb1;
   remove,element=TDI.4L2.B1;
@@ -2199,16 +2201,18 @@ TANB: RCOLLIMATOR,  L := l.TANB;
 TANB.4L8.B1: TANB; TANB.4L8.B1: TANB;
 TANB.4R8.B2: TANB; TANB.4R8.B2: TANB;
 
+value,posTANB;
+
 if(bv_aux ==1){
   seqedit,sequence=lhcb1;
   remove,element=TANB.4L8.B1;
   remove,element=TANB.4R8.B1;
   remove,element=BPMWB.4L8.B1;
   remove,element=BPMWB.4R8.B1;
-  install,element=TANB.4L8.B1,  at=– posTANB,from=ip8;
+  install,element=TANB.4L8.B1,  at=-posTANB,from=ip8;
   install,element=TANB.4R8.B1,  at= posTANB,from=ip8;
-  install,element=BPMWB.4L8.B1, at= -posBPMWB.8,from=ip8
-  install,element=BPMWB.4R8.B1, at=  posBPMWB.8,from=ip8
+  install,element=BPMWB.4L8.B1, at=-posBPMWB.8,from=ip8;
+  install,element=BPMWB.4R8.B1, at= posBPMWB.8,from=ip8;
   endedit;
 };
 
@@ -2216,11 +2220,11 @@ seqedit,sequence=lhcb2;
 remove,element=TANB.4L8.B2;
 remove,element=TANB.4R8.B2;
  remove,element=BPMWB.4L8.B2;
- remove,element=BPMWB.4R8.B2;
-install,element=TANB.4L8.B2,  at=–posTANB*bv_aux,from=ip8;
+ remove,element=BPMWI.4R8.B2;
+install,element=TANB.4L8.B2,  at=-posTANB*bv_aux,from=ip8;
 install,element=TANB.4R8.B2,  at= posTANB*bv_aux,from=ip8;
-install,element=BPMWB.4L8.B2, at= -posBPMWB.8*bv_aux,from=ip8
-install,element=BPMWB.4R8.B2, at=  posBPMWB.8*bv_aux,from=ip8
+install,element=BPMWB.4L8.B2, at=-posBPMWB.8*bv_aux,from=ip8;
+install,element=BPMWI.4R8.B2, at= posBPMWB.8*bv_aux,from=ip8;
 endedit;
 
 
