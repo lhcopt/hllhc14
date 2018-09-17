@@ -913,55 +913,33 @@ dposMCBY.A4 := dposMCBY.4  + (l.MCBYV + l.MCBYH)/2 + 0.396;
 value,dposMCBY.B4,dposMCBY.4,dposMCBY.A4;
 
 
-!MCBYV.4L1.B1:MCBYV, KICK:=  acbyvs4.l1b1, polarity=+1,mech_sep=-0.194;
+
 MCBYH.4L1.B1:MCBYH, KICK:=  acbyhs4.l1b1, polarity=+1,mech_sep=-0.194;
-MCBYV.4R1.B1:MCBYV, KICK:=  acbyvs4.r1b1, polarity=+1,mech_sep= 0.194;
-!MCBYH.4R1.B1:MCBYH, KICK:=  acbyhs4.r1b1, polarity=+1,mech_sep= 0.194;
-!MCBYV.4L5.B1:MCBYV, KICK:=  acbyvs4.l5b1, polarity=+1,mech_sep=-0.194;
 MCBYH.4L5.B1:MCBYH, KICK:=  acbyhs4.l5b1, polarity=+1,mech_sep=-0.194;
-MCBYV.4R5.B1:MCBYV, KICK:=  acbyvs4.r5b1, polarity=+1,mech_sep= 0.194;
-!MCBYH.4R5.B1:MCBYH, KICK:=  acbyhs4.r5b1, polarity=+1,mech_sep= 0.194;
-MCBYV.A4L1.B1:MCBYV, KICK:=  acbyvs4.l1b1, polarity=+1,mech_sep=-0.194;
-MCBYH.A4L1.B1:MCBYH, KICK:=  acbyhs4.l1b1, polarity=+1,mech_sep=-0.194;
-MCBYV.A4R1.B1:MCBYV, KICK:=  acbyvs4.r1b1, polarity=+1,mech_sep= 0.194;
 MCBYH.A4R1.B1:MCBYH, KICK:=  acbyhs4.r1b1, polarity=+1,mech_sep= 0.194;
-MCBYV.A4L5.B1:MCBYV, KICK:=  acbyvs4.l5b1, polarity=+1,mech_sep=-0.194;
-MCBYH.A4L5.B1:MCBYH, KICK:=  acbyhs4.l5b1, polarity=+1,mech_sep=-0.194;
-MCBYV.A4R5.B1:MCBYV, KICK:=  acbyvs4.r5b1, polarity=+1,mech_sep= 0.194;
 MCBYH.A4R5.B1:MCBYH, KICK:=  acbyhs4.r5b1, polarity=+1,mech_sep= 0.194;
-MCBYV.B4L1.B1:MCBYV, KICK:=  acbyv4.l1b1, polarity=+1,mech_sep=-0.194;
-MCBYH.B4L1.B1:MCBYH, KICK:=  acbyh4.l1b1, polarity=+1,mech_sep=-0.194;
-MCBYV.B4R1.B1:MCBYV, KICK:=  acbyv4.r1b1, polarity=+1,mech_sep= 0.194;
 MCBYH.B4R1.B1:MCBYH, KICK:=  acbyh4.r1b1, polarity=+1,mech_sep= 0.194;
-MCBYV.B4L5.B1:MCBYV, KICK:=  acbyv4.l5b1, polarity=+1,mech_sep=-0.194;
-MCBYH.B4L5.B1:MCBYH, KICK:=  acbyh4.l5b1, polarity=+1,mech_sep=-0.194;
-MCBYV.B4R5.B1:MCBYV, KICK:=  acbyv4.r5b1, polarity=+1,mech_sep= 0.194;
 MCBYH.B4R5.B1:MCBYH, KICK:=  acbyh4.r5b1, polarity=+1,mech_sep= 0.194;
 
-MCBYV.4L1.B2:MCBYV, KICK:= -acbyvs4.l1b2*bv_aux, polarity=+1,, mech_sep= 0.194*bv_aux;
-!MCBYH.4L1.B2:MCBYH, KICK:= -acbyhs4.l1b2, polarity=+1, mech_sep= 0.194*bv_aux;
-!MCBYV.4R1.B2:MCBYV, KICK:= -acbyvs4.r1b2*bv_aux, polarity=+1, mech_sep=-0.194*bv_aux;
+MCBYV.4R1.B1:MCBYV, KICK:=  acbyvs4.r1b1, polarity=+1,mech_sep= 0.194;
+MCBYV.4R5.B1:MCBYV, KICK:=  acbyvs4.r5b1, polarity=+1,mech_sep= 0.194;
+MCBYV.A4L1.B1:MCBYV, KICK:=  acbyvs4.l1b1, polarity=+1,mech_sep=-0.194;
+MCBYV.B4L1.B1:MCBYV, KICK:=  acbyv4.l1b1, polarity=+1,mech_sep=-0.194;
+MCBYV.B4L5.B1:MCBYV, KICK:=  acbyv4.l5b1, polarity=+1,mech_sep=-0.194;
+
 MCBYH.4R1.B2:MCBYH, KICK:= -acbyhs4.r1b2, polarity=+1, mech_sep=-0.194*bv_aux;
-MCBYV.4L5.B2:MCBYV, KICK:= -acbyvs4.l5b2*bv_aux, polarity=+1, mech_sep= 0.194*bv_aux;
-!MCBYH.4L5.B2:MCBYH, KICK:= -acbyhs4.l5b2, polarity=+1, mech_sep= 0.194*bv_aux;
-!MCBYV.4R5.B2:MCBYV, KICK:= -acbyvs4.r5b2*bv_aux, polarity=+1, mech_sep=-0.194*bv_aux;
 MCBYH.4R5.B2:MCBYH, KICK:= -acbyhs4.r5b2, polarity=+1, mech_sep=-0.194*bv_aux;
-MCBYV.A4L1.B2:MCBYV, KICK:= -acbyvs4.l1b2*bv_aux, polarity=+1, mech_sep= 0.194*bv_aux;
 MCBYH.A4L1.B2:MCBYH, KICK:= -acbyhs4.l1b2, polarity=+1, mech_sep= 0.194*bv_aux;
-MCBYV.A4R1.B2:MCBYV, KICK:= -acbyvs4.r1b2*bv_aux, polarity=+1, mech_sep=-0.194*bv_aux;
-MCBYH.A4R1.B2:MCBYH, KICK:= -acbyhs4.r1b2, polarity=+1, mech_sep=-0.194*bv_aux;
-MCBYV.A4L5.B2:MCBYV, KICK:= -acbyvs4.l5b2*bv_aux, polarity=+1, mech_sep= 0.194*bv_aux;
 MCBYH.A4L5.B2:MCBYH, KICK:= -acbyhs4.l5b2, polarity=+1, mech_sep= 0.194*bv_aux;
-MCBYV.A4R5.B2:MCBYV, KICK:= -acbyvs4.r5b2*bv_aux, polarity=+1, mech_sep=-0.194*bv_aux;
-MCBYH.A4R5.B2:MCBYH, KICK:= -acbyhs4.r5b2, polarity=+1, mech_sep=-0.194*bv_aux;
-MCBYV.B4L1.B2:MCBYV, KICK:= -acbyv4.l1b2*bv_aux, polarity=+1, mech_sep= 0.194*bv_aux;
 MCBYH.B4L1.B2:MCBYH, KICK:= -acbyh4.l1b2, polarity=+1, mech_sep= 0.194*bv_aux;
-MCBYV.B4R1.B2:MCBYV, KICK:= -acbyv4.r1b2*bv_aux, polarity=+1, mech_sep=-0.194*bv_aux;
-MCBYH.B4R1.B2:MCBYH, KICK:= -acbyh4.r1b2, polarity=+1, mech_sep=-0.194*bv_aux;
-MCBYV.B4L5.B2:MCBYV, KICK:= -acbyv4.l5b2*bv_aux, polarity=+1, mech_sep= 0.194*bv_aux;
 MCBYH.B4L5.B2:MCBYH, KICK:= -acbyh4.l5b2, polarity=+1, mech_sep= 0.194*bv_aux;
+
+MCBYV.4L1.B2:MCBYV, KICK:= -acbyvs4.l1b2*bv_aux, polarity=+1,, mech_sep= 0.194*bv_aux;
+MCBYV.4L5.B2:MCBYV, KICK:= -acbyvs4.l5b2*bv_aux, polarity=+1, mech_sep= 0.194*bv_aux;
+MCBYV.A4R1.B2:MCBYV, KICK:= -acbyvs4.r1b2*bv_aux, polarity=+1, mech_sep=-0.194*bv_aux;
+MCBYV.A4R5.B2:MCBYV, KICK:= -acbyvs4.r5b2*bv_aux, polarity=+1, mech_sep=-0.194*bv_aux;
+MCBYV.B4R1.B2:MCBYV, KICK:= -acbyv4.r1b2*bv_aux, polarity=+1, mech_sep=-0.194*bv_aux;
 MCBYV.B4R5.B2:MCBYV, KICK:= -acbyv4.r5b2*bv_aux, polarity=+1, mech_sep=-0.194*bv_aux;
-MCBYH.B4R5.B2:MCBYH, KICK:= -acbyh4.r5b2, polarity=+1, mech_sep=-0.194*bv_aux;
 
 exec,newel_ir15_b12(BPMYA.4,BPMYA);
 
@@ -1572,7 +1550,8 @@ l.TCLMC=1.0;
 !posTCLMC.6Q := posQ6 - dposMCBCH - l.TCLMC/2 - 1.831;
 !value,posTCLMC.5,posTCLMC.6C,posTCLMC.6Q;
 
-posTCLMB.4C := posQ4 - 2.348-1.237-1.237-1.380-1.405;
+!posTCLMB.4C := posQ4 - 2.348-1.237-1.237-1.380-1.405;
+posTCLMB.4C := posQ4 - dposmcby.a4 - 3.4;! To be confirmed 5/9/2018 Marian
 posTCLMC.5C := posQ5 - l.mqml/2-0.192-l.mcbch-0.926-1.405;
 posTCLMC.5Q := posQ5 - l.mqml/2-1.411-1.405;!- 5.216;
 posTCLMC.6C := posQ6 - l.mqml/2-0.192-l.mcbch-0.926-1.405;
