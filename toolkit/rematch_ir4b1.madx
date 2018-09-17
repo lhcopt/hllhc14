@@ -31,8 +31,11 @@ constraint,sequence=lhcb1,range=ip4,dpx =dpxip4b1;
 constraint,sequence=lhcb1,range=e.ds.r4.b1,alfx=eir4b1->alfx,alfy=eir4b1->alfy;
 constraint,sequence=lhcb1,range=e.ds.r4.b1,betx=eir4b1->betx,bety=eir4b1->bety;
 constraint,sequence=lhcb1,range=e.ds.r4.b1,dx=eir4b1->dx,dpx=eir4b1->dpx;
+if (nomatch_phase==0){
 constraint,sequence=lhcb1,range=e.ds.r4.b1,muy=muyip4b1+eir4b1->muy;
 constraint,sequence=lhcb1,range=e.ds.r4.b1,mux=muxip4b1+eir4b1->mux;
+};
+
 !constraint,sequence=lhcb1, range=mqml.8l4.b1,bety<300;
 
 
@@ -76,7 +79,9 @@ constraint,sequence=lhcb1, range=mq.12r4.b1,betx<176.5-2.0+1.5+epsap;
  vary,name=kq5.r4b1,    step=1.0E-6, lower=-qtlimit2, upper=-qtlimit2*scmin;
  vary,name=kq6.r4b1,    step=1.0E-6, lower= qtlimit2*scmin, upper= qtlimit2;
  vary,name=kq7.r4b1,    step=1.0E-6, lower=-qtlimit3, upper=-qtlimit3*scmin;
- vary,name=kq8.r4b1,    step=1.0E-6, lower= qtlimit3*scmin, upper= qtlimit3;
+if (nomatch_q8r4b1==0){
+  vary,name=kq8.r4b1,    step=1.0E-6, lower= qtlimit3*scmin, upper= qtlimit3;
+};
  vary,name=kq9.r4b1,    step=1.0E-6, lower=-qtlimit3, upper=-qtlimit3*scmin;
  vary,name=kq10.r4b1,   step=1.0E-6, lower= qtlimit3*scmin, upper= qtlimit3;
  vary,name=kqtl11.r4b1, step=1.0E-6, lower=-qtlimit4, upper= qtlimit4;
@@ -119,6 +124,13 @@ alfyip4b1=  refalfyip4b1 ;
 if (nomatch_ipdisp==1){
 dxip4b1 = refdxip4b1;
 };
+
+if (nomatch_phase==1){
+muxip4b1        = refmuxip4b1;
+muyip4b1        = refmuyip4b1;
+};
+
+
 
 
 

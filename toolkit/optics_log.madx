@@ -348,6 +348,11 @@ fill,table=ir8sq1;
 fill,table=arcsq1;
 };
 
+fillwrite_opticstbl(ir1sq1,nnn): macro={
+fill,table=ir1sq1,row=nnn;
+write,table=ir1sq1,file=ir1sq1.tfs;
+print,text="fill ir1sq1 nnn in ir1sq1.tfs";
+};
 
 write_opticstbl_all(sq1): macro={
 scxir5=betx_ip5/betx0_ip5; scyir5=bety_ip5/bety0_ip5;
