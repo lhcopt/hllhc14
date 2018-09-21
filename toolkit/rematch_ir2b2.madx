@@ -43,7 +43,7 @@ constraint, sequence=lhcb2, range=e.ds.r2.b2,dx=eir2b2->dx,dpx=eir2b2->dpx;
 constraint, sequence=lhcb2, range=e.ds.r2.b2,   mux=muxip2b2+eir2b2->mux;
 constraint, sequence=lhcb2, range=e.ds.r2.b2,   muy=muyip2b2+eir2b2->muy;
 if (is_thin==0){
-if(scxir1>0.1){constraint, sequence=lhcb2, range=mqm.6r2.b2,bety<215;};
+if(scxir1>0.1){constraint, sequence=lhcb2, range=mqm.6r2.b2,bety<225;};
 };
 if(match_on_aperture==1){
 constraint,sequence=lhcb2,range=mqml.10l2.b2,betx<175.5;

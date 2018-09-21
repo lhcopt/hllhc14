@@ -32,6 +32,10 @@ ir1b1="""\
  "MBXF.4R1"             999.000000      D1_VAL_1      0.000000      0.000000      0.000000      0.000000      0.000000
  "TAXN.4L1"             999.000000      TAN_VAL_L     TAN_VAL_DL    0.000000      0.000000      0.000000      0.000000
  "TAXN.4R1"             999.000000      TAN_VAL_R     TAN_VAL_DR    0.000000      0.000000      0.000000      0.000000
+ "DFXJ.4L1"             999.000000      D1_VAL_1      0.000000      0.000000      0.000000      0.000000      0.000000
+ "DFXJ.4R1"             999.000000      D1_VAL_1      0.000000      0.000000      0.000000      0.000000      0.000000
+ "BPMSQW.4R1.B1"        999.000000      D1_VAL_1      0.000000      0.000000      0.000000      0.000000      0.000000
+ "BPMSQW.4L1.B1"        999.000000      D1_VAL_1      0.000000      0.000000      0.000000      0.000000      0.000000
 """
 
 basedir="/afs/cern.ch/eng/lhc/optics/V6.503/aperture/"
@@ -62,7 +66,7 @@ repl={
    'D2_VAL_1':(sep-sepd2)/2, 'D2_VAL_2':(sep+sepd2)/2,
    'D1_VAL_1': sep/2}
 
-print (septan1-septan2)/ltan/2
+print((septan1-septan2)/ltan/2)
 
 for irn in [1,5]:
   for beam in [1,2]:
@@ -75,5 +79,5 @@ for irn in [1,5]:
       st=st.replace('4%s1.B1'%(lr,),'4%s%d.B%d'%(lr,irn,beam))
       st=st.replace('4%s1'%lr,'4%s%d'%(lr,irn))
     st=open(basedir+fname).read()+st
-    print fname
+    print(fname)
     open(fname,'w').write(st)

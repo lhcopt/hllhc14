@@ -70,4 +70,4 @@ value,ddtct1b2,ddtct1b2a,ddtct5b2,ddtct5b2a;
 
 !value,kq5.l6b1*23348,kq5.r6b1*23348,kq5.l6b2*23348,kq5.r6b2*23348;
 !value,kq4.l6b1,kq4.r6b2;
-value,kq5.l6b1*23348,kq5.r6b1*23348,kq5.l6b2*23348,kq5.r6b2*23348;
+value,kq5.l6b1*23348,kq5.l6b2*23348,kq5.r6b1*23348,kq5.r6b2*23348;

@@ -336,7 +336,7 @@ newel_ir15_b12(ENAME,PARE): macro={
 !===============================================
 ! TAS
 !===============================================
-posTAS  =19.950;
+posTAXS  =19.950;
 l.TAXS  =1.8;
 
 TAXS: RCOLLIMATOR,  L := l.TAXS; ! new TAS
@@ -345,7 +345,7 @@ TAXS.1R1: TAXS; TAXS.1L1: TAXS;
 TAXS.1R5: TAXS; TAXS.1L5: TAXS;
 
 ! TAS
-exec,install_ir15_cmn(TAXS.1,      posTAS  );
+exec,install_ir15_cmn(TAXS.1,      posTAXS  );
 
 
 !===============================================

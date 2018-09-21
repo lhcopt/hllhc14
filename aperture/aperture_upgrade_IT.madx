@@ -36,24 +36,24 @@ if (ap_mqx==0){ ap_mqx=150; };
 if (bs_type == OCTA2015) {
 ! r1_Q1=51-1.5*(1-no_bs_tol);      !C. Garion 9/5/2015
 ! r2_Q1=51-1.5*(1-no_bs_tol);      !C. Garion 9/5/2015
-  r1_Q1=99.7/2-2.38*(1-no_bs_tol); !C. Garion 30/11/2015
-  r2_Q1=99.7/2-2.38*(1-no_bs_tol); !C. Garion 30/11/2015
-  r_Q1=sqrt((sqrt(2)*r1_Q1-r2_Q1)^2+r2_Q1^2)/1e3;
-  g_Q1=r1_Q1/1e3;
-  hv_Q1=r1_Q1/1e3;
-  angle1_Q1=pi/4-acos(g_Q1/r_Q1); !22.5 regular octagon
-  angle2_Q1=pi/2-angle1_Q1;
+  r1_Q1:=99.7/2-2.38*(1-no_bs_tol); !C. Garion 30/11/2015
+  r2_Q1:=99.7/2-2.38*(1-no_bs_tol); !C. Garion 30/11/2015
+  r_Q1:=sqrt((sqrt(2)*r1_Q1-r2_Q1)^2+r2_Q1^2)/1e3;
+  g_Q1:=r1_Q1/1e3;
+  hv_Q1:=r1_Q1/1e3;
+  angle1_Q1:=pi/4-acos(g_Q1/r_Q1); !22.5 regular octagon
+  angle2_Q1:=pi/2-angle1_Q1;
   value,r_Q1,g_Q1,angle1_Q1,angle2_Q1;
 
   !r1_Q23=114/2-1.5*(1-no_bs_tol); !C. Garion 9/5/2015 1.5 mech tol
   !r2_Q23=122/2-1.5*(1-no_bs_tol); !C. Garion 9/5/2015 1.5 mech tol
-  r1_Q23=110.7/2-2.2*(1-no_bs_tol); !C. Garion 30/11/2015 1.5 mech tol
-  r2_Q23=119.7/2-2.2*(1-no_bs_tol); !C. Garion 30/11/2015 1.5 mech tol
-  r_Q23=sqrt((sqrt(2)*r1_Q23-r2_Q23)^2+r2_Q23^2)/1e3;
-  g_Q23=r1_Q23/1e3;
-  hv_Q23=r2_Q23/1e3;
-  angle1_Q23=pi/4-acos(g_Q23/r_Q23); !22.5 regular octagon
-  angle2_Q23=pi/2-angle1_Q23;
+  r1_Q23:=110.7/2-2.2*(1-no_bs_tol); !C. Garion 30/11/2015 1.5 mech tol
+  r2_Q23:=119.7/2-2.2*(1-no_bs_tol); !C. Garion 30/11/2015 1.5 mech tol
+  r_Q23:=sqrt((sqrt(2)*r1_Q23-r2_Q23)^2+r2_Q23^2)/1e3;
+  g_Q23:=r1_Q23/1e3;
+  hv_Q23:=r2_Q23/1e3;
+  angle1_Q23:=pi/4-acos(g_Q23/r_Q23); !22.5 regular octagon
+  angle2_Q23:=pi/2-angle1_Q23;
   value,r_Q23,g_Q23,angle1_Q23,angle2_Q23;
 
 };
@@ -74,12 +74,12 @@ r_BPMSQ4W:= 0.150/2;      ! was 60 mm in slhcv1 and slhcv2
 
 r_tol_TAS:=0.0020+r_tol_TAS_mod; h_tol_TAS:=0.0005+h_tol_TAS_mod; v_tol_TAS:=0.0005+v_tol_TAS_mod;
 r_tol_IT :=0.0006+r_tol_IT_mod; h_tol_IT :=0.0010+h_tol_IT_mod; v_tol_IT :=0.0010+v_tol_IT_mod;
-r_tol_Q1 :=r_tol_IT; h_tol_Q1 :=h_tol_IT+h_tol_Q1_mod; v_tol_Q1 :=v_tol_IT+v_tol_Q1_mod;
+_tol_Q1 :=r_tol_IT; h_tol_Q1 :=h_tol_IT+h_tol_Q1_mod; v_tol_Q1 :=v_tol_IT+v_tol_Q1_mod;
 r_tol_Q2 :=r_tol_IT; h_tol_Q2 :=h_tol_IT+h_tol_Q2_mod; v_tol_Q2 :=v_tol_IT+v_tol_Q2_mod;
 r_tol_Q3 :=r_tol_IT; h_tol_Q3 :=h_tol_IT+h_tol_Q3_mod; v_tol_Q3 :=v_tol_IT+v_tol_Q3_mod;
 
-r_tol_BPM:=0.0025; h_tol_BPM:=0.0000+h_tol_BPM_mod; v_tol_BPM:=0.0000+v_tol_BPM_mod;
-r_tol_D1 :=0.0006; h_tol_D1 :=0.0010+h_tol_D1_mod; v_tol_D1 :=0.0010+v_tol_D1_mod;
+r_tol_BPM:=0.0025+r_tol_BPM_mod; h_tol_BPM:=0.0000+h_tol_BPM_mod; v_tol_BPM:=0.0000+v_tol_BPM_mod;
+r_tol_D1 :=0.0006+r_tol_D1_mod; h_tol_D1 :=0.0010+h_tol_D1_mod; v_tol_D1 :=0.0010+v_tol_D1_mod;
 
 
 r_DFXJ:= 0.150/2;
