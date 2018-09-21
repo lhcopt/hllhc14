@@ -1,0 +1,87 @@
+option, warn,info;
+system,"rm -rf temp"; system,"mkdir temp";
+system,"ln -fns /afs/cern.ch/eng/lhc/optics/HLLHCV1.4 slhc";
+system,"ln -fns /afs/cern.ch/eng/lhc/optics/HLLHCV1.3 slhc13";
+system,"ln -fns /afs/cern.ch/eng/lhc/optics/runIII lhc";
+
+Option, -echo,-warn,-info;
+call,file="lhc/lhc.seq";
+call,file="slhc/toolkit/macro.madx";
+call,file="slhc/toolkit/optics_log.madx";
+Option, -echo,warn,-info,no_fatal_stop;
+
+
+
+exec,mk_beam(7000);
+seqedit,sequence=lhcb1; flatten; cycle,start=s.ds.l3.b1; endedit;
+seqedit,sequence=lhcb2; flatten; cycle,start=s.ds.l3.b2; endedit;
+
+
+call,file="slhc/hllhc_sequence.madx";
+call,file="slhc/round/opt_round_150_1500_v2.madx";
+call,file=ir4_round_15cm_4.madx;
+exec,check_ip(b1); exec,check_ip(b2);
+
+scxir5=betx_ip5/betx0_ip5; scyir5=bety_ip5/bety0_ip5;
+scxir1=betx_ip1/betx0_ip1; scyir1=bety_ip1/bety0_ip1;
+on_holdselect=1; jac_calls=   30;jac_tol=1e-14; jac_bisec=3;
+exec,selectIRAUX(3,4,5,6,7,b1,scxir5,scyir5,betx0_ip5,bety0_ip5);
+exec,selectIRAUX(3,4,5,6,7,b2,scxir5,scyir5,betx0_ip5,bety0_ip5);
+call,file="slhc/toolkit/rematch_ir4b1.madx";
+call,file="slhc/toolkit/rematch_ir4b2.madx";
+
+
+exec,check_ip(b1);
+jac_calls=10;
+dqxb1=0.03; dqyb1=0;  call,file=slhc/toolkit/rematch_arc23b1.madx;
+dqxb1=0.03; dqyb1=0; call,file=slhc/toolkit/rematch_arc34b1.madx;
+value,kqtf.a23b1*scale,kqtd.a23b1*scale;
+value,kqtf.a34b1*scale,kqtd.a34b1*scale;
+exec,check_ip(b1);
+
+exec,check_ip(b2);
+dqxb2=-0.050; dqyb2=0.00;call,file=slhc/toolkit/rematch_arc23b2.madx;
+dqxb2=-0.027; dqyb2=0.00;call,file=slhc/toolkit/rematch_arc34b2.madx;
+value,kqtf.a23b2*scale,kqtd.a23b2*scale;
+value,kqtf.a34b2*scale,kqtd.a34b2*scale;
+exec,check_ip(b2);
+
+
+call,file="slhc/toolkit/rematch_hllhc.madx";
+exec,save_optics_hllhc(opt_round_150_1500_v3.madx);
+
+
+
+exec,rebal_arcb12_trim(2,3,23);
+dqxb1=-0.00; dqyb1=-0.00;call,file=slhc/toolkit/rematch_arc23b1.madx;
+dqxb1=-0.00; dqyb1=-0.00;call,file=slhc/toolkit/rematch_arc23b2.madx;
+value,kqtf.a23b1*scale,kqtd.a23b1*scale;
+value,kqtf.a23b2*scale,kqtd.a23b2*scale;
+
+exec,rebal_arcb12_trim(3,4,34);
+dqxb1=-0.00; dqyb1=-0.00;call,file=slhc/toolkit/rematch_arc34b1.madx;
+dqxb1=-0.00; dqyb1=-0.00;call,file=slhc/toolkit/rematch_arc34b2.madx;
+value,kqtf.a34b1*scale,kqtd.a34b1*scale;
+value,kqtf.a34b2*scale,kqtd.a34b2*scale;
+
+
+
+
+
+value,muxip4b1,muxip4b2,muyip4b1,muyip4b2;
+
+call,file="slhc/toolkit/get_phase_hllhc.madx";
+ call,file=slhc/toolkit/get_phase_hllhc_tct6.madx;
+
+value,ddtct61b1-ddtct1b1;
+value,ddtct61b1a-ddtct1b1a;
+value,ddtct65b1-ddtct5b1;
+value,ddtct65b1a-ddtct5b1a;
+
+value,ddtct61b2-ddtct1b2;
+value,ddtct61b2a-ddtct1b2a;
+value,ddtct65b2-ddtct5b2;
+value,ddtct65b2a-ddtct5b2a;
+
+
+

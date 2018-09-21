@@ -1,0 +1,53 @@
+bugs:
+   orbit issues in flat
+
+ir3:
+  update IR3 from injection to ramp and squeeze
+
+orbit knobs:
+  review IR1/IR5 offset
+  add lumi scan knobs
+
+remote alignment:
+  install translation elements
+
+injection optics:
+  improve ir6, ir1/5 noms14f, ir7b2
+
+ir1/5:
+   ramp and squeeze to 0.5m (2m step), 30m (vdm)
+   (normal and ph2)
+
+ir8:
+   ir8 ramp and squeeze to 1.5, 0.5 (ion), 30m (vdm)
+
+ir2:
+   ir2 ramp and squeeze to 1.5, 0.5 (ion), 30m (vdm)
+
+optics directories:
+  ramp
+  ramp_ph2
+  round flat flatcc flatcchv (end of ramp to squeeze)
+  round_noms10 flat_noms10 flatcc_noms10 flatcchv_noms10
+  round_noms14 flat_noms14 flatcc_noms14 flatcchv_noms14
+  round_ph2 flat_ph2 flatcc_ph2 flatcchv_ph2 (from end of ramp)
+  vdm (inj to 30m)
+  ions (inj to 0.5m all IPs)
+  round_ats (ats start first)
+
+extra cases:
+  round7tev (Q7 214 T/m)
+
+squeeze:
+  script to plots bbsep during ramp
+  timings with ciruit parameters
+
+study:
+  crab cavitities layout
+  forward physics
+
+study:
+  review apertures and beta* reach with new settings
+
+website:
+  update

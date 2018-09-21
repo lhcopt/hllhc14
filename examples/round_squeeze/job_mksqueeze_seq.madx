@@ -1,0 +1,178 @@
+option, warn,info;
+system,"rm -rf temp"; system,"mkdir temp";
+system,"ln -fns /afs/cern.ch/eng/lhc/optics/HLLHCV1.4 slhc";
+system,"ln -fns /afs/cern.ch/eng/lhc/optics/HLLHCV1.3 slhc13";
+system,"ln -fns /afs/cern.ch/eng/lhc/optics/runIII lhc";
+
+Option, -echo,-warn,-info;
+call,file="lhc/lhc.seq";
+call,file="slhc/toolkit/macro.madx";
+call,file="slhc/toolkit/optics_log.madx";
+Option, -echo,warn,-info,no_fatal_stop;
+
+
+make_all(sq1): macro={
+exec,make_opticstbl_ir2(ir2sq1);
+exec,make_opticstbl_ir3(ir3sq1);
+exec,make_opticstbl_ir4(ir4sq1);
+exec,make_opticstbl_ir6(ir6sq1);
+exec,make_opticstbl_ir7(ir7sq1);
+exec,make_opticstbl_ir8(ir8sq1);
+exec,make_opticstbl_arc(arcsq1);
+};
+
+fill_all(sq1): macro={
+scxir5=betx_ip5/betx0_ip5; scyir5=bety_ip5/bety0_ip5;
+scxir1=betx_ip1/betx0_ip1; scyir1=bety_ip1/bety0_ip1;
+fill,table=ir2sq1;
+fill,table=ir3sq1;
+fill,table=ir4sq1;
+fill,table=ir6sq1;
+fill,table=ir7sq1;
+fill,table=ir8sq1;
+fill,table=arcsq1;
+};
+
+setvar_all(sq1): macro={
+setvars_lin,table=ir2sq1,row1=1,row2=2,param=ttt;
+setvars_lin,table=ir3sq1,row1=1,row2=2,param=ttt;
+setvars_lin,table=ir4sq1,row1=1,row2=2,param=ttt;
+setvars_lin,table=ir6sq1,row1=1,row2=2,param=ttt;
+setvars_lin,table=ir7sq1,row1=1,row2=2,param=ttt;
+setvars_lin,table=ir8sq1,row1=1,row2=2,param=ttt;
+setvars_lin,table=arcsq1,row1=1,row2=2,param=ttt;
+};
+
+exec,mk_beam(7000);
+seqedit,sequence=lhcb1; flatten; cycle,start=s.ds.l3.b1; endedit;
+seqedit,sequence=lhcb2; flatten; cycle,start=s.ds.l3.b2; endedit;
+
+call,file="slhc/hllhc_sequence.madx";
+call,file="slhc/ramp/opt_endoframp_500_1500.madx";
+exec,check_ip(b1); exec,check_ip(b2);
+
+exec,make_all(sq1);
+call,file="slhc/ramp/opt_endoframp_500_1500.madx";
+exec,fill_all(sq1);
+call,file="slhc/round/opt_round_150_1500.madx";
+call,file="opt_round_new.madx";
+exec,fill_all(sq1);
+
+
+
+make_opt(bbb): macro={
+value,scxir5,scyir5;
+on_holdselect=1; jac_calls=   20;jac_tol=1e-20; jac_bisec=3;
+exec,selectIRAUX(3,4,5,6,7,b1,scxir5,scyir5,betx0_ip5,bety0_ip5);
+exec,selectIRAUX(3,4,5,6,7,b2,scxir5,scyir5,betx0_ip5,bety0_ip5);
+!nomatch_ip=1; betx_bsrtb1=0; bety_bsrtb1=0; betx_el4b1=0; bety_el4b1=0;
+nomatch_ip=0; call,file="rematch_ir4b1.madx";
+call,file="rematch_ir4b2.madx";
+value,scxir5,scyir5;
+};
+
+
+return;
+delete,table=ir4sq2; exec,make_opticstbl_ir4(ir4sq2);
+
+bb=500; while(bb>=150){
+  exec,setvar_all(sq1);
+  muxip4b1           := 2.16*(1-(ttt))+2.06*(ttt) ;
+  if (muxip4b1<2.08){muxip4b1=2.08;};
+  ttt=(500-bb)/(500-150);
+  bbb=round(scxir5*betx0_ip5*100)*10;
+  value,bbb;
+  bb=bb-25;
+  exec,make_opt($bbb);
+  fill,table=ir4sq2;write,table=ir4sq2,file=ir4sq2.tfs;
+};
+
+
+exec,setvar_all(sq1); ttt=0.9; exec,make_opt($bbb);
+exec,setvar_all(sq1); ttt=0; exec,make_opt($bbb);
+
+exec,mk_irtwiss(4,b1);
+exec,mk_irtwiss(4,b2);
+
+
+
+
+value,kqtf.a23b1*scale,kqtd.a23b1*scale;
+value,kqtf.a34b1*scale,kqtd.a34b1*scale;
+value,kqtf.a67b1*scale,kqtd.a67b1*scale;
+value,kqtf.a78b1*scale,kqtd.a78b1*scale;
+
+exec,check_ip(b1);
+call,file="slhc/toolkit/get_phase_hllhc.madx";
+
+stop;
+
+call,file="slhc/round/opt_round_150_1500.madx";
+exec,selectIRAUX(3,4,5,6,7,b1,scxir5,scyir5,betx0_ip5,bety0_ip5);
+exec,selectIRAUX(3,4,5,6,7,b2,scxir5,scyir5,betx0_ip5,bety0_ip5);
+
+muxip4b1=2.08;
+nomatch_ip=0; call,file="rematch_ir4b1.madx";
+
+dqxb1=+0.040; dqyb1=0.00;call,file=rematch_arc23b1.madx;
+dqxb1=+0.040; dqyb1=0.00;call,file=rematch_arc34b1.madx;
+
+exec,check_ip(b1);
+
+exec,save_optics_hllhc(opt_round_new.madx);
+
+
+call,file="slhc/round/opt_round_150_1500.madx";
+exec,selectIRAUX(3,4,5,6,7,b1,scxir5,scyir5,betx0_ip5,bety0_ip5);
+exec,selectIRAUX(3,4,5,6,7,b2,scxir5,scyir5,betx0_ip5,bety0_ip5);
+
+muxip4b1=2.08;
+nomatch_ip=0; call,file="rematch_ir4b1.madx";
+
+dqxb1=+0.040; dqyb1=0.00;call,file=rematch_arc23b1.madx;
+dqxb1=+0.040; dqyb1=0.00;call,file=rematch_arc34b1.madx;
+
+exec,check_ip(b1);
+
+exec,save_optics_hllhc(opt_round_new.madx);
+
+
+
+call,file="slhc/round/opt_round_150_1500.madx";
+scxir5=betx_ip5/betx0_ip5; scyir5=bety_ip5/bety0_ip5;
+scxir1=betx_ip1/betx0_ip1; scyir1=bety_ip1/bety0_ip1;
+on_holdselect=1; jac_calls=   10;jac_tol=1e-20; jac_bisec=3;
+exec,selectIRAUX(3,4,5,6,7,b1,scxir5,scyir5,betx0_ip5,bety0_ip5);
+exec,selectIRAUX(3,4,5,6,7,b2,scxir5,scyir5,betx0_ip5,bety0_ip5);
+
+jac_calls=0;
+bxdumpb1=0; bydumpb1=0;
+betxtcdqb1=0; betytcdsb1=0;
+dmuxkickb1_tcsg=0;
+betytcdqb1=0;
+call,file="rematch_ir6b1m.madx";
+
+call,file="slhc/toolkit/rematch_ir6b1.madx";
+
+jac_calls=40;
+bxdumpb2=0; bydumpb2=0;
+betxtcdqb2=0; betytcdsb2=0;
+dmuxkickb2_tcsg=0;
+betytcdqb2=0;
+betxtcdqb2=485;
+refdmuxkickb2_bds=1.38131420332318;
+call,file="rematch_ir6b2m.madx";
+value,reftcdqgapb2;
+
+call,file="slhc/toolkit/rematch_ir6b2.madx";
+
+
+
+dqxb2=+0.010; dqyb2=0.00;call,file=rematch_arc23b2.madx;
+dqxb2=-0.010; dqyb2=0.00;call,file=rematch_arc78b2.madx;
+
+
+
+call,file="slhc/toolkit/get_phase_hllhc.madx";
+
+exec,save_optics_hllhc(opt_round_2.madx);

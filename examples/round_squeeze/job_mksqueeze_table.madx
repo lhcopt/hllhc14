@@ -1,0 +1,56 @@
+option, warn,info;
+system,"rm -rf temp"; system,"mkdir temp";
+system,"ln -fns /afs/cern.ch/eng/lhc/optics/HLLHCV1.4 slhc";
+system,"ln -fns /afs/cern.ch/eng/lhc/optics/HLLHCV1.3 slhc13";
+system,"ln -fns /afs/cern.ch/eng/lhc/optics/runIII lhc";
+
+Option, -echo,-warn,-info;
+call,file="lhc/lhc.seq";
+call,file="slhc/toolkit/macro.madx";
+call,file="slhc/toolkit/optics_log.madx";
+Option, -echo,warn,-info,no_fatal_stop;
+
+
+exec,mk_beam(7000);
+seqedit,sequence=lhcb1; flatten; cycle,start=s.ds.l3.b1; endedit;
+seqedit,sequence=lhcb2; flatten; cycle,start=s.ds.l3.b2; endedit;
+
+call,file="slhc/hllhc_sequence.madx";
+call,file="slhc/ramp/opt_endoframp_500_1500.madx";
+exec,check_ip(b1); exec,check_ip(b2);
+
+exec,make_opticstbl_all(sq1);
+
+make_opt(bbb): macro={
+call,file="run/bbb/opt_round_bbb_1500.madx";
+scxir5=betx_ip5/betx0_ip5; scyir5=bety_ip5/bety0_ip5;
+scxir1=betx_ip1/betx0_ip1; scyir1=bety_ip1/bety0_ip1;
+on_holdselect=1; jac_calls=   0;jac_tol=1e-20; jac_bisec=3;
+exec,selectIRAUX(3,4,5,6,7,b1,scxir5,scyir5,betx0_ip5,bety0_ip5);
+exec,selectIRAUX(3,4,5,6,7,b2,scxir5,scyir5,betx0_ip5,bety0_ip5);
+exec,selectIRAUX(7,8,1,2,3,b1,scxir1,scyir1,betx0_ip1,bety0_ip1);
+exec,selectIRAUX(7,8,1,2,3,b2,scxir1,scyir1,betx0_ip1,bety0_ip1);
+exec,select(7,67,78,b1);
+exec,select(7,67,78,b2);
+exec,select(3,23,34,b1);
+exec,select(3,23,34,b2);
+call,file="slhc/toolkit/rematch_ir4b1.madx";
+call,file="slhc/toolkit/rematch_ir4b2.madx";
+call,file="slhc/toolkit/rematch_ir6b1m.madx";
+call,file="slhc/toolkit/rematch_ir6b2m.madx";
+call,file="slhc/toolkit/rematch_ir3b1.madx";
+call,file="slhc/toolkit/rematch_ir3b2.madx";
+call,file="slhc/toolkit/rematch_ir7b1.madx";
+call,file="slhc/toolkit/rematch_ir7b2.madx";
+call,file="slhc/toolkit/rematch_ir2b12.madx";
+call,file="slhc/toolkit/rematch_ir8b12.madx";
+call,file="slhc/toolkit/get_phase_hllhc.madx";
+exec,fill_opticstbl_all(sq1);
+};
+
+bbb=500; while(bbb>=150){
+  exec,make_opt($bbb);
+  bbb=bbb-10;
+  exec,write_opticstbl_all(sq1);
+};
+
