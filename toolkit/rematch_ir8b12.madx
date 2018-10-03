@@ -58,6 +58,12 @@ constraint,sequence=lhcb2,range=e.ds.r8.b2,betx=eir8b2->betx,bety=eir8b2->bety;
 constraint,sequence=lhcb2,range=e.ds.r8.b2,dx=eir8b2->dx,dpx=eir8b2->dpx;
 constraint,sequence=lhcb2,range=e.ds.r8.b2,   mux=muxip8b2+eir8b2->mux;
 constraint,sequence=lhcb2,range=e.ds.r8.b2,   muy=muyip8b2+eir8b2->muy;
+if (apq5>50){
+constraint, sequence=lhcb1, range=MQM.A5L8.B1,betx<apq5;
+constraint, sequence=lhcb1, range=MQY.A5R8.B1,bety<apq5;
+constraint, sequence=lhcb2, range=MQM.A5L8.B2,bety<apq5;
+constraint, sequence=lhcb2, range=MQY.A5R8.B2,betx<apq5;
+};
 if (apq6>50){
 constraint, sequence=lhcb1, range=mqm.6r8.b1,betx<apq6;
 constraint, sequence=lhcb1, range=mqm.6l8.b1,bety<apq6;
