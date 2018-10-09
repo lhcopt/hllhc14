@@ -3091,8 +3091,8 @@ on_airnh  :=-on_airn*sphi_IRirn;
 on_airnv  := on_airn*cphi_IRirn;
 !show,on_xirn,on_sepirn,phi_IRirn;
 show,cphi_IRirn,sphi_IRirn;
-show,on_xirnhs,on_xirnhl,on_sepirnh,on_airnh,on_oirnh;
-show,on_xirnvs,on_xirnvl,on_sepirnv,on_airnv,on_oirnv;
+show,on_xirnh,on_sepirnh,on_airnh,on_oirnh;
+show,on_xirnv,on_sepirnv,on_airnv,on_oirnv;
 };
 
 _save_optics_disp: macro={
