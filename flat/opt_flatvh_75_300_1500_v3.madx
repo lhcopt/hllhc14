@@ -793,7 +793,7 @@ v_crabv.l5b1        =         -0.03521984748543939 ;
 v_crabv.l5b2        =         -0.03507048639740163 ;
 v_crabv.r5b1        =         -0.03507048639741538 ;
 v_crabv.r5b2        =         -0.03521984748543216 ;
-betxIP5b1 =   0.300000; betyIP5b1 =   0.075000; alfxIP5b1 =  -0.000000; alfyIP5b1 =  -0.000000; dxIP5b1   =   0.000000; dpxIP5b1  =  -0.000000;
+betxIP5b1 =   0.300000; betyIP5b1 =   0.075000; alfxIP5b1 =  -0.000000; alfyIP5b1 =   0.000000; dxIP5b1   =   0.000000; dpxIP5b1  =  -0.000000;
 betxIP5b2 =   0.300000; betyIP5b2 =   0.075000; alfxIP5b2 =  -0.000000; alfyIP5b2 =   0.000000; dxIP5b2   =   0.000001; dpxIP5b2  =  -0.000004;
 muxIP5b1  =   2.642700; muyIP5b1  =   2.642000; muxIP5b1_L=   1.156900; muyIP5b1_L=   1.486700; muxIP5b1_R=   1.485800; muyIP5b1_R=   1.155300;
 muxIP5b2  =   2.642700; muyIP5b2  =   2.642000; muxIP5b2_L=   1.488400; muyIP5b2_L=   1.156300; muxIP5b2_R=   1.154300; muyIP5b2_R=   1.485700;

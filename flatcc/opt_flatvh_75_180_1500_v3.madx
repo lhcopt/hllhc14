@@ -794,7 +794,7 @@ v_crabv.l5b2        =         -0.03507048639733895 ;
 v_crabv.r5b1        =         -0.03507048639733019 ;
 v_crabv.r5b2        =         -0.03521984748544821 ;
 betxIP5b1 =   0.180000; betyIP5b1 =   0.075000; alfxIP5b1 =   0.000000; alfyIP5b1 =   0.000000; dxIP5b1   =   0.000000; dpxIP5b1  =   0.000000;
-betxIP5b2 =   0.180000; betyIP5b2 =   0.075000; alfxIP5b2 =   0.000000; alfyIP5b2 =  -0.000000; dxIP5b2   =  -0.000000; dpxIP5b2  =  -0.000000;
+betxIP5b2 =   0.180000; betyIP5b2 =   0.075000; alfxIP5b2 =  -0.000000; alfyIP5b2 =  -0.000000; dxIP5b2   =  -0.000000; dpxIP5b2  =  -0.000000;
 muxIP5b1  =   2.642700; muyIP5b1  =   2.642000; muxIP5b1_L=   1.156900; muyIP5b1_L=   1.486700; muxIP5b1_R=   1.485800; muyIP5b1_R=   1.155300;
 muxIP5b2  =   2.642700; muyIP5b2  =   2.642000; muxIP5b2_L=   1.488400; muyIP5b2_L=   1.156300; muxIP5b2_R=   1.154300; muyIP5b2_R=   1.485700;
 
@@ -1591,7 +1591,7 @@ kqt13.l7b1          =       -0.0008075514724718984 ;
 kqt13.r7b1          =         0.000543956512444298 ;
 kqt13.l7b2          =        -0.001214666077113973 ;
 kqt13.r7b2          =        -0.002315291702563233 ;
-betxIP7b1 = 120.813244; betyIP7b1 = 149.430514; alfxIP7b1 =   1.276977; alfyIP7b1 =  -1.385147; dxIP7b1   =  -0.203875; dpxIP7b1  =   0.000000;
+betxIP7b1 = 120.813244; betyIP7b1 = 149.430514; alfxIP7b1 =   1.276977; alfyIP7b1 =  -1.385147; dxIP7b1   =  -0.203875; dpxIP7b1  =  -0.000000;
 betxIP7b2 = 120.813241; betyIP7b2 = 149.430330; alfxIP7b2 =  -1.276977; alfyIP7b2 =   1.385146; dxIP7b2   =  -0.011939; dpxIP7b2  =  -0.000000;
 muxIP7b1  =   2.455000; muyIP7b1  =   1.970000; muxIP7b1_L=   1.213153; muyIP7b1_L=   0.987934; muxIP7b1_R=   1.241847; muyIP7b1_R=   0.982066;
 muxIP7b2  =   2.455000; muyIP7b2  =   1.970000; muxIP7b2_L=   1.243681; muyIP7b2_L=   0.935466; muxIP7b2_R=   1.211319; muyIP7b2_R=   1.034534;

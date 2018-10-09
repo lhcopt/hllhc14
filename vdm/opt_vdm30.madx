@@ -999,7 +999,7 @@ acbv32.l2b1         =                            0 ;
 acbh32.r2b1         =                            0 ;
 acbv32.r2b2         =                            0 ;
 betxIP2b1 =  30.000000; betyIP2b1 =  30.000000; alfxIP2b1 =   0.000000; alfyIP2b1 =  -0.000000; dxIP2b1   =   0.000000; dpxIP2b1  =  -0.000000;
-betxIP2b2 =  30.000000; betyIP2b2 =  30.000000; alfxIP2b2 =   0.000000; alfyIP2b2 =   0.000000; dxIP2b2   =   0.000000; dpxIP2b2  =  -0.000000;
+betxIP2b2 =  30.000000; betyIP2b2 =  30.000000; alfxIP2b2 =   0.000000; alfyIP2b2 =   0.000000; dxIP2b2   =   0.000000; dpxIP2b2  =   0.000000;
 muxIP2b1  =   2.950000; muyIP2b1  =   2.700000; muxIP2b1_L=   1.614267; muyIP2b1_L=   1.117244; muxIP2b1_R=   1.335733; muyIP2b1_R=   1.582756;
 muxIP2b2  =   2.950000; muyIP2b2  =   2.700000; muxIP2b2_L=   1.331316; muyIP2b2_L=   1.553721; muxIP2b2_R=   1.618684; muyIP2b2_R=   1.146279;
 
@@ -1203,7 +1203,7 @@ acbh32.l8b2         =                            0 ;
 acbv32.l8b1         =                            0 ;
 acbh32.r8b1         =                            0 ;
 acbv32.r8b2         =                            0 ;
-betxIP8b1 =  30.000000; betyIP8b1 =  30.000000; alfxIP8b1 =   0.000000; alfyIP8b1 =  -0.000000; dxIP8b1   =  -0.000000; dpxIP8b1  =  -0.000000;
+betxIP8b1 =  30.000000; betyIP8b1 =  30.000000; alfxIP8b1 =  -0.000000; alfyIP8b1 =  -0.000000; dxIP8b1   =  -0.000000; dpxIP8b1  =  -0.000000;
 betxIP8b2 =  30.000000; betyIP8b2 =  30.000000; alfxIP8b2 =   0.000000; alfyIP8b2 =  -0.000000; dxIP8b2   =   0.000000; dpxIP8b2  =  -0.000000;
 muxIP8b1  =   3.020000; muyIP8b1  =   2.800000; muxIP8b1_L=   1.652044; muyIP8b1_L=   1.199332; muxIP8b1_R=   1.367956; muyIP8b1_R=   1.600668;
 muxIP8b2  =   3.020000; muyIP8b2  =   2.800000; muxIP8b2_L=   1.386032; muyIP8b2_L=   1.506781; muxIP8b2_R=   1.633968; muyIP8b2_R=   1.293219;
