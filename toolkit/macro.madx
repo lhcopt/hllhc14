@@ -2914,10 +2914,10 @@ show,phi_IR8,on_x8,on_sep8,on_o8,on_a8;
 
 print, text="";
 print, text=" !***Orbit configuration ***";
-exec,_save_optics_orbconf(1);
-exec,_save_optics_orbconf(2);
-exec,_save_optics_orbconf(5);
-exec,_save_optics_orbconf(8);
+exec,_save_optics_orbconf15(1);
+exec,_save_optics_orbconf28(2);
+exec,_save_optics_orbconf15(5);
+exec,_save_optics_orbconf28(8);
 exec,_save_optics_disp;
 !show,on_ccp1h,on_ccm1h,on_ccs1hlb1,on_ccs1hlb2,on_ccs1hrb1,on_ccs1hrb2;
 !show,on_ccp1v,on_ccm1v,on_ccs1vlb1,on_ccs1vlb2,on_ccs1vrb1,on_ccs1vrb2;
@@ -3053,13 +3053,12 @@ print,text="";
 
 
 
-_save_optics_orbconf(irn): macro={
+_save_optics_orbconf15(irn): macro={
 cphi_IRirn:=cos(phi_IRirn*pi/180.);
 sphi_IRirn:=sin(phi_IRirn*pi/180.);
 !on_xirn   =on_xirn   ;
 !on_sepirn =on_sepirn ;
 !phi_IRirn =phi_IRirn ;
-xingsl=0.9;
 on_xirnhs  :=(1-cd2q4)*on_xirn*cphi_IRirn;
 on_xirnvs  :=(1-cd2q4)*on_xirn*sphi_IRirn;
 on_xirnhl  :=(cd2q4)*on_xirn*cphi_IRirn;
@@ -3076,6 +3075,25 @@ show,on_xirnhs,on_xirnhl,on_sepirnh,on_airnh,on_oirnh;
 show,on_xirnvs,on_xirnvl,on_sepirnv,on_airnv,on_oirnv;
 };
 
+_save_optics_orbconf28(irn): macro={
+cphi_IRirn:=cos(phi_IRirn*pi/180.);
+sphi_IRirn:=sin(phi_IRirn*pi/180.);
+!on_xirn   =on_xirn   ;
+!on_sepirn =on_sepirn ;
+!phi_IRirn =phi_IRirn ;
+on_xirnh  :=on_xirn*cphi_IRirn;
+on_xirnv  :=on_xirn*sphi_IRirn;
+on_sepirnh:=-on_sepirn*sphi_IRirn;
+on_sepirnv:= on_sepirn*cphi_IRirn;
+on_oirnh  := on_oirn*cphi_IRirn;
+on_oirnv  := on_oirn*sphi_IRirn;
+on_airnh  :=-on_airn*sphi_IRirn;
+on_airnv  := on_airn*cphi_IRirn;
+!show,on_xirn,on_sepirn,phi_IRirn;
+show,cphi_IRirn,sphi_IRirn;
+show,on_xirnhs,on_xirnhl,on_sepirnh,on_airnh,on_oirnh;
+show,on_xirnvs,on_xirnvl,on_sepirnv,on_airnv,on_oirnv;
+};
 
 _save_optics_disp: macro={
 on_dx1hs:=on_disp*on_x1hs;
