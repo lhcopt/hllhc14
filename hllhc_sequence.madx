@@ -666,14 +666,15 @@ MBXF : RBEND,   L := l.MBXF ;  ! D1
 
 ! service module for current distribution in the non-IP side of D1
 l.DFXJ = 3.658;    ! not finalized
-DFXJ : PLACEHOLDER, L:= l.DFXJ;
+!DFXJ : PLACEHOLDER, L:= l.DFXJ;
+DFXJ : MARKER, L:= 0;
 
 ! Layout
 ! MCSSXF | .5} .1 {.5 D1 .5} 1 DFXJ
 
 !posD1 := posMCSSXF+(l.MBXF+l.MCSSXF)/2.+2;
 posD1 = posQ3b+(l.MQXFA+l.MBXF)/2+1.047+7.954+1.050;
-posVMBXFend = 82;
+posVMBXF = 82;
 
 posDFXJ := 82.127+l.DFXJ/2;
 !posBPMWC := posD1 + l.MBXF/2 + 0.90; ! to be checked with long range

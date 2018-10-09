@@ -1,32 +1,74 @@
-align_elem(RREF,EELEM): macro={
-ttt=table(survey,RREF,theta); ctt=cos(ttt);stt=sin(ttt);
-xvz=stt; xvx=-ctt; zvz=ctt; zvx=stt; ! x and s directions
-zzz=table(survey,EELEM,z)-table(survey,RREF,z);
-xxx=table(survey,EELEM,x)-table(survey,RREF,x);
-dx_EELEM=zzz*xvz+xxx*xvx;
-sx_EELEM=zzz*zvz+xxx*zvx;
-ddx_EELEM=EELEM->mech_sep/2 - dx_EELEM;
-value,sx_EELEM,dx_EELEM,ddx_EELEM;
-EELEM,APER_OFFSET={ddx_EELEM,0};
+! Macro to set aperture offset based on mech_sep attribute
+
+
+set_refb(rref,bim): macro={
+ttt=table(survey,iprref,theta); ctt=cos(ttt);stt=sin(ttt);
+xvziprrefbim=-stt; xvxiprrefbim=ctt; ! x directions
+zvziprrefbim=ctt; zvxiprrefbim=stt;  ! z directions
+zzziprrefbim=table(survey,iprref,z); ! x position
+xxxiprrefbim=table(survey,iprref,x); ! z position
 };
 
-align_elem_off(RREF,EELEM,OOFF): macro={
-ttt=table(survey,RREF,theta); ctt=cos(ttt);stt=sin(ttt);
-xvz=stt; xvx=-ctt; zvz=ctt; zvx=stt; ! x and s directions
-zzz=table(survey,EELEM,z)-table(survey,RREF,z);
-xxx=table(survey,EELEM,x)-table(survey,RREF,x);
-dx_EELEM=zzz*xvz+xxx*xvx;
-sx_EELEM=zzz*zvz+xxx*zvx;
-ddx_EELEM=OOFF - dx_EELEM;
-value,sx_EELEM,dx_EELEM,ddx_EELEM;
-EELEM,APER_OFFSET={ddx_EELEM,0};
+set_ref(rref): macro={
+xvziprref=.5*(xvziprrefb1+xvziprrefb2);
+xvxiprref=.5*(xvxiprrefb1+xvxiprrefb2);
+zvxiprref=.5*(zvxiprrefb1+zvxiprrefb2);
+zvziprref=.5*(zvziprrefb1+zvziprrefb2);
+xxxiprref=.5*(xxxiprrefb1+xxxiprrefb2);
+zzziprref=.5*(zzziprrefb1+zzziprrefb2);
 };
 
-do_elem_idx(ttt,ic,ipn,bim,rref): macro = {
-  aaa=e.ds.lipn.bbim; bbb=s.ds.ripn.bim;
-  sss=table(ttt,s,ic);
-  if(sss >= aaa && sss <= bbb){
-    exec,align_elem(rref,tabstring(ttt,name,ic));
+
+align_elem(rref,eelem): macro={
+!sss=table(survey,eelem,s);
+!print,text="rref,eelem";
+!value,sss;
+aper1=table(twiss,eelem,aper_1);
+if (aper1<1 && aper1>0){
+!  ttt=table(survey,rref,theta); ctt=cos(ttt);stt=sin(ttt);
+!!  value,sss,ttt;
+!  xvz=-stt; xvx=ctt; ! x versor directions
+!  zvz=ctt; zvx=stt; ! s versor directions
+!  zzz=table(survey,eelem,z)-table(survey,rref,z);
+!  xxx=table(survey,eelem,x)-table(survey,rref,x);
+!  value,zzz,xxx;
+!  dx_eelem=zzz*xvz+xxx*xvx;
+!  sx_eelem=zzz*zvz+xxx*zvx;
+  zzz=table(survey,eelem,z)-zzzrref;
+  xxx=table(survey,eelem,x)-xxxrref;
+!  value,zzz,xxx;
+!  value,xvz,xvzrref,xvzrrefb1,xvzrrefb2;
+  dx_eelem=zzz*xvzrref+xxx*xvxrref;
+  sx_eelem=zzz*zvzrref+xxx*zvxrref;
+  uoffset=eelem->mech_sep/2;
+  ddx_eelem=uoffset - dx_eelem;
+  printf,text="eelem, u=%g, x=%g, dx=%g",
+         value=uoffset, dx_eelem,ddx_eelem;
+  !value,uoffset,sx_eelem,dx_eelem,ddx_eelem;
+  !value,ddx_eelem;
+  eelem,aper_offset={ddx_eelem,0};
+}
+};
+
+align_elem_off(rref,eelem,ooff): macro={
+ttt=table(survey,rref,theta); ctt=cos(ttt);stt=sin(ttt);
+xvz=stt; xvx=-ctt; zvz=ctt; zvx=stt; ! x and s directions
+zzz=table(survey,eelem,z)-table(survey,rref,z);
+xxx=table(survey,eelem,x)-table(survey,rref,x);
+dx_eelem=zzz*xvz+xxx*xvx;
+sx_eelem=zzz*zvz+xxx*zvx;
+ddx_eelem=ooff - dx_eelem;
+value,sx_eelem,dx_eelem,ddx_eelem;
+eelem,aper_offset={ddx_eelem,0};
+};
+
+do_elem_idx(ttt,ic,ipn,bim,aaa,bbb): macro = {
+  sss=table(ttt,s,ic)-pipipn;
+  if(sss>= aaa && sss <= bbb){ !Right
+    exec,align_elem(ipipn,tabstring(ttt,name,ic));
+  };
+  if(sss >= -bbb && sss <= -aaa){ !Left
+    exec,align_elem(ipipn,tabstring(ttt,name,ic));
   };
 };
 
@@ -50,76 +92,54 @@ align_group_off(RREF,EELEM,OOFF): macro={
 align_mbh(mbn,irn,bim): macro={
   mbh_hsag_mm=mbh_hsag*1000;
   if (mbh_irirnqmbn >0){
-  exec, align_group_off(MBH.AmbnRirn.bim,MBH.AmbnRirn.bim,mbh_shift);
-  exec, align_group_off(MBH.AmbnLirn.bim,MBH.AmbnLirn.bim,mbh_shift);
-  exec, align_group_off(MBH.BmbnRirn.bim,MBH.BmbnRirn.bim,mbh_shift);
-  exec, align_group_off(MBH.BmbnLirn.bim,MBH.BmbnLirn.bim,mbh_shift);
+  exec, align_group_off(MBH.AmbnRirn.bim,MBH.AmbnRirn.bim,mbh_hsag_mm);
+  exec, align_group_off(MBH.AmbnLirn.bim,MBH.AmbnLirn.bim,mbh_hsag_mm);
+  exec, align_group_off(MBH.BmbnRirn.bim,MBH.BmbnRirn.bim,mbh_hsag_mm);
+  exec, align_group_off(MBH.BmbnLirn.bim,MBH.BmbnLirn.bim,mbh_hsag_mm);
   };
 };
 
 
+! calculation of the reference points
 
-seqedit, sequence=lhcb1;cycle,start=IP1; endedit;
-use,sequence=lhcb1;
+!seqedit, sequence=lhcb1;cycle,start=IP1; endedit;
+use,sequence=lhcb1; survey;
+ic=1;while(ic<=8){exec,set_refb($ic,b1);ic=ic+1;};
+use,sequence=lhcb2; survey;
+ic=1;while(ic<=8){exec,set_refb($ic,b2);ic=ic+1;};
+ic=1;while(ic<=8){exec,set_ref($ic);ic=ic+1;};
 
-survey,file="survey_lhcb1.tfs";
+
+! calculation of Beam 1 offsets
+
+use,sequence=lhcb1;survey,file="survey_lhcb1.tfs";
 readmytable,table="mysurveyb1",file="survey_lhcb1.tfs";
+
+! Fix due to different signs of mech sep for common elements
+x2zdc.4r2,mech_sep=-0.154;!to be checked
+x2zdc.4l2,mech_sep= 0.154;!to be checked
+
+
 
 imax=table(mysurveyb1,tablelength);value,imax;
 ic=1;
 while(ic<=imax) {
-   exec, do_elem_idx(mysurveyb1,$ic,1,b1);
-   exec, do_elem_idx(mysurveyb1,$ic,2,b1);
-   exec, do_elem_idx(mysurveyb1,$ic,3,b1);
-   exec, do_elem_idx(mysurveyb1,$ic,4,b1);
-   exec, do_elem_idx(mysurveyb1,$ic,5,b1);
-   exec, do_elem_idx(mysurveyb1,$ic,6,b1);
-   exec, do_elem_idx(mysurveyb1,$ic,7,b1);
-   exec, do_elem_idx(mysurveyb1,$ic,8,b1);
+   exec, do_elem_idx(mysurveyb1,$ic,1,b1,75,163);
+   exec, do_elem_idx(mysurveyb1,$ic,2,b1,58,130);
+   exec, do_elem_idx(mysurveyb1,$ic,3,b1,155,192);
+   exec, do_elem_idx(mysurveyb1,$ic,4,b1,61,124);
+   exec, do_elem_idx(mysurveyb1,$ic,5,b1,75,163);
+   exec, do_elem_idx(mysurveyb1,$ic,6,b1,155,192);
+   exec, do_elem_idx(mysurveyb1,$ic,7,b1,155,192);
+   exec, do_elem_idx(mysurveyb1,$ic,8,b1,58,130);
   ic=ic+1;
 };
 
- exec,align_mbh(8,1,b1); exec,align_mbh(9,1,b1); exec,align_mbh(10,1,b1);
- exec,align_mbh(8,2,b1); exec,align_mbh(10,2,b1);
- exec,align_mbh(8,5,b1); exec,align_mbh(9,5,b1); exec,align_mbh(10,5,b1);
- exec,align_mbh(8,7,b1); exec,align_mbh(10,7,b1);
+!exec,align_mbh(8,7,b1);
+return;
 
-
-seqedit, sequence=lhcb2;cycle,start=IP1; endedit;
-use,sequence=lhcb2;
-
-survey,file="survey_lhcb2.tfs";
-readmytable,table="mysurveyb2",file="survey_lhcb2.tfs";
-
-imax=table(mysurveyb2,tablelength);value,imax;
-ic=1;
-while(ic<=imax) {
-   exec, do_elem_idx(mysurveyb2,$ic,1,b2);
-   exec, do_elem_idx(mysurveyb2,$ic,2,b2);
-   exec, do_elem_idx(mysurveyb2,$ic,3,b2);
-   exec, do_elem_idx(mysurveyb2,$ic,4,b2);
-   exec, do_elem_idx(mysurveyb2,$ic,5,b2);
-   exec, do_elem_idx(mysurveyb2,$ic,6,b2);
-   exec, do_elem_idx(mysurveyb2,$ic,7,b2);
-   exec, do_elem_idx(mysurveyb2,$ic,8,b2);
-  ic=ic+1;
-};
-
- exec,align_mbh(8,1,b2); exec,align_mbh(9,1,b1); exec,align_mbh(10,1,b2);
- exec,align_mbh(8,2,b2); exec,align_mbh(10,2,b2);
- exec,align_mbh(8,5,b2); exec,align_mbh(9,5,b2); exec,align_mbh(10,5,b2);
- exec,align_mbh(8,7,b2); exec,align_mbh(10,7,b2);
-
-!aa=pip1+ 58; bb=pip1+163;
-!aa=pip2-130; bb=pip2- 58;
-!aa=pip2+ 58; bb=pip2+130;
-!aa=pip3-192; bb=pip3-155;
-!aa=pip3+155; bb=pip3+192;
-!aa=pip4-124; bb=pip4- 61;
-!aa=pip4  61; bb=pip4 124;
-!aa=pip5-163; bb=pip5- 58;
-!aa=pip5+ 58; bb=pip5+163;
-!aa=pip6-215; bb=pip6-155;
-!aa=pip6 155; bb=pip6+192;
-!aa=pip7-192; bb=pip7-155;
-!aa=pip7 155; bb=pip7+192;
+! to be checked
+exec,align_mbh(8,1,b1); exec,align_mbh(9,1,b1); exec,align_mbh(10,1,b1);
+exec,align_mbh(8,2,b1); exec,align_mbh(10,2,b1);
+exec,align_mbh(8,5,b1); exec,align_mbh(9,5,b1); exec,align_mbh(10,5,b1);
+exec,align_mbh(8,7,b1); exec,align_mbh(10,7,b1);
