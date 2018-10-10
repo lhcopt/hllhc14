@@ -327,6 +327,8 @@ TAXN.4R1,  APERTYPE=RECTELLIPSE, APERTURE:={a_TAN,b_TAN,a_TAN,a_TAN},APER_TOL:={
 TAXN.4L5 , APERTYPE=RECTELLIPSE, APERTURE:={a_TAN,b_TAN,a_TAN,a_TAN},APER_TOL:={r_tol_TAN,h_tol_TAN,v_tol_TAN};
 TAXN.4R5 , APERTYPE=RECTELLIPSE, APERTURE:={a_TAN,b_TAN,a_TAN,a_TAN},APER_TOL:={r_tol_TAN,h_tol_TAN,v_tol_TAN};
 
+exec,aperture_2in1_def(VTAXNA.4,RECTELLIPSE,a_TAN,b_TAN,a_TAN,a_TAN,r_tol_TAN,h_tol_TAN,v_tol_TAN);
+
 ! Set TCT and TCL opened apertures
 g_TC=0.04; r_TC=0.045;
 r_tol_TC:=0.00084+r_tol_TC_mod;
