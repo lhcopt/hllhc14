@@ -97,7 +97,8 @@ setvars_const,table=knob_on_xirnhvnnn;
 
 };
 
-match_psep(irn,hv,xy,psep,nnn): macro={
+
+match_psep(irn,hv,xy,psep): macro={
 delete,table=knob_on_sepirnhv;
 create,table=knob_on_sepirnhv,
        column=acbxhv1.lirn,acbxhv1.rirn,
@@ -122,33 +123,24 @@ match, sequence=lhcb1,lhcb2, beta0= birirnb1,birirnb2,
   constraint, sequence=lhcb2,range=ipirn, xy  = -psep*xyhv, pxy=0;
   constraint, sequence=lhcb1,range=e.ds.rirn.b1,xy = 0.0, pxy = 0.0;
   constraint, sequence=lhcb2,range=e.ds.rirn.b2,xy = 0.0, pxy = 0.0;
-  vary, name=acbxhv1.lirn,step=1.e-12,lower=-CLIMmcbxfb,upper=CLIMmcbxfb;
-  vary, name=acbxhv1.rirn,step=1.e-12,lower=-CLIMmcbxfb,upper=CLIMmcbxfb;
+  vary, name=acbxhv1.lirn,step=1.e-12,lower=-climmcbxfb,upper=climmcbxfb;
   acbxhv2.lirn:=cmcb12*acbxhv1.lirn;
+  vary, name=acbxhv3.lirn,step=1.e-12,lower=-climmcbxfa,upper=climmcbxfa;
+  vary, name=acbxhv1.rirn,step=1.e-12,lower=-climmcbxfb,upper=climmcbxfb;
   acbxhv2.rirn:=cmcb12*acbxhv1.rirn;
-  vary, name=acbxhv3.lirn,step=1.e-12,lower=-CLIMmcbxfa,upper=CLIMmcbxfa;
-  vary, name=acbxhv3.rirn,step=1.e-12,lower=-CLIMmcbxfa,upper=CLIMmcbxfa;
-
-  vary, name=acbrdhv4.lirnb1aux,step=1.e-12,lower=-CLIMmcbrd,upper=CLIMmcbrd;
-  vary, name=acbrdhv4.lirnb2aux,step=1.e-12,lower=-CLIMmcbrd,upper=CLIMmcbrd;
-  vary, name=acbrdhv4.rirnb1aux,step=1.e-12,lower=-CLIMmcbrd,upper=CLIMmcbrd;
-  vary, name=acbrdhv4.rirnb2aux,step=1.e-12,lower=-CLIMmcbrd,upper=CLIMmcbrd;
-
-  acbrdhv4.lirnb1:=(1-cd2q4)*acbrdhv4.lirnb1aux;
-  acbrdhv4.lirnb2:=(1-cd2q4)*acbrdhv4.lirnb2aux;
-  acbrdhv4.rirnb1:=(1-cd2q4)*acbrdhv4.rirnb1aux;
-  acbrdhv4.rirnb2:=(1-cd2q4)*acbrdhv4.rirnb2aux;
-
-  acbyhvs4.lirnb1:=cd2q4*acbrdhv4.lirnb1aux;
-  acbyhvs4.lirnb2:=cd2q4*acbrdhv4.lirnb2aux;
-  acbyhvs4.rirnb1:=cd2q4*acbrdhv4.rirnb1aux;
-  acbyhvs4.rirnb2:=cd2q4*acbrdhv4.rirnb2aux;
-
+  vary, name=acbxhv3.rirn,step=1.e-12,lower=-climmcbxfa,upper=climmcbxfa;
+  vary, name=acbrdhv4.lirnb1,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
+  vary, name=acbrdhv4.lirnb2,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
+  vary, name=acbrdhv4.rirnb1,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
+  vary, name=acbrdhv4.rirnb2,step=1.e-12,lower=-climmcbrd,upper=climmcbrd;
+  acbyhvs4.lirnb1:=cd2q4*acbrdhv4.lirnb1;
+  acbyhvs4.lirnb2:=cd2q4*acbrdhv4.lirnb2;
+  acbyhvs4.rirnb1:=cd2q4*acbrdhv4.rirnb1;
+  acbyhvs4.rirnb2:=cd2q4*acbrdhv4.rirnb2;
   acbyhv4.lirnb1 :=acbyhvs4.lirnb1;
   acbyhv4.lirnb2 :=acbyhvs4.lirnb2;
   acbyhv4.rirnb1 :=acbyhvs4.rirnb1;
   acbyhv4.rirnb2 :=acbyhvs4.rirnb2;
-
   jacobian, calls = 10, tolerance=1.e-30,bisec=3;
   endmatch;
   tar_on_sepirnhv=tar;
@@ -158,6 +150,7 @@ match, sequence=lhcb1,lhcb2, beta0= birirnb1,birirnb2,
 fill,table=knob_on_sepirnhv,scale=1/psep;
 setvars_const,table=knob_on_sepirnhv;
 };
+
 
 
 match_off(irn,hv,xy,off): macro={
@@ -608,10 +601,12 @@ exec,match_psep(1,v,y,2);
 exec,match_psep(5,h,x,2);
 exec,match_psep(5,v,y,2);
 
+
 exec,match_aoff(1,h,x,1);
 exec,match_aoff(1,v,y,1);
 exec,match_aoff(5,h,x,1);
 exec,match_aoff(5,v,y,1);
+
 
 exec,match_ccpm(1,h,x,ccp);
 exec,match_ccpm(1,v,y,ccp);
