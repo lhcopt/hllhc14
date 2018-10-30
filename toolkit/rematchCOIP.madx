@@ -37,9 +37,9 @@ weight,     x = 1, px =  10, y = 1, py = 10;
 constraint,sequence=lhcb1,range=ip2,x=xnom2,y=ynom2,px=pxnom2,py=pynom2;
 constraint,sequence=lhcb1,range=s.ds.r2.b1,x=0.,y=0.,px=0.,py=0.;
 
-vary,   name=acbchs5.l2b1, step = 0.00001,lower=-limitMCBY,upper=limitMCBY;
+vary,   name=acbyhs5.l2b1, step = 0.00001,lower=-limitMCBY,upper=limitMCBY;
 vary,   name=acbchs5.r2b1, step = 0.00001,lower=-limitMCBC,upper=limitMCBC;
-vary,   name=acbcvs5.l2b1, step = 0.00001,lower=-limitMCBY,upper=limitMCBY;
+vary,   name=acbyvs5.l2b1, step = 0.00001,lower=-limitMCBY,upper=limitMCBY;
 vary,   name=acbcvs5.r2b1, step = 0.00001,lower=-limitMCBC,upper=limitMCBC;
 vary,   name=acbyhs4.l2b1, step = 0.00001,lower=-limitMCBY,upper=limitMCBY;
 vary,   name=acbyhs4.r2b1, step = 0.00001,lower=-limitMCBY,upper=limitMCBY;

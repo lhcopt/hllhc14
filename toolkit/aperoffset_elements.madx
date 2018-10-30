@@ -17,7 +17,6 @@ zvxiprref=.5*(zvxiprrefb1+zvxiprrefb2);
 zvziprref=.5*(zvziprrefb1+zvziprrefb2);
 xxxiprref=.5*(xxxiprrefb1+xxxiprrefb2);
 zzziprref=.5*(zzziprrefb1+zzziprrefb2);
-value,xxxiprref;
 };
 
 
@@ -61,12 +60,15 @@ xxx=table(survey,eelem,x)-table(survey,rref,x);
 dx_eelem=zzz*xvz+xxx*xvx;
 sx_eelem=zzz*zvz+xxx*zvx;
 ddx_eelem=ooff - dx_eelem;
-value,sx_eelem,dx_eelem,ddx_eelem;
+  printf,text="eelem, u=%g, x=%g, dx=%g, ds=%g",
+         value=ooff, dx_eelem,ddx_eelem,sx_eelem;
 eelem,aper_offset={ddx_eelem,0};
 };
 
 do_elem_idx(ttt,ic,ipn,bim,aaa,bbb): macro = {
   sss=abs(table(ttt,s,ic)-posipipn);
+  sss1=LHCLENGTH-sss;
+  if (sss1<sss){sss=sss1;};
   if(sss >= aaa && sss<=bbb){
     !value,ic,table(ttt,s,ic),sss), posipipn;
     exec,align_elem(ipipn,tabstring(ttt,name,ic));
@@ -88,15 +90,16 @@ align_group_off(RREF,EELEM,OOFF): macro={
     align_group_n=align_group_n+1;
     exec,align_slice_off(RREF,EELEM,$align_group_n,OOFF);
   };
+  exec,align_elem_off(RREF,EELEM_mkex,OOFF);
+  exec,align_elem_off(RREF,EELEM_mken,OOFF);
 };
 
 align_mbh(mbn,irn,bim): macro={
-  mbh_hsag_mm=mbh_hsag*1000;
   if (mbh_irirnqmbn >0){
-  exec, align_group_off(MBH.AmbnRirn.bim,MBH.AmbnRirn.bim,mbh_hsag_mm);
-  exec, align_group_off(MBH.AmbnLirn.bim,MBH.AmbnLirn.bim,mbh_hsag_mm);
-  exec, align_group_off(MBH.BmbnRirn.bim,MBH.BmbnRirn.bim,mbh_hsag_mm);
-  exec, align_group_off(MBH.BmbnLirn.bim,MBH.BmbnLirn.bim,mbh_hsag_mm);
+  exec, align_group_off(MBH.AmbnRirn.bim,MBH.AmbnRirn.bim,mbh_shift);
+  exec, align_group_off(MBH.AmbnLirn.bim,MBH.AmbnLirn.bim,mbh_shift);
+  exec, align_group_off(MBH.BmbnRirn.bim,MBH.BmbnRirn.bim,mbh_shift);
+  exec, align_group_off(MBH.BmbnLirn.bim,MBH.BmbnLirn.bim,mbh_shift);
   };
 };
 
@@ -126,10 +129,10 @@ readmytable,table="mysurveyb1",file="survey_lhcb1.tfs";
 x2zdc.4r2,mech_sep=-0.154;!to be checked
 x2zdc.4l2,mech_sep= 0.154;!to be checked
 
-TAXN.4R1, mech_sep=(sepTAXNA+sepTAXNB)/2;
-TAXN.4R5, mech_sep=(sepTAXNA+sepTAXNB)/2;
-TAXN.4L1, mech_sep=-(sepTAXNA+sepTAXNB)/2;
-TAXN.4L5, mech_sep=-(sepTAXNA+sepTAXNB)/2;
+!TAXN.4R1, mech_sep=(sepTAXNA+sepTAXNB)/2;
+!TAXN.4R5, mech_sep=(sepTAXNA+sepTAXNB)/2;
+!TAXN.4L1, mech_sep=-(sepTAXNA+sepTAXNB)/2;
+!TAXN.4L5, mech_sep=-(sepTAXNA+sepTAXNB)/2;
 
 
 imax=table(mysurveyb1,tablelength);value,imax;
@@ -146,7 +149,7 @@ while(ic<=imax) {
   ic=ic+1;
 };
 
-!exec,align_mbh(8,7,b1);
+exec,align_mbh(8,7,b1);
 return;
 
 ! to be checked

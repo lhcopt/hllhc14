@@ -1,0 +1,645 @@
+! Revised version for SLHCV3.1b (new IT corrector package), March 2012: S. Fartoukh
+! Revised version including a hard limit: correctors cannot go higher than 100% of their maximum value, December 2017: F.F. Van der Veken
+
+
+! This macro checks wether the assigned strength does not exceed a given maximum.
+! If it does exceed it, the strength is redefined as this maximum (while its sign is retained).
+! The maximum is scaled with energy. If NRJ=7000, the maximum is achieved at 100%, but if NRJ=7500,
+! it is achieved only at 107.142857% (=100% * 7500/700). This is because we assume that all magnets
+! can go up to ultimate energy.
+verify_assigned_limit(magnet,maximum): macro={
+	magnet.PERCENT = magnet / maximum * 100 ;
+	IF (ABS(magnet.PERCENT)>100*NRJ/7000){
+		magnet.LIMIT = magnet / ABS(magnet) * NRJ / 7000 ;
+		magnet = maximum * magnet.LIMIT;
+		printf,text="magnet:   %f%% (limited to maximum; desired strength is %f%%)", value = 100 * magnet.LIMIT,magnet.PERCENT;
+	} ELSE {
+		printf,text="magnet:   %f%%", value=magnet.PERCENT;
+	};
+};
+
+
+option,-echo;
+!NRJ:=450.e9;
+!NRJ:=7.e12;
+value,NRJ;
+
+system, "echo '************************************'";
+system, "echo '********Triplet correctors**********'";
+system, "echo '************************************'";
+!!TRIPLET CORRECTOR PACKAGES
+!! Very preliminary kmax values for the new IT corrector package (see slhc_sequence.madx) 
+!! the new MQSX   (a2: 0.60 Tm @ 50 mm over 67 cm length, i.e. 18 T/m)
+!! the new MCSX   (b3: 0.05 Tm @ 50 mm over 50 cm length)
+!! the new MCSSX  (a3: 0.05 Tm @ 50 mm over 50 cm length) 
+!! the new MCOX   (b4: 0.03 Tm @ 50 mm over 50 cm length) 
+!! the new MCOSX  (a4: 0.03 Tm @ 50 mm over 50 cm length) 
+!! the new MCDX   (b5: 0.03 Tm @ 50 mm over 50 cm length) 
+!! the new MCDSX  (a5: 0.03 Tm @ 50 mm over 50 cm length) 
+!! the new MCTX   (b6: 0.07 Tm @ 50 mm over 50 cm length) 
+!! the new MCTSX  (b6: 0.07 Tm @ 50 mm over 50 cm length) 
+
+
+!MQSX (1.36 T @ 17 mm in IR2&IR8, 
+!      0.6 T.m @ 50 mm in IR1&IR5)
+kMQSXmax1:=kmax_MQSXF*0.3/NRJ;
+kMQSXmax2:=1.360/0.017*0.3/NRJ;
+exec verify_assigned_limit(KQSX3.L1,kMQSXmax1);
+exec verify_assigned_limit(KQSX3.R1,kMQSXmax1);
+exec verify_assigned_limit(KQSX3.L5,kMQSXmax1);
+exec verify_assigned_limit(KQSX3.R5,kMQSXmax1);
+exec verify_assigned_limit(KQSX3.L2,kMQSXmax2);
+exec verify_assigned_limit(KQSX3.R2,kMQSXmax2);
+exec verify_assigned_limit(KQSX3.L8,kMQSXmax2);
+exec verify_assigned_limit(KQSX3.R8,kMQSXmax2);
+
+!MCSX (0.028 T @ 17 mm in IR2&IR8,
+!      0.050 Tm @ 50 mm in IR1&IR5)
+kMCSXmax1:=kmax_MCSXF*0.3/NRJ;
+kMCSXmax2:=0.028*2/0.017^2*0.3/NRJ;
+exec verify_assigned_limit(KCSX3.L1,kMCSXmax1);
+exec verify_assigned_limit(KCSX3.R1,kMCSXmax1);
+exec verify_assigned_limit(KCSX3.L5,kMCSXmax1);
+exec verify_assigned_limit(KCSX3.R5,kMCSXmax1);
+exec verify_assigned_limit(KCSX3.L2,kMCSXmax2);
+exec verify_assigned_limit(KCSX3.R2,kMCSXmax2);
+exec verify_assigned_limit(KCSX3.L8,kMCSXmax2);
+exec verify_assigned_limit(KCSX3.R8,kMCSXmax2);
+
+!MCSSX (0.11 T @ 17 mm in IR2&IR8,
+!       0.050 Tm @ 50 mm in IR1&IR5) 
+kMCSSXmax1:=kmax_MCSSXF*0.3/NRJ;
+kMCSSXmax2:=0.11*2/0.017^2*0.3/NRJ;
+exec verify_assigned_limit(KCSSX3.L1,kMCSSXmax1);
+exec verify_assigned_limit(KCSSX3.R1,kMCSSXmax1);
+exec verify_assigned_limit(KCSSX3.L5,kMCSSXmax1);
+exec verify_assigned_limit(KCSSX3.R5,kMCSSXmax1);
+exec verify_assigned_limit(KCSSX3.L2,kMCSSXmax2);
+exec verify_assigned_limit(KCSSX3.R2,kMCSSXmax2);
+exec verify_assigned_limit(KCSSX3.L8,kMCSSXmax2);
+exec verify_assigned_limit(KCSSX3.R8,kMCSSXmax2);
+
+!MCOX (0.045 T @ 17 mm in IR2&IR8
+!      0.030 Tm @ 50 mm in IR1&IR5)
+kMCOXmax1:=kmax_MCOXF*0.3/NRJ;
+kMCOXmax2:=0.045*6/0.017^3*0.3/NRJ;
+exec verify_assigned_limit(KCOX3.L1,kMCOXmax1);
+exec verify_assigned_limit(KCOX3.R1,kMCOXmax1);
+exec verify_assigned_limit(KCOX3.L5,kMCOXmax1);
+exec verify_assigned_limit(KCOX3.R5,kMCOXmax1);
+exec verify_assigned_limit(KCOX3.L2,kMCOXmax2);
+exec verify_assigned_limit(KCOX3.R2,kMCOXmax2);
+exec verify_assigned_limit(KCOX3.L8,kMCOXmax2);
+exec verify_assigned_limit(KCOX3.R8,kMCOXmax2);
+
+!MCOSX (0.048 T @ 17 mm in IR2&IR8
+!       0.030 Tm @ 50 mm in IR1&IR5)
+kMCOSXmax1:=kmax_MCOSXF*0.3/NRJ;
+kMCOSXmax2:=0.048*6/0.017^3*0.3/NRJ;
+exec verify_assigned_limit(KCOSX3.L1,kMCOSXmax1);
+exec verify_assigned_limit(KCOSX3.R1,kMCOSXmax1);
+exec verify_assigned_limit(KCOSX3.L5,kMCOSXmax1);
+exec verify_assigned_limit(KCOSX3.R5,kMCOSXmax1);
+exec verify_assigned_limit(KCOSX3.L2,kMCOSXmax2);
+exec verify_assigned_limit(KCOSX3.R2,kMCOSXmax2);
+exec verify_assigned_limit(KCOSX3.L8,kMCOSXmax2);
+exec verify_assigned_limit(KCOSX3.R8,kMCOSXmax2);
+
+!MCDX (not existing in IR2&IR8,
+!      0.030 Tm @ 50 mm in IR1&IR5)
+kMCDXmax1:=kmax_MCDXF*0.3/NRJ;
+exec verify_assigned_limit(KCDX3.L1,kMCDXmax1);
+exec verify_assigned_limit(KCDX3.R1,kMCDXmax1);
+exec verify_assigned_limit(KCDX3.L5,kMCDXmax1);
+exec verify_assigned_limit(KCDX3.R5,kMCDXmax1);
+
+!MCDSX (not existing in IR2&IR8,
+!       0.030 Tm @ 50 mm in IR1&IR5)
+kMCDSXmax1:=kmax_MCDSXF*0.3/NRJ;
+exec verify_assigned_limit(KCDSX3.L1,kMCDSXmax1);
+exec verify_assigned_limit(KCDSX3.R1,kMCDSXmax1);
+exec verify_assigned_limit(KCDSX3.L5,kMCDSXmax1);
+exec verify_assigned_limit(KCDSX3.R5,kMCDSXmax1);
+
+!MCTX (0.010 T @ 17 mm in IR2&IR8,
+!      0.070 Tm @ 50 mm in IR1&IR5)
+kMCTXmax1:=kmax_MCTXF*0.3/NRJ;
+kMCTXmax2:=0.01*120/0.017^5*0.3/NRJ;
+exec verify_assigned_limit(KCTX3.L1,kMCTXmax1);
+exec verify_assigned_limit(KCTX3.R1,kMCTXmax1);
+exec verify_assigned_limit(KCTX3.L5,kMCTXmax1);
+exec verify_assigned_limit(KCTX3.R5,kMCTXmax1);
+exec verify_assigned_limit(KCTX3.L2,kMCTXmax2);
+exec verify_assigned_limit(KCTX3.R2,kMCTXmax2);
+exec verify_assigned_limit(KCTX3.L8,kMCTXmax2);
+exec verify_assigned_limit(KCTX3.R8,kMCTXmax2);
+
+!MCTsX (not existing in IR2&IR8,
+!       0.070 Tm @ 50 mm in IR1&IR5)
+kMCTSXmax1:=kmax_MCTSXF*0.3/NRJ;
+exec verify_assigned_limit(KCTSX3.L1,kMCTSXmax1);
+exec verify_assigned_limit(KCTSX3.R1,kMCTSXmax1);
+exec verify_assigned_limit(KCTSX3.L5,kMCTSXmax1);
+exec verify_assigned_limit(KCTSX3.R5,kMCTSXmax1);
+
+
+system, "echo '************************************'";
+system, "echo '*************Arc correctors*********'";
+system, "echo '************************************'";
+
+if(mylhcbeam==1)
+
+{
+!MQT (120 T/m)
+kMQTmax:=120*0.3/NRJ;
+!exec verify_assigned_limit(KQTF.A12B1,kMQTmax);
+!exec verify_assigned_limit(KQTD.A12B1,kMQTmax);
+!exec verify_assigned_limit(KQTF.A23B1,kMQTmax);
+!exec verify_assigned_limit(KQTD.A23B1,kMQTmax);
+!exec verify_assigned_limit(KQTF.A34B1,kMQTmax);
+!exec verify_assigned_limit(KQTD.A34B1,kMQTmax);
+!exec verify_assigned_limit(KQTF.A45B1,kMQTmax);
+!exec verify_assigned_limit(KQTD.A45B1,kMQTmax);
+!exec verify_assigned_limit(KQTF.A56B1,kMQTmax);
+!exec verify_assigned_limit(KQTD.A56B1,kMQTmax);
+!exec verify_assigned_limit(KQTF.A67B1,kMQTmax);
+!exec verify_assigned_limit(KQTD.A67B1,kMQTmax);
+!exec verify_assigned_limit(KQTF.A78B1,kMQTmax);
+!exec verify_assigned_limit(KQTD.A78B1,kMQTmax);
+!exec verify_assigned_limit(KQTF.A81B1,kMQTmax);
+!exec verify_assigned_limit(KQTD.A81B1,kMQTmax);
+
+!MQS (120 T/m)
+kMQSmax:=120*0.3/NRJ;
+!exec verify_assigned_limit(KQS.R1B1,kMQSmax);
+!exec verify_assigned_limit(KQS.L2B1,kMQSmax);
+!exec verify_assigned_limit(KQS.A23B1,kMQSmax);
+!exec verify_assigned_limit(KQS.R3B1,kMQSmax);
+!exec verify_assigned_limit(KQS.L4B1,kMQSmax);
+!exec verify_assigned_limit(KQS.A45B1,kMQSmax);
+!exec verify_assigned_limit(KQS.R5B1,kMQSmax);
+!exec verify_assigned_limit(KQS.L6B1,kMQSmax);
+!exec verify_assigned_limit(KQS.A67B1,kMQSmax);
+!exec verify_assigned_limit(KQS.R7B1,kMQSmax);
+!exec verify_assigned_limit(KQS.L8B1,kMQSmax);
+!exec verify_assigned_limit(KQS.A81B1,kMQSmax);
+
+!MS (1.28 T @ 17 mm)
+kMSmax:=1.280*2/0.017^2*0.3/NRJ;
+!exec verify_assigned_limit(KSF1.A12B1,kMSmax);
+!exec verify_assigned_limit(KSF2.A12B1,kMSmax);
+!exec verify_assigned_limit(KSF1.A23B1,kMSmax);
+!exec verify_assigned_limit(KSF2.A23B1,kMSmax);
+!exec verify_assigned_limit(KSF1.A34B1,kMSmax);
+!exec verify_assigned_limit(KSF2.A34B1,kMSmax);
+!exec verify_assigned_limit(KSF1.A45B1,kMSmax);
+!exec verify_assigned_limit(KSF2.A45B1,kMSmax);
+!exec verify_assigned_limit(KSF1.A56B1,kMSmax);
+!exec verify_assigned_limit(KSF2.A56B1,kMSmax);
+!exec verify_assigned_limit(KSF1.A67B1,kMSmax);
+!exec verify_assigned_limit(KSF2.A67B1,kMSmax);
+!exec verify_assigned_limit(KSF1.A78B1,kMSmax);
+!exec verify_assigned_limit(KSF2.A78B1,kMSmax);
+!exec verify_assigned_limit(KSF1.A81B1,kMSmax);
+!exec verify_assigned_limit(KSF2.A81B1,kMSmax);
+!exec verify_assigned_limit(KSD1.A12B1,kMSmax);
+!exec verify_assigned_limit(KSD2.A12B1,kMSmax);
+!exec verify_assigned_limit(KSD1.A23B1,kMSmax);
+!exec verify_assigned_limit(KSD2.A23B1,kMSmax);
+!exec verify_assigned_limit(KSD1.A34B1,kMSmax);
+!exec verify_assigned_limit(KSD2.A34B1,kMSmax);
+!exec verify_assigned_limit(KSD1.A45B1,kMSmax);
+!exec verify_assigned_limit(KSD2.A45B1,kMSmax);
+!exec verify_assigned_limit(KSD1.A56B1,kMSmax);
+!exec verify_assigned_limit(KSD2.A56B1,kMSmax);
+!exec verify_assigned_limit(KSD1.A67B1,kMSmax);
+!exec verify_assigned_limit(KSD2.A67B1,kMSmax);
+!exec verify_assigned_limit(KSD1.A78B1,kMSmax);
+!exec verify_assigned_limit(KSD2.A78B1,kMSmax);
+!exec verify_assigned_limit(KSD1.A81B1,kMSmax);
+!exec verify_assigned_limit(KSD2.A81B1,kMSmax);
+
+!MSS (1.28 T @ 17 mm)
+kMSSmax:=1.280*2/0.017^2*0.3/NRJ;
+exec verify_assigned_limit(KSS.A12B1,kMSSmax);
+exec verify_assigned_limit(KSS.A23B1,kMSSmax);
+exec verify_assigned_limit(KSS.A34B1,kMSSmax);
+exec verify_assigned_limit(KSS.A45B1,kMSSmax);
+exec verify_assigned_limit(KSS.A56B1,kMSSmax);
+exec verify_assigned_limit(KSS.A67B1,kMSSmax);
+exec verify_assigned_limit(KSS.A78B1,kMSSmax);
+exec verify_assigned_limit(KSS.A81B1,kMSSmax);
+
+!MCS (0.471 T @ 17 mm)
+kMCSmax:=0.471*2/0.017^2*0.3/NRJ;
+exec verify_assigned_limit(KCS.A12B1,kMCSmax);
+exec verify_assigned_limit(KCS.A23B1,kMCSmax);
+exec verify_assigned_limit(KCS.A34B1,kMCSmax);
+exec verify_assigned_limit(KCS.A45B1,kMCSmax);
+exec verify_assigned_limit(KCS.A56B1,kMCSmax);
+exec verify_assigned_limit(KCS.A67B1,kMCSmax);
+exec verify_assigned_limit(KCS.A78B1,kMCSmax);
+exec verify_assigned_limit(KCS.A81B1,kMCSmax);
+
+!MCO (0.04 T @ 17 mm)
+kMCOmax:=0.040*6/0.017^3*0.3/NRJ;
+exec verify_assigned_limit(KCO.A12B1,kMCOmax);
+exec verify_assigned_limit(KCO.A23B1,kMCOmax);
+exec verify_assigned_limit(KCO.A34B1,kMCOmax);
+exec verify_assigned_limit(KCO.A45B1,kMCOmax);
+exec verify_assigned_limit(KCO.A56B1,kMCOmax);
+exec verify_assigned_limit(KCO.A67B1,kMCOmax);
+exec verify_assigned_limit(KCO.A78B1,kMCOmax);
+exec verify_assigned_limit(KCO.A81B1,kMCOmax);
+
+!MCD (0.1 T @ 17 mm)
+kMCDmax:=0.100*24/0.017^4*0.3/NRJ;
+exec verify_assigned_limit(KCD.A12B1,kMCDmax);
+exec verify_assigned_limit(KCD.A23B1,kMCDmax);
+exec verify_assigned_limit(KCD.A34B1,kMCDmax);
+exec verify_assigned_limit(KCD.A45B1,kMCDmax);
+exec verify_assigned_limit(KCD.A56B1,kMCDmax);
+exec verify_assigned_limit(KCD.A67B1,kMCDmax);
+exec verify_assigned_limit(KCD.A78B1,kMCDmax);
+exec verify_assigned_limit(KCD.A81B1,kMCDmax);
+
+!MO (0.29 T @ 17 mm)
+kMOmax:=0.29*6/0.017^3*0.3/NRJ;
+!exec verify_assigned_limit(KOF.A12B1,kMOmax);
+!exec verify_assigned_limit(KOF.A23B1,kMOmax);
+!exec verify_assigned_limit(KOF.A34B1,kMOmax);
+!exec verify_assigned_limit(KOF.A45B1,kMOmax);
+!exec verify_assigned_limit(KOF.A56B1,kMOmax);
+!exec verify_assigned_limit(KOF.A67B1,kMOmax);
+!exec verify_assigned_limit(KOF.A78B1,kMOmax);
+!exec verify_assigned_limit(KOF.A81B1,kMOmax);
+!exec verify_assigned_limit(KOD.A12B1,kMOmax);
+!exec verify_assigned_limit(KOD.A23B1,kMOmax);
+!exec verify_assigned_limit(KOD.A34B1,kMOmax);
+!exec verify_assigned_limit(KOD.A45B1,kMOmax);
+!exec verify_assigned_limit(KOD.A56B1,kMOmax);
+!exec verify_assigned_limit(KOD.A67B1,kMOmax);
+!exec verify_assigned_limit(KOD.A78B1,kMOmax);
+!exec verify_assigned_limit(KOD.A81B1,kMOmax);
+
+};
+
+if(mylhcbeam > 1)
+
+{
+!MQT (120 T/m)
+kMQTmax:=120*0.3/NRJ;
+!exec verify_assigned_limit(KQTF.A12B2,kMQTmax);
+!exec verify_assigned_limit(KQTD.A12B2,kMQTmax);
+!exec verify_assigned_limit(KQTF.A23B2,kMQTmax);
+!exec verify_assigned_limit(KQTD.A23B2,kMQTmax);
+!exec verify_assigned_limit(KQTF.A34B2,kMQTmax);
+!exec verify_assigned_limit(KQTD.A34B2,kMQTmax);
+!exec verify_assigned_limit(KQTF.A45B2,kMQTmax);
+!exec verify_assigned_limit(KQTD.A45B2,kMQTmax);
+!exec verify_assigned_limit(KQTF.A56B2,kMQTmax);
+!exec verify_assigned_limit(KQTD.A56B2,kMQTmax);
+!exec verify_assigned_limit(KQTF.A67B2,kMQTmax);
+!exec verify_assigned_limit(KQTD.A67B2,kMQTmax);
+!exec verify_assigned_limit(KQTF.A78B2,kMQTmax);
+!exec verify_assigned_limit(KQTD.A78B2,kMQTmax);
+!exec verify_assigned_limit(KQTF.A81B2,kMQTmax);
+!exec verify_assigned_limit(KQTD.A81B2,kMQTmax);
+
+!MQS (120 T/m)
+kMQSmax:=120*0.3/NRJ;
+!exec verify_assigned_limit(KQS.A12B2,kMQSmax);
+!exec verify_assigned_limit(KQS.R2B2,kMQSmax);
+!exec verify_assigned_limit(KQS.L3B2,kMQSmax);
+!exec verify_assigned_limit(KQS.A34B2,kMQSmax);
+!exec verify_assigned_limit(KQS.R4B2,kMQSmax);
+!exec verify_assigned_limit(KQS.L5B2,kMQSmax);
+!exec verify_assigned_limit(KQS.A56B2,kMQSmax);
+!exec verify_assigned_limit(KQS.R6B2,kMQSmax);
+!exec verify_assigned_limit(KQS.L7B2,kMQSmax);
+!exec verify_assigned_limit(KQS.A78B2,kMQSmax);
+!exec verify_assigned_limit(KQS.R8B2,kMQSmax);
+!exec verify_assigned_limit(KQS.L1B2,kMQSmax);
+
+!MS (1.28 T @ 17 mm)
+kMSmax:=1.280*2/0.017^2*0.3/NRJ;
+!exec verify_assigned_limit(KSF1.A12B2,kMSmax);
+!exec verify_assigned_limit(KSF2.A12B2,kMSmax);
+!exec verify_assigned_limit(KSF1.A23B2,kMSmax);
+!exec verify_assigned_limit(KSF2.A23B2,kMSmax);
+!exec verify_assigned_limit(KSF1.A34B2,kMSmax);
+!exec verify_assigned_limit(KSF2.A34B2,kMSmax);
+!exec verify_assigned_limit(KSF1.A45B2,kMSmax);
+!exec verify_assigned_limit(KSF2.A45B2,kMSmax);
+!exec verify_assigned_limit(KSF1.A56B2,kMSmax);
+!exec verify_assigned_limit(KSF2.A56B2,kMSmax);
+!exec verify_assigned_limit(KSF1.A67B2,kMSmax);
+!exec verify_assigned_limit(KSF2.A67B2,kMSmax);
+!exec verify_assigned_limit(KSF1.A78B2,kMSmax);
+!exec verify_assigned_limit(KSF2.A78B2,kMSmax);
+!exec verify_assigned_limit(KSF1.A81B2,kMSmax);
+!exec verify_assigned_limit(KSF2.A81B2,kMSmax);
+!exec verify_assigned_limit(KSD1.A12B2,kMSmax);
+!exec verify_assigned_limit(KSD2.A12B2,kMSmax);
+!exec verify_assigned_limit(KSD1.A23B2,kMSmax);
+!exec verify_assigned_limit(KSD2.A23B2,kMSmax);
+!exec verify_assigned_limit(KSD1.A34B2,kMSmax);
+!exec verify_assigned_limit(KSD2.A34B2,kMSmax);
+!exec verify_assigned_limit(KSD1.A45B2,kMSmax);
+!exec verify_assigned_limit(KSD2.A45B2,kMSmax);
+!exec verify_assigned_limit(KSD1.A56B2,kMSmax);
+!exec verify_assigned_limit(KSD2.A56B2,kMSmax);
+!exec verify_assigned_limit(KSD1.A67B2,kMSmax);
+!exec verify_assigned_limit(KSD2.A67B2,kMSmax);
+!exec verify_assigned_limit(KSD1.A78B2,kMSmax);
+!exec verify_assigned_limit(KSD2.A78B2,kMSmax);
+!exec verify_assigned_limit(KSD1.A81B2,kMSmax);
+!exec verify_assigned_limit(KSD2.A81B2,kMSmax);
+
+!MSS (1.28 T @ 17 mm)
+kMSSmax:=1.280*2/0.017^2*0.3/NRJ;
+exec verify_assigned_limit(KSS.A12B2,kMSSmax);
+exec verify_assigned_limit(KSS.A23B2,kMSSmax);
+exec verify_assigned_limit(KSS.A34B2,kMSSmax);
+exec verify_assigned_limit(KSS.A45B2,kMSSmax);
+exec verify_assigned_limit(KSS.A56B2,kMSSmax);
+exec verify_assigned_limit(KSS.A67B2,kMSSmax);
+exec verify_assigned_limit(KSS.A78B2,kMSSmax);
+exec verify_assigned_limit(KSS.A81B2,kMSSmax);
+
+!MCS (0.471 T @ 17 mm)
+kMCSmax:=0.471*2/0.017^2*0.3/NRJ;
+exec verify_assigned_limit(KCS.A12B2,kMCSmax);
+exec verify_assigned_limit(KCS.A23B2,kMCSmax);
+exec verify_assigned_limit(KCS.A34B2,kMCSmax);
+exec verify_assigned_limit(KCS.A45B2,kMCSmax);
+exec verify_assigned_limit(KCS.A56B2,kMCSmax);
+exec verify_assigned_limit(KCS.A67B2,kMCSmax);
+exec verify_assigned_limit(KCS.A78B2,kMCSmax);
+exec verify_assigned_limit(KCS.A81B2,kMCSmax);
+
+!MCO (0.04 T @ 17 mm)
+kMCOmax:=0.040*6/0.017^3*0.3/NRJ;
+exec verify_assigned_limit(KCO.A12B2,kMCOmax);
+exec verify_assigned_limit(KCO.A23B2,kMCOmax);
+exec verify_assigned_limit(KCO.A34B2,kMCOmax);
+exec verify_assigned_limit(KCO.A45B2,kMCOmax);
+exec verify_assigned_limit(KCO.A56B2,kMCOmax);
+exec verify_assigned_limit(KCO.A67B2,kMCOmax);
+exec verify_assigned_limit(KCO.A78B2,kMCOmax);
+exec verify_assigned_limit(KCO.A81B2,kMCOmax);
+
+!MCD (0.1 T @ 17 mm)
+kMCDmax:=0.100*24/0.017^4*0.3/NRJ;
+exec verify_assigned_limit(KCD.A12B2,kMCDmax);
+exec verify_assigned_limit(KCD.A23B2,kMCDmax);
+exec verify_assigned_limit(KCD.A34B2,kMCDmax);
+exec verify_assigned_limit(KCD.A45B2,kMCDmax);
+exec verify_assigned_limit(KCD.A56B2,kMCDmax);
+exec verify_assigned_limit(KCD.A67B2,kMCDmax);
+exec verify_assigned_limit(KCD.A78B2,kMCDmax);
+exec verify_assigned_limit(KCD.A81B2,kMCDmax);
+
+!MO (0.29 T @ 17 mm)
+kMOmax:=0.29*6/0.017^3*0.3/NRJ;
+!exec verify_assigned_limit(KOF.A12B2,kMOmax);
+!exec verify_assigned_limit(KOF.A23B2,kMOmax);
+!exec verify_assigned_limit(KOF.A34B2,kMOmax);
+!exec verify_assigned_limit(KOF.A45B2,kMOmax);
+!exec verify_assigned_limit(KOF.A56B2,kMOmax);
+!exec verify_assigned_limit(KOF.A67B2,kMOmax);
+!exec verify_assigned_limit(KOF.A78B2,kMOmax);
+!exec verify_assigned_limit(KOF.A81B2,kMOmax);
+!exec verify_assigned_limit(KOD.A12B2,kMOmax);
+!exec verify_assigned_limit(KOD.A23B2,kMOmax);
+!exec verify_assigned_limit(KOD.A34B2,kMOmax);
+!exec verify_assigned_limit(KOD.A45B2,kMOmax);
+!exec verify_assigned_limit(KOD.A56B2,kMOmax);
+!exec verify_assigned_limit(KOD.A67B2,kMOmax);
+!exec verify_assigned_limit(KOD.A78B2,kMOmax);
+!exec verify_assigned_limit(KOD.A81B2,kMOmax);
+
+};
+
+
+! ************************************************************
+! Reprinting the variables here for SixDB mad compatibility
+! ************************************************************
+
+value,KQSX3.L1 /kMQSXmax1*100;value,KQSX3.R1 /kMQSXmax1*100;
+value,KQSX3.L5 /kMQSXmax1*100;value,KQSX3.R5 /kMQSXmax1*100;
+value,KQSX3.L2 /kMQSXmax2*100;value,KQSX3.R2 /kMQSXmax2*100;
+value,KQSX3.L8 /kMQSXmax2*100;value,KQSX3.R8 /kMQSXmax2*100;
+value,KCSX3.L1 /kMCSXmax1*100;value,KCSX3.R1 /kMCSXmax1*100;
+value,KCSX3.L5 /kMCSXmax1*100;value,KCSX3.R5 /kMCSXmax1*100;
+value,KCSX3.L2 /kMCSXmax2*100;value,KCSX3.R2 /kMCSXmax2*100;
+value,KCSX3.L8 /kMCSXmax2*100;value,KCSX3.R8 /kMCSXmax2*100;
+value,KCSSX3.L1 /kMCSSXmax1*100;value,KCSSX3.R1 /kMCSSXmax1*100;
+value,KCSSX3.L5 /kMCSSXmax1*100;value,KCSSX3.R5 /kMCSSXmax1*100;
+value,KCSSX3.L2 /kMCSSXmax2*100;value,KCSSX3.R2 /kMCSSXmax2*100;
+value,KCSSX3.L8 /kMCSSXmax2*100;value,KCSSX3.R8 /kMCSSXmax2*100;
+value,KCOX3.L1 /kMCOXmax1*100;value,KCOX3.R1 /kMCOXmax1*100;
+value,KCOX3.L5 /kMCOXmax1*100;value,KCOX3.R5 /kMCOXmax1*100;
+value,KCOX3.L2 /kMCOXmax2*100;value,KCOX3.R2 /kMCOXmax2*100;
+value,KCOX3.L8 /kMCOXmax2*100;value,KCOX3.R8 /kMCOXmax2*100;
+value,KCOSX3.L1 /kMCOSXmax1*100;value,KCOSX3.R1 /kMCOSXmax1*100;
+value,KCOSX3.L5 /kMCOSXmax1*100;value,KCOSX3.R5 /kMCOSXmax1*100;
+value,KCOSX3.L2 /kMCOSXmax2*100;value,KCOSX3.R2 /kMCOSXmax2*100;
+value,KCOSX3.L8 /kMCOSXmax2*100;value,KCOSX3.R8 /kMCOSXmax2*100;
+value,KCDX3.L1 /kMCDXmax1*100;value,KCDX3.R1 /kMCDXmax1*100;
+value,KCDX3.L5 /kMCDXmax1*100;value,KCDX3.R5 /kMCDXmax1*100;
+value,KCDSX3.L1 /kMCDSXmax1*100;value,KCDSX3.R1 /kMCDSXmax1*100;
+value,KCDSX3.L5 /kMCDSXmax1*100;value,KCDSX3.R5 /kMCDSXmax1*100;
+value,KCTX3.L1 /kMCTXmax1*100;value,KCTX3.R1 /kMCTXmax1*100;
+value,KCTX3.L5 /kMCTXmax1*100;value,KCTX3.R5 /kMCTXmax1*100;
+value,KCTX3.L2 /kMCTXmax2*100;value,KCTX3.R2 /kMCTXmax2*100;
+value,KCTX3.L8 /kMCTXmax2*100;value,KCTX3.R8 /kMCTXmax2*100;
+value,KCTSX3.L1 /kMCTSXmax1*100;value,KCTSX3.R1 /kMCTSXmax1*100;
+value,KCTSX3.L5 /kMCTSXmax1*100;value,KCTSX3.R5 /kMCTSXmax1*100;
+if(mylhcbeam==1){
+	value,KQTF.A12B1/kMQTmax*100;value,KQTD.A12B1/kMQTmax*100;
+	value,KQTF.A23B1/kMQTmax*100;value,KQTD.A23B1/kMQTmax*100;
+	value,KQTF.A34B1/kMQTmax*100;value,KQTD.A34B1/kMQTmax*100;
+	value,KQTF.A45B1/kMQTmax*100;value,KQTD.A45B1/kMQTmax*100;
+	value,KQTF.A56B1/kMQTmax*100;value,KQTD.A56B1/kMQTmax*100;
+	value,KQTF.A67B1/kMQTmax*100;value,KQTD.A67B1/kMQTmax*100;
+	value,KQTF.A78B1/kMQTmax*100;value,KQTD.A78B1/kMQTmax*100;
+	value,KQTF.A81B1/kMQTmax*100;value,KQTD.A81B1/kMQTmax*100;
+	value,KQS.R1B1 /kMQSmax*100;value,KQS.L2B1 /kMQSmax*100;
+	value,KQS.A23B1/kMQSmax*100;
+	value,KQS.R3B1 /kMQSmax*100;value,KQS.L4B1 /kMQSmax*100;
+	value,KQS.A45B1/kMQSmax*100;
+	value,KQS.R5B1 /kMQSmax*100;value,KQS.L6B1 /kMQSmax*100;
+	value,KQS.A67B1/kMQSmax*100;
+	value,KQS.R7B1 /kMQSmax*100;value,KQS.L8B1 /kMQSmax*100;
+	value,KQS.A81B1/kMQSmax*100;
+	value,KSF1.A12B1 /kMSmax*100;value,KSF2.A12B1 /kMSmax*100;
+	value,KSF1.A23B1 /kMSmax*100;value,KSF2.A23B1 /kMSmax*100;
+	value,KSF1.A34B1 /kMSmax*100;value,KSF2.A34B1 /kMSmax*100;
+	value,KSF1.A45B1 /kMSmax*100;value,KSF2.A45B1 /kMSmax*100;
+	value,KSF1.A56B1 /kMSmax*100;value,KSF2.A56B1 /kMSmax*100;
+	value,KSF1.A67B1 /kMSmax*100;value,KSF2.A67B1 /kMSmax*100;
+	value,KSF1.A78B1 /kMSmax*100;value,KSF2.A78B1 /kMSmax*100;
+	value,KSF1.A81B1 /kMSmax*100;value,KSF2.A81B1 /kMSmax*100;
+	value,KSD1.A12B1 /kMSmax*100;value,KSD2.A12B1 /kMSmax*100;
+	value,KSD1.A23B1 /kMSmax*100;value,KSD2.A23B1 /kMSmax*100;
+	value,KSD1.A34B1 /kMSmax*100;value,KSD2.A34B1 /kMSmax*100;
+	value,KSD1.A45B1 /kMSmax*100;value,KSD2.A45B1 /kMSmax*100;
+	value,KSD1.A56B1 /kMSmax*100;value,KSD2.A56B1 /kMSmax*100;
+	value,KSD1.A67B1 /kMSmax*100;value,KSD2.A67B1 /kMSmax*100;
+	value,KSD1.A78B1 /kMSmax*100;value,KSD2.A78B1 /kMSmax*100;
+	value,KSD1.A81B1 /kMSmax*100;value,KSD2.A81B1 /kMSmax*100;
+	value,KSS.A12B1 /kMSSmax*100;
+	value,KSS.A23B1 /kMSSmax*100;
+	value,KSS.A34B1 /kMSSmax*100;
+	value,KSS.A45B1 /kMSSmax*100;
+	value,KSS.A56B1 /kMSSmax*100;
+	value,KSS.A67B1 /kMSSmax*100;
+	value,KSS.A78B1 /kMSSmax*100;
+	value,KSS.A81B1 /kMSSmax*100;
+	value,KCS.A12B1 /kMCSmax*100;
+	value,KCS.A23B1 /kMCSmax*100;
+	value,KCS.A34B1 /kMCSmax*100;
+	value,KCS.A45B1 /kMCSmax*100;
+	value,KCS.A56B1 /kMCSmax*100;
+	value,KCS.A67B1 /kMCSmax*100;
+	value,KCS.A78B1 /kMCSmax*100;
+	value,KCS.A81B1 /kMCSmax*100;
+	value,KCO.A12B1 /kMCOmax*100;
+	value,KCO.A23B1 /kMCOmax*100;
+	value,KCO.A34B1 /kMCOmax*100;
+	value,KCO.A45B1 /kMCOmax*100;
+	value,KCO.A56B1 /kMCOmax*100;
+	value,KCO.A67B1 /kMCOmax*100;
+	value,KCO.A78B1 /kMCOmax*100;
+	value,KCO.A81B1 /kMCOmax*100;
+	value,KCD.A12B1 /kMCDmax*100;
+	value,KCD.A23B1 /kMCDmax*100;
+	value,KCD.A34B1 /kMCDmax*100;
+	value,KCD.A45B1 /kMCDmax*100;
+	value,KCD.A56B1 /kMCDmax*100;
+	value,KCD.A67B1 /kMCDmax*100;
+	value,KCD.A78B1 /kMCDmax*100;
+	value,KCD.A81B1 /kMCDmax*100;
+	value,KOF.A12B1/kMOmax*100.;
+	value,KOF.A23B1/kMOmax*100.;
+	value,KOF.A34B1/kMOmax*100.;
+	value,KOF.A45B1/kMOmax*100.;
+	value,KOF.A56B1/kMOmax*100.;
+	value,KOF.A67B1/kMOmax*100.;
+	value,KOF.A78B1/kMOmax*100.;
+	value,KOF.A81B1/kMOmax*100.;
+	value,KOD.A12B1/kMOmax*100.;
+	value,KOD.A23B1/kMOmax*100.;
+	value,KOD.A34B1/kMOmax*100.;
+	value,KOD.A45B1/kMOmax*100.;
+	value,KOD.A56B1/kMOmax*100.;
+	value,KOD.A67B1/kMOmax*100.;
+	value,KOD.A78B1/kMOmax*100.;
+	value,KOD.A81B1/kMOmax*100.;
+};
+if(mylhcbeam > 1){
+	value,KQTF.A12B2/kMQTmax*100;value,KQTD.A12B2/kMQTmax*100;
+	value,KQTF.A23B2/kMQTmax*100;value,KQTD.A23B2/kMQTmax*100;
+	value,KQTF.A34B2/kMQTmax*100;value,KQTD.A34B2/kMQTmax*100;
+	value,KQTF.A45B2/kMQTmax*100;value,KQTD.A45B2/kMQTmax*100;
+	value,KQTF.A56B2/kMQTmax*100;value,KQTD.A56B2/kMQTmax*100;
+	value,KQTF.A67B2/kMQTmax*100;value,KQTD.A67B2/kMQTmax*100;
+	value,KQTF.A78B2/kMQTmax*100;value,KQTD.A78B2/kMQTmax*100;
+	value,KQTF.A81B2/kMQTmax*100;value,KQTD.A81B2/kMQTmax*100;
+	value,KQS.A12B2 /kMQSmax*100;
+	value,KQS.R2B2  /kMQSmax*100;value,KQS.L3B2 /kMQSmax*100;
+	value,KQS.A34B2 /kMQSmax*100;
+	value,KQS.R4B2  /kMQSmax*100;value,KQS.L5B2 /kMQSmax*100;
+	value,KQS.A56B2 /kMQSmax*100;
+	value,KQS.R6B2  /kMQSmax*100;value,KQS.L7B2 /kMQSmax*100;
+	value,KQS.A78B2 /kMQSmax*100;
+	value,KQS.R8B2  /kMQSmax*100;value,KQS.L1B2 /kMQSmax*100;
+	value,KSF1.A12B2 /kMSmax*100;value,KSF2.A12B2 /kMSmax*100;
+	value,KSF1.A23B2 /kMSmax*100;value,KSF2.A23B2 /kMSmax*100;
+	value,KSF1.A34B2 /kMSmax*100;value,KSF2.A34B2 /kMSmax*100;
+	value,KSF1.A45B2 /kMSmax*100;value,KSF2.A45B2 /kMSmax*100;
+	value,KSF1.A56B2 /kMSmax*100;value,KSF2.A56B2 /kMSmax*100;
+	value,KSF1.A67B2 /kMSmax*100;value,KSF2.A67B2 /kMSmax*100;
+	value,KSF1.A78B2 /kMSmax*100;value,KSF2.A78B2 /kMSmax*100;
+	value,KSF1.A81B2 /kMSmax*100;value,KSF2.A81B2 /kMSmax*100;
+	value,KSD1.A12B2 /kMSmax*100;value,KSD2.A12B2 /kMSmax*100;
+	value,KSD1.A23B2 /kMSmax*100;value,KSD2.A23B2 /kMSmax*100;
+	value,KSD1.A34B2 /kMSmax*100;value,KSD2.A34B2 /kMSmax*100;
+	value,KSD1.A45B2 /kMSmax*100;value,KSD2.A45B2 /kMSmax*100;
+	value,KSD1.A56B2 /kMSmax*100;value,KSD2.A56B2 /kMSmax*100;
+	value,KSD1.A67B2 /kMSmax*100;value,KSD2.A67B2 /kMSmax*100;
+	value,KSD1.A78B2 /kMSmax*100;value,KSD2.A78B2 /kMSmax*100;
+	value,KSD1.A81B2 /kMSmax*100;value,KSD2.A81B2 /kMSmax*100;
+	value,KSS.A12B2 /kMSSmax*100;
+	value,KSS.A23B2 /kMSSmax*100;
+	value,KSS.A34B2 /kMSSmax*100;
+	value,KSS.A45B2 /kMSSmax*100;
+	value,KSS.A56B2 /kMSSmax*100;
+	value,KSS.A67B2 /kMSSmax*100;
+	value,KSS.A78B2 /kMSSmax*100;
+	value,KSS.A81B2 /kMSSmax*100;
+	value,KCS.A12B2 /kMCSmax*100;
+	value,KCS.A23B2 /kMCSmax*100;
+	value,KCS.A34B2 /kMCSmax*100;
+	value,KCS.A45B2 /kMCSmax*100;
+	value,KCS.A56B2 /kMCSmax*100;
+	value,KCS.A67B2 /kMCSmax*100;
+	value,KCS.A78B2 /kMCSmax*100;
+	value,KCS.A81B2 /kMCSmax*100;
+	value,KCO.A12B2 /kMCOmax*100;
+	value,KCO.A23B2 /kMCOmax*100;
+	value,KCO.A34B2 /kMCOmax*100;
+	value,KCO.A45B2 /kMCOmax*100;
+	value,KCO.A56B2 /kMCOmax*100;
+	value,KCO.A67B2 /kMCOmax*100;
+	value,KCO.A78B2 /kMCOmax*100;
+	value,KCO.A81B2 /kMCOmax*100;
+	value,KCD.A12B2 /kMCDmax*100;
+	value,KCD.A23B2 /kMCDmax*100;
+	value,KCD.A34B2 /kMCDmax*100;
+	value,KCD.A45B2 /kMCDmax*100;
+	value,KCD.A56B2 /kMCDmax*100;
+	value,KCD.A67B2 /kMCDmax*100;
+	value,KCD.A78B2 /kMCDmax*100;
+	value,KCD.A81B2 /kMCDmax*100;
+	value,KOF.A12B2/kMOmax*100.;
+	value,KOF.A23B2/kMOmax*100.;
+	value,KOF.A34B2/kMOmax*100.;
+	value,KOF.A45B2/kMOmax*100.;
+	value,KOF.A56B2/kMOmax*100.;
+	value,KOF.A67B2/kMOmax*100.;
+	value,KOF.A78B2/kMOmax*100.;
+	value,KOF.A81B2/kMOmax*100.;
+	value,KOD.A12B2/kMOmax*100.;
+	value,KOD.A23B2/kMOmax*100.;
+	value,KOD.A34B2/kMOmax*100.;
+	value,KOD.A45B2/kMOmax*100.;
+	value,KOD.A56B2/kMOmax*100.;
+	value,KOD.A67B2/kMOmax*100.;
+	value,KOD.A78B2/kMOmax*100.;
+	value,KOD.A81B2/kMOmax*100.;
+};
+
+
+
+
+/*
+value,kmqtmax*nrj/0.3/kmax_mqt;
+value,kmqsmax*nrj/0.3/kmax_mqs;
+value,kmsmax*nrj/0.3/kmax_ms;
+value,kmssmax*nrj/0.3/kmax_mss;
+value,kmomax*nrj/0.3/kmax_mo;
+value,kmcsmax*nrj/0.3/kmax_mcs;
+value,kmcomax*nrj/0.3/kmax_mco;
+value,kmcdmax*nrj/0.3/kmax_mcd;
+value,kmqsxmax2*nrj/0.3/kmax_mqsx,kmqsxmax1*nrj/0.3/kmax_MQSXF;
+value,kmcsxmax2*nrj/0.3/kmax_mcsx,kmcsxmax1*nrj/0.3/kmax_mcsxf;
+value,kmctxmax2*nrj/0.3/kmax_mctx,kmctxmax1*nrj/0.3/kmax_mctxf;
+value,kmcssxmax2*nrj/0.3/kmax_mcssx,kmcssxmax1*nrj/0.3/kmax_mcssx;
+value,kmcoxmax2*nrj/0.3/kmax_mcox,kmcoxmax1*nrj/0.3/kmax_mcox;
+value,kmcosxmax2*nrj/0.3/kmax_mcosx,kmcosxmax1*nrj/0.3/kmax_mcosxf;
+*/
+
+option,echo;
+return;

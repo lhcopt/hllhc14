@@ -1619,7 +1619,7 @@ posTCTPVB  := posTCTPV + L.TCTPV/2;
 
 sepTCLX   := round((posTCLX -posD1)/(posD2-posD1)*194)/1e3;
 sepTCTXH  := round((posTCTXH-posD1)/(posD2-posD1)*194)/1e3;
-sepTCTV   := round((posTCTPV -posD1)/(posD2-posD1)*194)/1e3;
+sepTCTPV  := round((posTCTPV-posD1)/(posD2-posD1)*194)/1e3;
 sepTAXN   := round((posTAXN -posD1)/(posD2-posD1)*194)/1e3;
 sepTAXNA  := round((posTAXN -posD1- L.TAXN/2)/(posD2-posD1)*194)/1e3;
 sepTAXNB  := round((posTAXN -posD1+ L.TAXN/2)/(posD2-posD1)*194)/1e3;
@@ -1883,10 +1883,9 @@ abh.airnirb:=ab.airnirb/2;   kbh.airnirb:=abh.airnirb/l.mbh;
 abh.airairn:=ab.airairn/2;   kbh.airairn:=abh.airairn/l.mbh;
 
 !tolerances from DS MB Q13-Q7
-mbh_sag=l.MBH/ab.a78*2*(1/cos(ab.a78/4)-1)+(0.7225*0.0051/4); !sagitta + drift
-mbh_shift=-mbh_sag+0.0013*0;
+mbh_shift=-(l.MBH/ab.a78*2*(1/cos(ab.a78/4)-1)+(0.7225*0.0051/4)); !sagitta + drift
 g_MBH=0.017150;
-r_MBH:=0.022+mbh_shift;
+r_MBH:=0.022;
 r_tol_MBH=0.0009;
 h_tol_MBH=0.0008;
 v_tol_MBH=0.0005;

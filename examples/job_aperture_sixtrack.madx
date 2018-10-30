@@ -18,8 +18,6 @@ call,file="lhc/aperture/aperture.b1.madx";
 call,file="lhc/aperture/aperture.b2.madx";
 call,file="lhc/aperture/aper_tol.b1.madx";
 call,file="lhc/aperture/aper_tol.b2.madx";
-call,file="slhc/aperture/exp_pipe_model_after_LS3.madx";
-call,file="slhc/aperture/exp_pipe_install_after_LS3.madx";
 call,file="slhc/aperture/aperture_upgrade_IT.madx";
 call,file="slhc/aperture/aperture_upgrade_MS.madx";
 
@@ -47,9 +45,13 @@ call,file=lhcb2.seq;
 call,file="slhc/round/opt_round_150_1500_v3_thin.madx";
 
 exec,check_ip(b1); exec,check_ip(b2);
+return;
 call,file="slhc/toolkit/aperoffset_elements.madx"; ! Beam 1 only
+call,file="slhc/aperture/exp_pipe_model_after_LS3.madx";
+call,file="slhc/aperture/exp_pipe_install_after_LS3.madx";
 
 twiss;
+
 
 sixtrack,radius=0.017,cavall, aperture;
 return;

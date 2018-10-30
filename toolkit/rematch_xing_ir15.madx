@@ -602,6 +602,7 @@ exec,match_xing(1,v,y,295,s);
 exec,match_xing(5,h,x,295,s);
 exec,match_xing(5,v,y,295,s);
 
+cd2q4=1; cmcb12=1;
 exec,match_psep(1,h,x,2);
 exec,match_psep(1,v,y,2);
 exec,match_psep(5,h,x,2);
