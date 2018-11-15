@@ -1,12 +1,13 @@
 scale = 23348.89927;
 scmin := 0.03*7000./nrj;
-qtlimitx28 := 1.0*225.0/scale;
+qtlimitx28inj := 1.0*225.0/scale;
+qtlimitx28 := 1.0*205.0/scale;
 qtlimitx15 := 1.0*205.0/scale;
-qtlimit2 := 1.0*160.0/scale;
-qtlimit3 := 1.0*200.0/scale;
-qtlimit4 := 1.0*125.0/scale;
-qtlimit5 := 1.0*120.0/scale;
-qtlimit6 := 1.0*90.0/scale;
+qtlimit2 := 0.99*160.0/scale;
+qtlimit3 := 0.99*200.0/scale;
+qtlimit4 := 0.99*125.0/scale;
+qtlimit5 := 0.99*120.0/scale;
+qtlimit6 := 0.99*90.0/scale;
 
 
 if(on_holdselect==0){
