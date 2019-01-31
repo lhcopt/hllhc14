@@ -12,7 +12,7 @@ verify_assigned_limit(magnet,maximum): macro={
 	IF (ABS(magnet.PERCENT)>100*NRJ/7000){
 		magnet.LIMIT = magnet / ABS(magnet) * NRJ / 7000 ;
 		magnet = maximum * magnet.LIMIT;
-		printf,text="magnet:   %f%% (limited to maximum; desired strength is %f%%)", value = 100 * magnet.LIMIT,magnet.PERCENT;
+		printf,text="magnet:   %f%% (WARNING: limited strength to maximum; desired strength is %f%%)", value = 100 * magnet.LIMIT,magnet.PERCENT;
 	} ELSE {
 		printf,text="magnet:   %f%%", value=magnet.PERCENT;
 	};

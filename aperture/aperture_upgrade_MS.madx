@@ -418,6 +418,17 @@ r_tol_CRAB:=0.0005+r_tol_CRAB_mod;
 h_tol_CRAB:=0.0018+h_tol_CRAB_mod;
 v_tol_CRAB:=0.0018+v_tol_CRAB_mod;
 
+r1_VACF:=38.05-1.5*(1-no_bs_tol);  !C. Garion 30/11/2015 3mm CB, 1.5mm mech tol
+r2_VACF:=35.25-1.5*(1-no_bs_tol);  !C. Garion 30/11/2015 3mm CB, 1.5mm mech tol
+
+r_VACF=sqrt((sqrt(2)*r1_VACF-r2_VACF)^2+r2_VACF^2)/1e3;
+g_VACF=r1_VACF/1e3;
+hv_VACF=r2_VACF/1e3;
+
+angle1_VACF=pi/4-acos(g_VACF/r_VACF); !22.5 regular octagon
+angle2_VACF=pi/2-angle1_VACF;
+
+!value,hv_D2,r_D2,g_D2,angle1_D2,angle2_D2;
 
 crab_aperture(NNN): macro {
  acfca.NNNl5.b1,APERTYPE=RECTELLIPSE, APERTURE:={g_CRAB,r_CRAB,r_CRAB,r_CRAB}, APER_TOL:={0,0,0};
@@ -428,17 +439,15 @@ crab_aperture(NNN): macro {
  acfca.NNNl1.b2,APERTYPE=RECTELLIPSE, APERTURE:={g_CRAB,r_CRAB,r_CRAB,r_CRAB}, APER_TOL:={0,0,0};
  acfca.NNNr1.b1,APERTYPE=RECTELLIPSE, APERTURE:={g_CRAB,r_CRAB,r_CRAB,r_CRAB}, APER_TOL:={0,0,0};
  acfca.NNNr1.b2,APERTYPE=RECTELLIPSE, APERTURE:={g_CRAB,r_CRAB,r_CRAB,r_CRAB}, APER_TOL:={0,0,0};
-vacfca.NNNl5.b1,APERTYPE=RECTELLIPSE, APERTURE:={g_CRAB,r_CRAB,r_CRAB,r_CRAB}, APER_TOL:={r_tol_CRAB, h_tol_CRAB, v_tol_CRAB};
-vacfca.NNNl5.b2,APERTYPE=RECTELLIPSE, APERTURE:={g_CRAB,r_CRAB,r_CRAB,r_CRAB}, APER_TOL:={r_tol_CRAB, h_tol_CRAB, v_tol_CRAB};
-vacfca.NNNr5.b1,APERTYPE=RECTELLIPSE, APERTURE:={g_CRAB,r_CRAB,r_CRAB,r_CRAB}, APER_TOL:={r_tol_CRAB, h_tol_CRAB, v_tol_CRAB};
-vacfca.NNNr5.b2,APERTYPE=RECTELLIPSE, APERTURE:={g_CRAB,r_CRAB,r_CRAB,r_CRAB}, APER_TOL:={r_tol_CRAB, h_tol_CRAB, v_tol_CRAB};
-vacfca.NNNl1.b1,APERTYPE=RECTELLIPSE, APERTURE:={g_CRAB,r_CRAB,r_CRAB,r_CRAB}, APER_TOL:={r_tol_CRAB, h_tol_CRAB, v_tol_CRAB};
-vacfca.NNNl1.b2,APERTYPE=RECTELLIPSE, APERTURE:={g_CRAB,r_CRAB,r_CRAB,r_CRAB}, APER_TOL:={r_tol_CRAB, h_tol_CRAB, v_tol_CRAB};
-vacfca.NNNr1.b1,APERTYPE=RECTELLIPSE, APERTURE:={g_CRAB,r_CRAB,r_CRAB,r_CRAB}, APER_TOL:={r_tol_CRAB, h_tol_CRAB, v_tol_CRAB};
-vacfca.NNNr1.b2,APERTYPE=RECTELLIPSE, APERTURE:={g_CRAB,r_CRAB,r_CRAB,r_CRAB}, APER_TOL:={r_tol_CRAB, h_tol_CRAB, v_tol_CRAB};
+vacfca.NNNl5.b1,APERTYPE=OCTAGON, APERTURE:={hv_VACF,hv_VACF,angle1_VACF,angle2_VACF}, APER_TOL:={r_tol_CRAB, h_tol_CRAB, v_tol_CRAB};
+vacfca.NNNl5.b2,APERTYPE=OCTAGON, APERTURE:={hv_VACF,hv_VACF,angle1_VACF,angle2_VACF}, APER_TOL:={r_tol_CRAB, h_tol_CRAB, v_tol_CRAB};
+vacfca.NNNr5.b1,APERTYPE=OCTAGON, APERTURE:={hv_VACF,hv_VACF,angle1_VACF,angle2_VACF}, APER_TOL:={r_tol_CRAB, h_tol_CRAB, v_tol_CRAB};
+vacfca.NNNr5.b2,APERTYPE=OCTAGON, APERTURE:={hv_VACF,hv_VACF,angle1_VACF,angle2_VACF}, APER_TOL:={r_tol_CRAB, h_tol_CRAB, v_tol_CRAB};
+vacfca.NNNl1.b1,APERTYPE=OCTAGON, APERTURE:={hv_VACF,hv_VACF,angle1_VACF,angle2_VACF}, APER_TOL:={r_tol_CRAB, h_tol_CRAB, v_tol_CRAB};
+vacfca.NNNl1.b2,APERTYPE=OCTAGON, APERTURE:={hv_VACF,hv_VACF,angle1_VACF,angle2_VACF}, APER_TOL:={r_tol_CRAB, h_tol_CRAB, v_tol_CRAB};
+vacfca.NNNr1.b1,APERTYPE=OCTAGON, APERTURE:={hv_VACF,hv_VACF,angle1_VACF,angle2_VACF}, APER_TOL:={r_tol_CRAB, h_tol_CRAB, v_tol_CRAB};
+vacfca.NNNr1.b2,APERTYPE=OCTAGON, APERTURE:={hv_VACF,hv_VACF,angle1_VACF,angle2_VACF}, APER_TOL:={r_tol_CRAB, h_tol_CRAB, v_tol_CRAB};
 };
-
-
 
 exec,crab_aperture(A);
 exec,crab_aperture(B);

@@ -146,8 +146,8 @@ value,mux_ip15_ref,muy_ip15_ref;
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++;
 !Set crossing angle and separations knobs
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++;
-phi_IR1 =   90.000; phi_IR5 =   0.000; ! For round and flat optics
-!phi_IR1 =    0.000; phi_IR5 =   90.000; ! For flathv optics
+!phi_IR1 =   90.000; phi_IR5 =   0.000; ! For round and flatvh optics
+!phi_IR1 =    0.000; phi_IR5 =   90.000; ! For round and flathv optics
 if (not_a_mask==1){ xing15=255; } else { xing15=%XING; };
 sep15=0.75;
 xing8=-250; sep8=-2; on_lhcb=+1;
@@ -213,11 +213,28 @@ if (mylhcbeam<3){
   twiss, sequence=lhcb1, file=twiss.b1;system,"cat twiss.b1";
 };
 
+if (mylhcbeam==4){
+  Use, sequence=lhcb2;
+  select,flag=twiss,clear;
+  select, flag=twiss, pattern="IP1",   column=name,s,x,y,px,py;
+  select, flag=twiss, pattern="IP2",   column=name,s,x,y,px,py;
+  select, flag=twiss, pattern="IP5",   column=name,s,x,y,px,py;
+  select, flag=twiss, pattern="IP8",   column=name,s,x,y,px,py;
+  twiss, sequence=lhcb2, file=twiss.b2;system,"cat twiss.b2";
+};
+
+! weak beam reference for rematchCOIP.madx
 xnom1=table(twiss,IP1,x);pxnom1=table(twiss,IP1,px);ynom1=table(twiss,IP1,y);pynom1=table(twiss,IP1,py);
 xnom2=table(twiss,IP2,x);pxnom2=table(twiss,IP2,px);ynom2=table(twiss,IP2,y);pynom2=table(twiss,IP2,py);
 xnom5=table(twiss,IP5,x);pxnom5=table(twiss,IP5,px);ynom5=table(twiss,IP5,y);pynom5=table(twiss,IP5,py);
 xnom8=table(twiss,IP8,x);pxnom8=table(twiss,IP8,px);ynom8=table(twiss,IP8,y);pynom8=table(twiss,IP8,py);
 
+value,xnom1,xnom2,xnom5,xnom8;
+value,ynom1,ynom2,ynom5,ynom8;
+value,pxnom1,pxnom2,pxnom5,pxnom8;
+value,pynom1,pynom2,pynom5,pynom8;
+
+if (mylhcbeam<3){
 Use, sequence=lhcb2;
 select,flag=twiss,clear;
 select, flag=twiss, pattern="IP1",   column=name,s,x,y,px,py;
@@ -226,17 +243,14 @@ select, flag=twiss, pattern="IP5",   column=name,s,x,y,px,py;
 select, flag=twiss, pattern="IP8",   column=name,s,x,y,px,py;
 twiss, sequence=lhcb2, file=twiss.b2;system,"cat twiss.b2";
 
-value,xnom1,xnom2,xnom5,xnom8;
-value,ynom1,ynom2,ynom5,ynom8;
-value,pxnom1,pxnom2,pxnom5,pxnom8;
-value,pynom1,pynom2,pynom5,pynom8;
+};
 
 
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++;
 !     Xscheme definition   & Beam-beam encounters installation
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++;
 if( ON_BB_SWITCH == 1){
-	call,file="slhc/beambeam2/macro_bb.madx";                  ! macros for beam-beam
+        call,file="slhc/beambeam2/macro_bb.madx";                  ! macros for beam-beam
 };
 
 n_insideD1 = 5;    !default value for the number of additionnal parasitic encounters inside D1
@@ -247,7 +261,7 @@ nho_IR5= 11;        ! number of slices for head-on in IR5 (between 0 and 201)
 nho_IR8= 11;        ! number of slices for head-on in IR8 (between 0 and 201)
 
 if( ON_BB_SWITCH == 1){
-	exec DEFINE_BB_PARAM;  !Define main beam-beam parameters
+        exec DEFINE_BB_PARAM;  !Define main beam-beam parameters
 };
 
 if (ON_COLLISION==1){
@@ -615,7 +629,7 @@ eoption,seed=myseed+102;call, file="slhc/errors/Efcomp_MBXAB.madx";    ! new D1 
 if (correct_for_D2==1){
   use_average_errors_MBRD=1;   ! using average errors for correction algorithm
 };
-eoption,seed=myseed+103;call, file="slhc/errors/Efcomp_MBRD.madx";   	! new D2 in IR1/5
+eoption,seed=myseed+103;call, file="slhc/errors/Efcomp_MBRD.madx";      ! new D2 in IR1/5
 eoption,seed=myseed+104;call, file="slhc/errors/Efcomp_MQYY.madx";     ! new Q4 in IR1/5
 !eoption,seed=myseed+106;call, file="slhc/errors/Efcomp_MCBXFAB.madx";  ! new triplet correctors in IR1/5
 ON_B2s = 0; ON_B2r = 0;

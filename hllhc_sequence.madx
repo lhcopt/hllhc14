@@ -925,6 +925,7 @@ MCBYH.B4R5.B1:MCBYH, KICK:=  acbyh4.r5b1, polarity=+1,mech_sep= 0.194;
 MCBYV.4R1.B1:MCBYV, KICK:=  acbyvs4.r1b1, polarity=+1,mech_sep= 0.194;
 MCBYV.4R5.B1:MCBYV, KICK:=  acbyvs4.r5b1, polarity=+1,mech_sep= 0.194;
 MCBYV.A4L1.B1:MCBYV, KICK:=  acbyvs4.l1b1, polarity=+1,mech_sep=-0.194;
+MCBYV.A4L5.B1:MCBYV, KICK:=  acbyvs4.l5b1, polarity=+1,mech_sep=-0.194;
 MCBYV.B4L1.B1:MCBYV, KICK:=  acbyv4.l1b1, polarity=+1,mech_sep=-0.194;
 MCBYV.B4L5.B1:MCBYV, KICK:=  acbyv4.l5b1, polarity=+1,mech_sep=-0.194;
 
