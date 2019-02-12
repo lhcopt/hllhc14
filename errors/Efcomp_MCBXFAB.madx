@@ -24,19 +24,19 @@ klRef_MCBXFAH_abs = BRef_MCBXFAH*l.MCBXFA*CLIGHT/(1E9*NRJ);
 
 inv_MCBX=1;
 klRef_MCBXFAH = sign_MCBXFAH.3L1*klRef_MCBXFAH_abs;
-select,flag=error,clear;select,flag=error,pattern="^MCBXFAH\.3L1..err$";
+select,flag=error,clear;select,flag=error,pattern="^MCBXFAH\.3L1\.\.r$";
 exec new_magnetindividual(MCBXFAH,iap);exec errorgenerate_abs(MCBXFAH, inv_MCBX, 0, klRef_MCBXFAH);
 inv_MCBX=0;
 klRef_MCBXFAH = sign_MCBXFAH.3R1*klRef_MCBXFAH_abs;
-select,flag=error,clear;select,flag=error,pattern="^MCBXFAH\.3R1..err$";
+select,flag=error,clear;select,flag=error,pattern="^MCBXFAH\.3R1\.\.r$";
 exec new_magnetindividual(MCBXFAH,iap);exec errorgenerate_abs(MCBXFAH, inv_MCBX, 0, klRef_MCBXFAH);
 inv_MCBX=1;
 klRef_MCBXFAH = sign_MCBXFAH.3L5*klRef_MCBXFAH_abs;
-select,flag=error,clear;select,flag=error,pattern="^MCBXFAH\.3L5..err$";
+select,flag=error,clear;select,flag=error,pattern="^MCBXFAH\.3L5\.\.r$";
 exec new_magnetindividual(MCBXFAH,iap);exec errorgenerate_abs(MCBXFAH, inv_MCBX, 0, klRef_MCBXFAH);
 inv_MCBX=0;
 klRef_MCBXFAH = sign_MCBXFAH.3R5*klRef_MCBXFAH_abs;
-select,flag=error,clear;select,flag=error,pattern="^MCBXFAH\.3R5..err$";
+select,flag=error,clear;select,flag=error,pattern="^MCBXFAH\.3R5\.\.r$";
 exec new_magnetindividual(MCBXFAH,iap);exec errorgenerate_abs(MCBXFAH, inv_MCBX, 0, klRef_MCBXFAH);
 
 ! -----------------------------------------------------------------------
@@ -47,19 +47,19 @@ klRef_MCBXFAV_abs = BRef_MCBXFAV*l.MCBXFA*CLIGHT/(1E9*NRJ)*bv_aux;       ! Main 
 
 inv_MCBX=1;
 klRef_MCBXFAV = sign_MCBXFAV.3L1*klRef_MCBXFAV_abs;
-select,flag=error,clear;select,flag=error,pattern="^MCBXFAV\.3L1..err$";
+select,flag=error,clear;select,flag=error,pattern="^MCBXFAV\.3L1\.\.r$";
 exec new_magnetindividual(MCBXFAV,iap);exec errorgenerate_abs(MCBXFAV, inv_MCBX, 0, klRef_MCBXFAV);
 inv_MCBX=0;
 klRef_MCBXFAV = sign_MCBXFAV.3R1*klRef_MCBXFAV_abs;
-select,flag=error,clear;select,flag=error,pattern="^MCBXFAV\.3R1..err$";
+select,flag=error,clear;select,flag=error,pattern="^MCBXFAV\.3R1\.\.r$";
 exec new_magnetindividual(MCBXFAV,iap);exec errorgenerate_abs(MCBXFAV, inv_MCBX, 0, klRef_MCBXFAV);
 inv_MCBX=1;
 klRef_MCBXFAV = sign_MCBXFAV.3L5*klRef_MCBXFAV_abs;
-select,flag=error,clear;select,flag=error,pattern="^MCBXFAV\.3L5..err$";
+select,flag=error,clear;select,flag=error,pattern="^MCBXFAV\.3L5\.\.r$";
 exec new_magnetindividual(MCBXFAV,iap);exec errorgenerate_abs(MCBXFAV, inv_MCBX, 0, klRef_MCBXFAV);
 inv_MCBX=0;
 klRef_MCBXFAV = sign_MCBXFAV.3R5*klRef_MCBXFAV_abs;
-select,flag=error,clear;select,flag=error,pattern="^MCBXFAV\.3R5..err$";
+select,flag=error,clear;select,flag=error,pattern="^MCBXFAV\.3R5\.\.r$";
 exec new_magnetindividual(MCBXFAV,iap);exec errorgenerate_abs(MCBXFAV, inv_MCBX, 0, klRef_MCBXFAV);
 
 
@@ -71,35 +71,35 @@ klRef_MCBXFBH_abs = BRef_MCBXFBH*l.MCBXFB*CLIGHT/(1E9*NRJ);
 
 inv_MCBX=1;
 klRef_MCBXFBH = sign_MCBXFBH.a2L1*klRef_MCBXFBH_abs;
-select,flag=error,clear;select,flag=error,pattern="^MCBXFBH\.a2L1..err$";
+select,flag=error,clear;select,flag=error,pattern="^MCBXFBH\.a2L1\.\.r$";
 exec new_magnetindividual(MCBXFBH,iap);exec errorgenerate_abs(MCBXFBH, inv_MCBX, 0, klRef_MCBXFBH);
 inv_MCBX=0;
 klRef_MCBXFBH = sign_MCBXFBH.a2R1*klRef_MCBXFBH_abs;
-select,flag=error,clear;select,flag=error,pattern="^MCBXFBH\.a2R1..err$";
+select,flag=error,clear;select,flag=error,pattern="^MCBXFBH\.a2R1\.\.r$";
 exec new_magnetindividual(MCBXFBH,iap);exec errorgenerate_abs(MCBXFBH, inv_MCBX, 0, klRef_MCBXFBH);
 inv_MCBX=1;
 klRef_MCBXFBH = sign_MCBXFBH.a2L5*klRef_MCBXFBH_abs;
-select,flag=error,clear;select,flag=error,pattern="^MCBXFBH\.a2L5..err$";
+select,flag=error,clear;select,flag=error,pattern="^MCBXFBH\.a2L5\.\.r$";
 exec new_magnetindividual(MCBXFBH,iap);exec errorgenerate_abs(MCBXFBH, inv_MCBX, 0, klRef_MCBXFBH);
 inv_MCBX=0;
 klRef_MCBXFBH = sign_MCBXFBH.a2R5*klRef_MCBXFBH_abs;
-select,flag=error,clear;select,flag=error,pattern="^MCBXFBH\.a2R5..err$";
+select,flag=error,clear;select,flag=error,pattern="^MCBXFBH\.a2R5\.\.r$";
 exec new_magnetindividual(MCBXFBH,iap);exec errorgenerate_abs(MCBXFBH, inv_MCBX, 0, klRef_MCBXFBH);
 inv_MCBX=0;
 klRef_MCBXFBH = sign_MCBXFBH.b2L1*klRef_MCBXFBH_abs;
-select,flag=error,clear;select,flag=error,pattern="^MCBXFBH\.b2L1..err$";
+select,flag=error,clear;select,flag=error,pattern="^MCBXFBH\.b2L1\.\.r$";
 exec new_magnetindividual(MCBXFBH,iap);exec errorgenerate_abs(MCBXFBH, inv_MCBX, 0, klRef_MCBXFBH);
 inv_MCBX=1;
 klRef_MCBXFBH = sign_MCBXFBH.b2R1*klRef_MCBXFBH_abs;
-select,flag=error,clear;select,flag=error,pattern="^MCBXFBH\.b2R1..err$";
+select,flag=error,clear;select,flag=error,pattern="^MCBXFBH\.b2R1\.\.r$";
 exec new_magnetindividual(MCBXFBH,iap);exec errorgenerate_abs(MCBXFBH, inv_MCBX, 0, klRef_MCBXFBH);
 inv_MCBX=0;
 klRef_MCBXFBH = sign_MCBXFBH.b2L5*klRef_MCBXFBH_abs;
-select,flag=error,clear;select,flag=error,pattern="^MCBXFBH\.b2L5..err$";
+select,flag=error,clear;select,flag=error,pattern="^MCBXFBH\.b2L5\.\.r$";
 exec new_magnetindividual(MCBXFBH,iap);exec errorgenerate_abs(MCBXFBH, inv_MCBX, 0, klRef_MCBXFBH);
 inv_MCBX=1;
 klRef_MCBXFBH = sign_MCBXFBH.b2R5*klRef_MCBXFBH_abs;
-select,flag=error,clear;select,flag=error,pattern="^MCBXFBH\.b2R5..err$";
+select,flag=error,clear;select,flag=error,pattern="^MCBXFBH\.b2R5\.\.r$";
 exec new_magnetindividual(MCBXFBH,iap);exec errorgenerate_abs(MCBXFBH, inv_MCBX, 0, klRef_MCBXFBH);
 
 
@@ -111,35 +111,35 @@ klRef_MCBXFBV_abs = BRef_MCBXFBV*l.MCBXFB*CLIGHT/(1E9*NRJ)*bv_aux;       ! Main 
 
 inv_MCBX=1;
 klRef_MCBXFBV = sign_MCBXFBV.a2L1*klRef_MCBXFBV_abs;
-select,flag=error,clear;select,flag=error,pattern="^MCBXFBV\.a2L1..err$";
+select,flag=error,clear;select,flag=error,pattern="^MCBXFBV\.a2L1\.\.r$";
 exec new_magnetindividual(MCBXFBV,iap);exec errorgenerate_abs(MCBXFBV, inv_MCBX, 0, klRef_MCBXFBV);
 inv_MCBX=0;
 klRef_MCBXFBV = sign_MCBXFBV.a2R1*klRef_MCBXFBV_abs;
-select,flag=error,clear;select,flag=error,pattern="^MCBXFBV\.a2R1..err$";
+select,flag=error,clear;select,flag=error,pattern="^MCBXFBV\.a2R1\.\.r$";
 exec new_magnetindividual(MCBXFBV,iap);exec errorgenerate_abs(MCBXFBV, inv_MCBX, 0, klRef_MCBXFBV);
 inv_MCBX=1;
 klRef_MCBXFBV = sign_MCBXFBV.a2L5*klRef_MCBXFBV_abs;
-select,flag=error,clear;select,flag=error,pattern="^MCBXFBV\.a2L5..err$";
+select,flag=error,clear;select,flag=error,pattern="^MCBXFBV\.a2L5\.\.r$";
 exec new_magnetindividual(MCBXFBV,iap);exec errorgenerate_abs(MCBXFBV, inv_MCBX, 0, klRef_MCBXFBV);
 inv_MCBX=0;
 klRef_MCBXFBV = sign_MCBXFBV.a2R5*klRef_MCBXFBV_abs;
-select,flag=error,clear;select,flag=error,pattern="^MCBXFBV\.a2R5..err$";
+select,flag=error,clear;select,flag=error,pattern="^MCBXFBV\.a2R5\.\.r$";
 exec new_magnetindividual(MCBXFBV,iap);exec errorgenerate_abs(MCBXFBV, inv_MCBX, 0, klRef_MCBXFBV);
 inv_MCBX=0;
 klRef_MCBXFBV = sign_MCBXFBV.b2L1*klRef_MCBXFBV_abs;
-select,flag=error,clear;select,flag=error,pattern="^MCBXFBV\.b2L1..err$";
+select,flag=error,clear;select,flag=error,pattern="^MCBXFBV\.b2L1\.\.r$";
 exec new_magnetindividual(MCBXFBV,iap);exec errorgenerate_abs(MCBXFBV, inv_MCBX, 0, klRef_MCBXFBV);
 inv_MCBX=1;
 klRef_MCBXFBV = sign_MCBXFBV.b2R1*klRef_MCBXFBV_abs;
-select,flag=error,clear;select,flag=error,pattern="^MCBXFBV\.b2R1..err$";
+select,flag=error,clear;select,flag=error,pattern="^MCBXFBV\.b2R1\.\.r$";
 exec new_magnetindividual(MCBXFBV,iap);exec errorgenerate_abs(MCBXFBV, inv_MCBX, 0, klRef_MCBXFBV);
 inv_MCBX=0;
 klRef_MCBXFBV = sign_MCBXFBV.b2L5*klRef_MCBXFBV_abs;
-select,flag=error,clear;select,flag=error,pattern="^MCBXFBV\.b2L5..err$";
+select,flag=error,clear;select,flag=error,pattern="^MCBXFBV\.b2L5\.\.r$";
 exec new_magnetindividual(MCBXFBV,iap);exec errorgenerate_abs(MCBXFBV, inv_MCBX, 0, klRef_MCBXFBV);
 inv_MCBX=1;
 klRef_MCBXFBV = sign_MCBXFBV.b2R5*klRef_MCBXFBV_abs;
-select,flag=error,clear;select,flag=error,pattern="^MCBXFBV\.b2R5..err$";
+select,flag=error,clear;select,flag=error,pattern="^MCBXFBV\.b2R5\.\.r$";
 exec new_magnetindividual(MCBXFBV,iap);exec errorgenerate_abs(MCBXFBV, inv_MCBX, 0, klRef_MCBXFBV);
 
 

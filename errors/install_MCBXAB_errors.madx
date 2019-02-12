@@ -4,15 +4,15 @@
 
 ! Install thin multipoles at MCBX kicker locations for imperfections
 install_thin_kicker(refname):macro={
-	refname..err: multipole;
-	print,text="refname..err refname";
+	refname..r: multipole;
+	print,text="refname..r refname";
 	if (mylhcbeam<3) {
 		seqedit,sequence=lhcb1;
-		install,element=refname..err,at=0,from=refname;
+		install,element=refname..r,at=0,from=refname;
 		endedit;
 	};
 	seqedit,sequence=lhcb2;
-	install,element=refname..err,at=0,from=refname;
+	install,element=refname..r,at=0,from=refname;
 	endedit;
 };
 

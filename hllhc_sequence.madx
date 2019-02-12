@@ -674,7 +674,7 @@ DFXJ : MARKER, L:= 0;
 
 !posD1 := posMCSSXF+(l.MBXF+l.MCSSXF)/2.+2;
 posD1 = posQ3b+(l.MQXFA+l.MBXF)/2+1.047+7.954+1.050;
-posVMBXF = 82;
+posVMBXF = 81.826;
 
 posDFXJ := 82.127+l.DFXJ/2;
 !posBPMWC := posD1 + l.MBXF/2 + 0.90; ! to be checked with long range

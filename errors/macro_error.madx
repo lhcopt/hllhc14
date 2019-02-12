@@ -299,7 +299,7 @@ if (yfactref==-1){ ! odd x-sign flips
    bbb=sign*bbb;
 };
 
-erfact1=klref*(rref)^(ooo);
+erfact1=klref*(rref)^(ooo);   ! Frederik believes there is a missing factorial here: 1 / (ooo!)  see madx manual p173. However this does not change anything when the main field is a dipole or quadrupole
 erfact2=erfact1*1/rref;
 erfact3=erfact2*2/rref; erfact4=erfact3*3/rref;
 erfact5=erfact4*4/rref; erfact6=erfact5*5/rref;
@@ -457,4 +457,38 @@ KCTXF.L2:=0;KCTXF.R2:=0;
 KCTXF.L5:=0;KCTXF.R5:=0;
 KCTXF.L8:=0;KCTXF.R8:=0;
 
+};
+
+
+average_of_randoms(to,from1,from2): macro={
+    b1to = 0.5*( b1from1 + b1from2);
+    b2to = 0.5*( b2from1 + b2from2);
+    b3to = 0.5*( b3from1 + b3from2);
+    b4to = 0.5*( b4from1 + b4from2);
+    b5to = 0.5*( b5from1 + b5from2);
+    b6to = 0.5*( b6from1 + b6from2);
+    b7to = 0.5*( b7from1 + b7from2);
+    b8to = 0.5*( b8from1 + b8from2);
+    b9to = 0.5*( b9from1 + b9from2);
+    b10to = 0.5*( b10from1 + b10from2);
+    b11to = 0.5*( b11from1 + b11from2);
+    b12to = 0.5*( b12from1 + b12from2);
+    b13to = 0.5*( b13from1 + b13from2);
+    b14to = 0.5*( b14from1 + b14from2);
+    b15to = 0.5*( b15from1 + b15from2);
+    a1to = 0.5*( a1from1 + a1from2);
+    a2to = 0.5*( a2from1 + a2from2);
+    a3to = 0.5*( a3from1 + a3from2);
+    a4to = 0.5*( a4from1 + a4from2);
+    a5to = 0.5*( a5from1 + a5from2);
+    a6to = 0.5*( a6from1 + a6from2);
+    a7to = 0.5*( a7from1 + a7from2);
+    a8to = 0.5*( a8from1 + a8from2);
+    a9to = 0.5*( a9from1 + a9from2);
+    a10to = 0.5*( a10from1 + a10from2);
+    a11to = 0.5*( a11from1 + a11from2);
+    a12to = 0.5*( a12from1 + a12from2);
+    a13to = 0.5*( a13from1 + a13from2);
+    a14to = 0.5*( a14from1 + a14from2);
+    a15to = 0.5*( a15from1 + a15from2);
 };
