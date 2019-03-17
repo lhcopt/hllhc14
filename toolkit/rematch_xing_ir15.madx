@@ -515,7 +515,7 @@ setvars_const,table=knob_on_ccsrirnhvb1;
 setvars_const,table=knob_on_ccslirnhvb2;
 setvars_const,table=knob_on_ccsrirnhvb2;
 
-off=0.5;
+off=0.2;
 
 use, sequence= lhcb1,range=s.ds.lirn.b1/e.ds.rirn.b1;
 use, sequence= lhcb2,range=s.ds.lirn.b2/e.ds.rirn.b2;

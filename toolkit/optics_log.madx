@@ -355,8 +355,6 @@ print,text="fill ir1sq1 nnn in ir1sq1.tfs";
 };
 
 write_opticstbl_all(sq1): macro={
-scxir5=betx_ip5/betx0_ip5; scyir5=bety_ip5/bety0_ip5;
-scxir1=betx_ip1/betx0_ip1; scyir1=bety_ip1/bety0_ip1;
 write,table=ir1sq1,file=ir1sq1.tfs;
 write,table=ir2sq1,file=ir2sq1.tfs;
 write,table=ir3sq1,file=ir3sq1.tfs;
