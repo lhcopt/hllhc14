@@ -1,0 +1,28 @@
+option, warn,info;
+system,"rm -rf temp"; system,"mkdir temp";
+system,"ln -fns /afs/cern.ch/eng/lhc/optics/HLLHCV1.4 slhc";
+system,"ln -fns /afs/cern.ch/eng/lhc/optics/runIII lhc";
+
+Option, -echo,-warn,-info;
+call,file="lhc/lhc.seq";
+call,file="slhc/toolkit/macro.madx";
+Option, -echo,warn,-info,no_fatal_stop;
+
+call,file="slhc/hllhc_sequence.madx";
+call,file="slhc/ramp/opt_inj_6000.madx";
+
+exec,mk_beam(7000);
+
+on_sep1:=-2;on_x1:=295;phi_IR1 :=    0.000; on_sol_atlas:=0;on_crab1:=0;
+on_sep5:=2 ;on_x5:=295;phi_IR5 :=   90.000; on_sol_cms  :=0;on_crab5:=0;
+on_sep2:= 3.5;on_x2:= 170;on_a2=-40;on_alice:=7000/nrj;on_sol_alice:=0;
+on_sep8:=-3.5;on_x8:=-170;on_a8=-40;on_lhcb :=7000/nrj;
+on_disp=0;
+
+qxb1  = 62.27; qyb1  = 60.295; qxb2  = 62.27; qyb2  = 60.295;
+qpxb1 = 20   ; qpyb1 = 20    ; qpxb2 = 20   ; qpyb2 = 20    ;
+
+call, file="/afs/cern.ch/eng/lhc/optics/HLLHCV1.3/toolkit/rematch_chroma.madx";
+call, file="/afs/cern.ch/eng/lhc/optics/HLLHCV1.3/toolkit/rematch_tune.madx";
+
+exec,check_ip(b1); exec,check_ip(b2);
