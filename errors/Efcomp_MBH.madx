@@ -79,9 +79,14 @@ assign_mbh_err(mbn,irn,apl,apr): macro={
   };
 };
 
-exec,assign_mbh_err(8,1,2,1); exec,assign_mbh_err(10,1,2,1);
-exec,assign_mbh_err(9,1,2,1);
-exec,assign_mbh_err(8,2,1,2); exec,assign_mbh_err(10,2,1,2);
-exec,assign_mbh_err(8,5,2,1); exec,assign_mbh_err(10,5,2,1);
-exec,assign_mbh_err(9,5,2,1);
-exec,assign_mbh_err(8,7,1,1); exec,assign_mbh_err(10,7,1,1);
+exec,assign_mbh_err( 8,1,2,1);
+exec,assign_mbh_err( 9,1,2,1);
+exec,assign_mbh_err(10,1,2,1);
+exec,assign_mbh_err( 8,2,1,2);
+exec,assign_mbh_err(10,2,1,2);
+exec,assign_mbh_err( 8,5,2,1);
+exec,assign_mbh_err( 9,5,2,1);
+exec,assign_mbh_err(10,5,2,1);
+exec,assign_mbh_err( 8,7,1,1);
+exec,assign_mbh_err( 9,7,1,1);
+exec,assign_mbh_err(10,7,1,1);
