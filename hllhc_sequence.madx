@@ -1847,7 +1847,9 @@ install,element=BPTX.4R5.B2, at= posBPTX*bv_aux, from=IP5;
 
 mbh_rm_mcs=0; mbh_rm_mcdo=0; !=1 to remove spools
 mbh_ir2q8=0;mbh_ir2q10=0;
-mbh_ir7q8=1;mbh_ir7q10=0;
+mbh_ir7q8a=0; mbh_ir7q8b=0;
+mbh_ir7q9a=1; mbh_ir7q9b=0;
+mbh_ir7q10a=0; mbh_ir7q10b=0;
 mbh_ir1q8=0;mbh_ir1q9=0;mbh_ir1q10=0;
 mbh_ir5q8=0;mbh_ir5q9=0;mbh_ir5q10=0;
 
@@ -2058,6 +2060,14 @@ if (mbh_ir5q10>0){ exec,install_mbh(b,10,5,4,6); };
 
 if (mbh_ir7q8 >0){ exec,install_mbh(b,8 ,7,6,8); };
 if (mbh_ir7q10>0){ exec,install_mbh(b,10,7,6,8); };
+
+
+if (mbh_ir7q8a >0){ exec,install_mbh(a,8 ,7,6,8); };
+if (mbh_ir7q8b >0){ exec,install_mbh(b,8 ,7,6,8); };
+if (mbh_ir7q9a >0){ exec,install_mbh(a,9 ,7,6,8); };
+if (mbh_ir7q9b >0){ exec,install_mbh(b,9 ,7,6,8); };
+if (mbh_ir7q10a >0){ exec,install_mbh(a,10 ,7,6,8); };
+if (mbh_ir7q10b >0){ exec,install_mbh(b,10 ,7,6,8); };
 
 
 !end slhc/toolkit/install_mbh.madx

@@ -173,3 +173,9 @@ if (mbh_ir5q10>0){ exec,install_mbh(b,10,5,4,6); };
 if (mbh_ir7q8 >0){ exec,install_mbh(b,8 ,7,6,8); };
 if (mbh_ir7q10>0){ exec,install_mbh(b,10,7,6,8); };
 
+if (mbh_ir7q8a >0){ exec,install_mbh(a,8 ,7,6,8); };
+if (mbh_ir7q8b >0){ exec,install_mbh(b,8 ,7,6,8); };
+if (mbh_ir7q9a >0){ exec,install_mbh(a,9 ,7,6,8); };
+if (mbh_ir7q9b >0){ exec,install_mbh(b,9 ,7,6,8); };
+if (mbh_ir7q10a >0){ exec,install_mbh(a,10 ,7,6,8); };
+if (mbh_ir7q10b >0){ exec,install_mbh(b,10 ,7,6,8); };
