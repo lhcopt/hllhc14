@@ -334,6 +334,17 @@ value,betx_acf_ref,bety_acf_ref,betx_mcby_ref,bety_mcby_ref,bety_q3_ref;
 
 refbeta=(refbetxip5b1+refbetyip5b1+refbetxip5b2+refbetyip5b2)/4;
 
+if (match_inj_tunes==1){
+   muxip5b1_l      = refmuxip5b1_l ;
+   muyip5b1_l      = refmuyip5b1_l ;
+   muxip5b1_r      = refmuxip5b1_r ;
+   muyip5b1_r      = refmuyip5b1_r ;
+   muxip5b2_l      = refmuxip5b2_l ;
+   muyip5b2_l      = refmuyip5b2_l ;
+   muxip5b2_r      = refmuxip5b2_r ;
+   muyip5b2_r      = refmuyip5b2_r ;
+};
+
 
 value,tar;
 value,KQX1.L5*scale,KQX2.L5*scale,KQX3.L5*scale;

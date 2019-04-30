@@ -19,13 +19,15 @@ dqyb2=qyb2-(muyweakb2+muystrongb2
 +muyip1b2+muyip2b2+muyip3b2+muyip4b2
 +muyip5b2+muyip6b2+muyip7b2+muyip8b2);
 
+value,dqxb1,dqyb1,dqxb2,dqyb2;
+
+
 mux34b1=mux34b1+dqxb1;
 muy34b1=muy34b1+dqyb1;
 mux34b2=mux34b2+dqxb2;
 muy34b2=muy34b2+dqyb2;
 exec,rematch_arc(3,4,34);
 
-value,dqxb1,dqyb1,dqxb2,dqyb2;
 
 !mux67b1=mux67b1-dqxb1;
 !muy67b1=muy67b1-dqyb1;

@@ -81,15 +81,64 @@ jacobian,calls=jac_calls, tolerance=jac_tol, bisec=jac_bisec;
 endmatch;
 
 exec,mk_irtwiss(6,b2);
-value,kq4.r6b2+0.004833837730000;
-dmuxkickb2=table(twiss,MKD.H5R6.B2,mux)-table(twiss,TCSG.4L6.B2,mux);
-value,dmuxkickb2;
-al_dump=761;
-bxdumpb2=refbetxip6b2+2*al_dump*refalfxip6b2+
+refbetxip6b2=table(twiss,IP6,betx); refalfxip6b2=table(twiss,IP6,alfx);
+refbetyip6b2=table(twiss,IP6,bety); refalfyip6b2=table(twiss,IP6,alfy);
+refdxip6b2=table(twiss,IP6,dx); refdpxip6b2=table(twiss,IP6,dpx);
+
+refdmuxkickb2_tcsg=table(twiss,MKD.H5R6.B2,mux)-table(twiss,TCSP.A4L6.B2,mux);
+refdmuxkickb2_tcdqc=table(twiss,MKD.H5R6.B2,mux)-table(twiss,TCDQA.C4L6.B2,mux);
+refdmuxkickb2_tcdqb=table(twiss,MKD.H5R6.B2,mux)-table(twiss,TCDQA.B4L6.B2,mux);
+refdmuxkickb2_tcdqa=table(twiss,MKD.H5R6.B2,mux)-table(twiss,TCDQA.A4L6.B2,mux);
+refdmuxkickb2=refdmuxkickb2_tcdqc;
+if(abs(refdmuxkickb2_tcdqa-0.25)>abs(refdmuxkickb2-0.25)){
+refdmuxkickb2=refdmuxkickb2_tcdqa;};
+if(abs(refdmuxkickb2_tcdqb-0.25)>abs(refdmuxkickb2-0.25)){
+refdmuxkickb2=refdmuxkickb2_tcdqb;};
+
+refdxq5r6b2=abs(table(twiss,MQY.5R6.B2,dx));
+refdxq4l6b2=abs(table(twiss,MQY.4L6.B2,dx));
+
+refdxtcdqb2=table(twiss,TCDQA.A4L6.B2,dx);
+refbetxtcdqb2=table(twiss,TCDQA.A4L6.B2,betx);
+refbetytcdqb2=table(twiss,TCDQA.A4L6.B2,bety);
+refbetxtcdsb2=table(twiss,TCDSA.4R6.B2,betx);
+refbetytcdsb2=table(twiss,TCDSA.4R6.B2,bety);
+refbetxtcsgb2=table(twiss,TCSP.A4L6.B2,betx);
+refbetytcsgb2=table(twiss,TCSP.A4L6.B2,bety);
+refbetxmkdb2 =table(twiss,MKD.H5R6.B2,betx);
+refbetymkdb2 =table(twiss,MKD.H5R6.B2,bety);
+
+refbxdumpb2=refbetxip6b2+2*al_dump*refalfxip6b2+
                         al_dump^2*(1+refalfxip6b2^2)/refbetxip6b2;
-bydumpb2=refbetyip6b2+2*al_dump*refalfyip6b2+
+refbydumpb2=refbetyip6b2+2*al_dump*refalfyip6b2+
                         al_dump^2*(1+refalfyip6b2^2)/refbetyip6b2;
-value,bxdumpb2,bydumpb2;
+refbdumpb2=sqrt(refbxdumpb2*refbydumpb2);
+
+refdmuxkickb2_bds=table(twiss,MKD.O5R6.B2,mux);
+refdmuxkickb2_bdsa=table(twiss,MKD.A5R6.B2,mux);
+
+reftcdqmingapb2 = chi6_nsig*sqrt(chi6_emitx*refbetxtcdqb2)-3e-4
+                 -abs(refdxtcdqb2*chi6_dPoverP)-chi6_maxorbitdrift;
+reftcdqgapb2 = chi6_nsig*sqrt(chi6_emitx*refbetxtcdqb2);
+
+
+if (nomatch_beta==1){
+  betxip6b2=refbetxip6b2 ;
+  betyip6b2=refbetyip6b2 ;
+  alfxip6b2=refalfxip6b2 ;
+  alfyip6b2=refalfyip6b2 ;
+};
+if (nomatch_dx==1){
+  dxip6b2 =refdxip6b2 ;
+};
+
+if (nomatch_dpx==1){
+  dpxip6b2=refdpxip6b2 ;
+};
+
+
+
+
 
 
 kq4.r6b2=kq4.r6b2;
@@ -97,6 +146,22 @@ kq4.r6b2=kq4.r6b2;
 tarir6b2=tar;
 value,kqt13.l6b2/qtlimit5,kqt12.l6b2/qtlimit5,kqtl11.l6b2,kq10.l6b2,kq9.l6b2,kq8.l6b2,kq5.l6b2,kq4.l6b2,
 kq4.r6b2,kq5.r6b2,kq8.r6b2,kq9.r6b2,kq10.r6b2,kqtl11.r6b2,kqt12.r6b2/qtlimit5,kqt13.r6b2/qtlimit5;
+
+value,kq4.r6b2+0.004833837730000;
+value,refdmuxkickb2;
+value,refdmuxkickb2_tcsg;
+value,refdmuxkickb2_tcdq;
+value,refbetxtcdqb2,refbetytcdqb2,refbetxtcdsb2,refbetytcdsb2,refbetxtcsgb2,refbetytcsgb2;
+value,refdxtcdqb2;
+value,refbxdumpb2,refbydumpb2,refbdumpb2;
+
+value,refdmuxkickb2_bds;
+value,refmuxip6b2;
+value,refmuyip6b2;
+
+value,kq5.l6b2*scale;
+value,kq5.r6b2*scale;
+
 value,tarir6b2;
 
 !muxip6b2 = 2.0000 ;betxip6b2= 1.96000000E+02 ;alfxip6b2 = 5.98285418E-01  ;

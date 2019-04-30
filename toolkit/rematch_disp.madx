@@ -6,7 +6,7 @@
 rematch_disp_ir1b1: macro={
 
 !Generate the bumps to correct Dx/Dy
-kmcb_max=80.e-6;
+kmcb_max=15*80.e-6;
 
 use,period=lhcb1,range=IP8/IP2;
 MATCH, sequence=lhcb1,betx=1,bety=1,dx=refdxIP8b1,dpx=refdpxIP8b1,dy=0,dpy=0,x=0,px=0,y=0,py=0;
@@ -39,7 +39,7 @@ endmatch;
 rematch_disp_ir5b1: macro={
 
 !Generate the bumps to correct Dx/Dy
-kmcb_max=80.e-6;
+kmcb_max=15*80.e-6;
 
 use,period=lhcb1,range=IP4/IP6;
 MATCH, sequence=lhcb1,betx=1,bety=1,dx=refdxIP4b1,dpx=refdpxIP4b1,dy=0,dpy=0,x=0,px=0,y=0,py=0;

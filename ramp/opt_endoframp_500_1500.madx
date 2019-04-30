@@ -1354,8 +1354,8 @@ acbh32.l4b2         =                            0 ;
 acbv32.l4b1         =                            0 ;
 acbh32.r4b1         =                            0 ;
 acbv32.r4b2         =                            0 ;
-betxIP4b1 = 236.180258; betyIP4b1 = 306.196759; alfxIP4b1 =   0.446206; alfyIP4b1 =  -0.403407; dxIP4b1   =   0.000008; dpxIP4b1  =  -0.000000;
-betxIP4b2 = 236.148473; betyIP4b2 = 320.924308; alfxIP4b2 =  -0.446562; alfyIP4b2 =   0.596012; dxIP4b2   =  -0.000037; dpxIP4b2  =  -0.000000;
+betxIP4b1 = 236.180258; betyIP4b1 = 306.196759; alfxIP4b1 =   0.446206; alfyIP4b1 =  -0.403407; dxIP4b1   =   0.000000; dpxIP4b1  =  -0.000000;
+betxIP4b2 = 236.148473; betyIP4b2 = 320.924308; alfxIP4b2 =  -0.446562; alfyIP4b2 =   0.596012; dxIP4b2   =  -0.000000; dpxIP4b2  =  -0.000000;
 muxIP4b1  =   2.160000; muyIP4b1  =   1.720000; muxIP4b1_L=   1.048562; muyIP4b1_L=   0.741419; muxIP4b1_R=   1.111438; muyIP4b1_R=   0.978581;
 muxIP4b2  =   2.160000; muyIP4b2  =   1.720000; muxIP4b2_L=   1.163269; muyIP4b2_L=   0.749437; muxIP4b2_R=   0.996731; muyIP4b2_R=   0.970563;
 

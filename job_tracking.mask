@@ -250,7 +250,7 @@ twiss, sequence=lhcb2, file=twiss.b2;system,"cat twiss.b2";
 !     Xscheme definition   & Beam-beam encounters installation
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++;
 if( ON_BB_SWITCH == 1){
-        call,file="slhc/beambeam2/macro_bb.madx";                  ! macros for beam-beam
+        call,file="slhc/beambeam/macro_bb.madx";                  ! macros for beam-beam
 };
 
 n_insideD1 = 5;    !default value for the number of additionnal parasitic encounters inside D1

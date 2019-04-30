@@ -77,39 +77,88 @@ jacobian,calls=jac_calls, tolerance=jac_tol, bisec=jac_bisec;
 endmatch;
 
 exec,mk_irtwiss(6,b1);
-value,kq4.l6b1+0.004833837730000;
-dmuxkickb1=table(twiss,TCSG.4R6.B1,mux)- table(twiss,MKD.H5L6.B1,mux);
-value,dmuxkickb1;
+chi6_nsig = 10.1;
+chi6_dPoverP = 2e-4;
+chi6_emitx=2.5e-6/(7000/0.9382720814);
+chi6_maxorbitdrift = 0.6e-3;
 al_dump=761;
-bxdumpb1=refbetxip6b1-2*al_dump*refalfxip6b1+
+
+refbetxip6b1=table(twiss,IP6,betx); refalfxip6b1=table(twiss,IP6,alfx);
+refbetyip6b1=table(twiss,IP6,bety); refalfyip6b1=table(twiss,IP6,alfy);
+refdxip6b1=table(twiss,IP6,dx); refdpxip6b1=table(twiss,IP6,dpx);
+
+refdmuxkickb1_tcsg=table(twiss,TCSP.A4R6.B1,mux)- table(twiss,MKD.H5L6.B1,mux);
+refdmuxkickb1_tcdqc=table(twiss,TCDQA.C4R6.B1,mux)-table(twiss,MKD.H5L6.B1,mux);
+refdmuxkickb1_tcdqb=table(twiss,TCDQA.B4R6.B1,mux)-table(twiss,MKD.H5L6.B1,mux);
+refdmuxkickb1_tcdqa=table(twiss,TCDQA.A4R6.B1,mux)-table(twiss,MKD.H5L6.B1,mux);
+refdmuxkickb1=refdmuxkickb1_tcdqc;
+if(abs(refdmuxkickb1_tcdqa-0.25)>abs(refdmuxkickb1-0.25)){
+refdmuxkickb1=refdmuxkickb1_tcdqa;};
+if(abs(refdmuxkickb1_tcdqb-0.25)>abs(refdmuxkickb1-0.25)){
+refdmuxkickb1=refdmuxkickb1_tcdqb;};
+
+refdxq5l6b1=abs(table(twiss,MQY.5L6.B1,dx));
+refdxq4r6b1=abs(table(twiss,MQY.4R6.B1,dx));
+
+refdxtcdqb1=table(twiss,TCDQA.A4R6.B1,dx);
+refbetxtcdqb1=table(twiss,TCDQA.A4R6.B1,betx);
+refbetytcdqb1=table(twiss,TCDQA.A4R6.B1,bety);
+refbetxtcdsb1=table(twiss,TCDSA.4L6.B1,betx);
+refbetytcdsb1=table(twiss,TCDSA.4L6.B1,bety);
+refbetxtcsgb1=table(twiss,TCSP.A4R6.B1,betx);
+refbetytcsgb1=table(twiss,TCSP.A4R6.B1,bety);
+refbetxmkdb1 =table(twiss,MKD.H5L6.B1,betx);
+refbetymkdb1 =table(twiss,MKD.H5L6.B1,bety);
+
+refbxdumpb1=refbetxip6b1-2*al_dump*refalfxip6b1+
                         al_dump^2*(1+refalfxip6b1^2)/refbetxip6b1;
-bydumpb1=refbetyip6b1-2*al_dump*refalfyip6b1+
+refbydumpb1=refbetyip6b1-2*al_dump*refalfyip6b1+
                         al_dump^2*(1+refalfyip6b1^2)/refbetyip6b1;
-value,bxdumpb1,bydumpb1;
+refbdumpb1=sqrt(refbxdumpb1*refbydumpb1);
 
+refdmuxkickb1_bds=table(twiss,MKD.O5L6.B1,mux);
+refdmuxkickb1_bdsa=table(twiss,MKD.A5L6.B1,mux);
+refdmuxkickb1_eds=table(twiss,e.ds.r6.b1,mux)- table(twiss,MKD.O5L6.B1,mux);
 
-
-
-if(on_aperture==1){
-exec,plot_ap(6,b1,$nrj,$full);
-};
-
-
+reftcdqmingapb1 = chi6_nsig*sqrt(chi6_emitx*refbetxtcdqb1)-3e-4
+                 -abs(refdxtcdqb1*chi6_dPoverP)-chi6_maxorbitdrift;
+reftcdqgapb1 = chi6_nsig*sqrt(chi6_emitx*refbetxtcdqb1);
 
 kq4.l6b1=kq4.l6b1;
 
 tarir6b1=tar;
 value,kqt13.l6b1,kqt12.l6b1,kqtl11.l6b1,kq10.l6b1,kq9.l6b1,kq8.l6b1,kq5.l6b1,kq4.l6b1,
 kq4.r6b1,kq5.r6b1,kq8.r6b1,kq9.r6b1,kq10.r6b1,kqtl11.r6b1,kqt12.r6b1,kqt13.r6b1;
+
+
+if (nomatch_beta==1){
+  betxip6b1=refbetxip6b1 ;
+  betyip6b1=refbetyip6b1 ;
+  alfxip6b1=refalfxip6b1 ;
+  alfyip6b1=refalfyip6b1 ;
+};
+
+if (nomatch_dx==1){
+  dxip6b1=refdxip6b1;
+};
+
+if (nomatch_dpx==1){
+  dpxip6b1=refdpxip6b1;
+};
+
+value,kq4.l6b1+0.004833837730000;
+value,refdmuxkickb1;
+value,refdmuxkickb1_tcsg;
+value,refdmuxkickb1;
+value,refbetxtcdqb1,refbetytcdqb1,betxtcdsb1,refbetytcdsb1,refbetxtcsgb1,refbetytcsgb1;
+value,refdxtcdqb1;
+value,refbxdumpb1,refbydumpb1,refbdumpb1;
+
+value,refdmuxkickb1_eds;
+value,refdmuxkickb1_bds;
+value,refdmuxkickb1_bdsa;
+value,refmuxip6b1;
+value,refmuyip6b1;
+
 value,tarir6b1;
-
-
-!muxip6b1 = 2.0000 ;betxip6b1= 187.297499 ;alfxip6b1 = -0.541994 ;
-!muyip6b1 = 2.0300 ;betyip6b1= 202.523627 ;alfyip6b1 =  0.536786 ;
-!dxip6b1 =  0.100621 ;dpxip6b1 =   3.5364e-05 ;
-
-!strategy for 11->22 : use all  (kq4.l6b1 fixed),dx,dpx and alfas as injection, betas not constrained
-!strategy for 22->28 : use all (kq4.l6b1 fixed), dx,dpx,alfx, as injection, alfy increased by 60%, betx/y not constrained (around 190 m)
-!strategy for 22->82 : use all (kq4.l6b1 fixed), dx,dpx,alfx,alfay as injection, betx/y not constrained (around 280/190 m)
-
 
