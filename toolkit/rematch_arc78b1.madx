@@ -1,0 +1,11 @@
+exec,rephase_arc_trim(7,8,78,b1,dqxb1,dqyb1);
+
+on_holdselect=1;
+scxir1=betx_ip1/betx0_ip1; scyir1=bety_ip1/bety0_ip1;
+exec,selectIRAUX(7,8,1,2,3,b1,scxir1,scyir1,betx0_ip1,bety0_ip1);
+exec,select(7,67,78,b1);
+jac_calls=   10;jac_tol=1e-22; jac_bisec=3;
+call,file="slhc/toolkit/rematch_ir7b1.madx";
+call,file="slhc/toolkit/rematch_ir8b1.madx";
+value,kqtf.a78b1*scale,kqtd.a78b1*scale;
+
