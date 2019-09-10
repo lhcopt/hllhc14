@@ -11,7 +11,7 @@ Option, -echo,warn,-info,no_fatal_stop;
 call,file="slhc/hllhc_sequence.madx";
 call,file="slhc/ramp/opt_inj_6000.madx";
 
-exec,mk_beam(7000);
+exec,mk_beam(450);
 
 on_sep1:=-2;on_x1:=295;phi_IR1 :=    0.000; on_sol_atlas:=0;on_crab1:=0;
 on_sep5:=2 ;on_x5:=295;phi_IR5 :=   90.000; on_sol_cms  :=0;on_crab5:=0;
