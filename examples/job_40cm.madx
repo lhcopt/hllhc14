@@ -1,0 +1,25 @@
+option, warn,info;
+system,"rm -rf temp"; system,"mkdir temp";
+system,"ln -fns /afs/cern.ch/eng/lhc/optics/HLLHCV1.4 slhc";
+system,"ln -fns /afs/cern.ch/eng/lhc/optics/runIII lhc";
+
+Option, -echo,-warn,-info;
+call,file="lhc/lhc.seq";
+call,file="slhc/toolkit/macro.madx";
+Option, -echo,warn,-info,no_fatal_stop;
+
+call,file="slhc/hllhc_sequence.madx";
+call,file="slhc/round/opt_round_400_1500.madx";
+
+exec,mk_beam(7000);
+exec,check_ip(b1); exec,check_ip(b2);
+
+
+on_x1= 250; on_sep1=0;
+on_x5= 250; on_sep5=0;
+on_x2= 170; on_sep2=0; on_alice=7000/NRJ;
+on_x8=-250; on_sep8=0; on_lhcb=7000/NRJ;
+
+exec,check_ip(b1); exec,check_ip(b2);
+
+
