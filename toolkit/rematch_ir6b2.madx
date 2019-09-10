@@ -81,6 +81,12 @@ jacobian,calls=jac_calls, tolerance=jac_tol, bisec=jac_bisec;
 endmatch;
 
 exec,mk_irtwiss(6,b2);
+chi6_nsig = 10.1;
+chi6_dPoverP = 2e-4;
+chi6_emitx=2.5e-6/(7000/0.9382720814);
+chi6_maxorbitdrift = 0.6e-3;
+al_dump=761;
+
 refbetxip6b2=table(twiss,IP6,betx); refalfxip6b2=table(twiss,IP6,alfx);
 refbetyip6b2=table(twiss,IP6,bety); refalfyip6b2=table(twiss,IP6,alfy);
 refdxip6b2=table(twiss,IP6,dx); refdpxip6b2=table(twiss,IP6,dpx);

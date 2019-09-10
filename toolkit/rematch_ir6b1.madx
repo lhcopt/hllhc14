@@ -160,5 +160,8 @@ value,refdmuxkickb1_bdsa;
 value,refmuxip6b1;
 value,refmuyip6b1;
 
+value,kq5.l6b1*scale;
+value,kq5.r6b1*scale;
+
 value,tarir6b1;
 

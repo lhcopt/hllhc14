@@ -6,6 +6,10 @@ qtlimit3 := sch*200.0/scale;
 qtlimit4 := sch*125.0/scale;
 qtlimit5 := sch*120.0/scale;
 qtlimit6 := sch*90.0/scale;
+if (q5l6_lim==0) { q5l6_lim=160*7.5/7;};
+if (q5r6_lim==0) { q5r6_lim=160*7.5/7;};
+qtlimit5l := sch*q5l6_lim/scale;
+qtlimit5r := sch*q5r6_lim/scale;
 
 
 if(on_holdselect==0){ exec,select(6,56,67,b2); };
@@ -34,11 +38,11 @@ match,use_macro;
  vary,name=kq10.l6b2,   step=1.0E-6, lower= qtlimit3*scmin, upper= qtlimit3;
  vary,name=kq9.l6b2,    step=1.0E-6, lower=-qtlimit3, upper=-qtlimit3*scmin;
  vary,name=kq8.l6b2,    step=1.0E-6, lower= qtlimit3*scmin, upper= qtlimit3;
- vary,name=kq5.l6b2,    step=1.0E-6, lower=-qtlimit3, upper=-qtlimit3*scmin;
+ vary,name=kq5.l6b2,    step=1.0E-6, lower=-qtlimit5l, upper=-qtlimit5l*scmin;
  vary,name=kq4.l6b2,    step=1.0E-6, lower= qtlimit2*scmin, upper= qtlimit2;
 
 !vary,name=kq4.r6b2,    step=1.0E-6, lower=-qtlimit2, upper=-qtlimit2*scmin;!fixed for septum
- vary,name=kq5.r6b2,    step=1.0E-6, lower= qtlimit2*scmin, upper= qtlimit2;
+ vary,name=kq5.r6b2,    step=1.0E-6, lower= qtlimit5r*scmin, upper= qtlimit5r;
  vary,name=kq8.r6b2,    step=1.0E-6, lower=-qtlimit3, upper=-qtlimit3*scmin;
  vary,name=kq9.r6b2,    step=1.0E-6, lower= qtlimit3*scmin, upper= qtlimit3;
  vary,name=kq10.r6b2,   step=1.0E-6, lower=-qtlimit3, upper=-qtlimit3*scmin;
