@@ -1987,9 +1987,9 @@ remove,element=e.tcld.mbnrirn.b1;
 remove,element=mbh.bmbnrirn.b1   ;
 remove,element=mbh.bmbnlirn.b1   ;
 remove,element=vtcld.mbnrirn.b1;
-install,element=mbh.ambnlirn.b1  ,at=pos_mbl-4.454,from=ipirn;
-install,element=vtcld.mbnrirn.b1 ,at=pos_mbl    ,from=ipirn;
-install,element=mbh.bmbnlirn.b1  ,at=pos_mbl+4.454,from=ipirn;
+install,element=mbh.bmbnlirn.b1  ,at=pos_mbl-4.454,from=ipirn;
+install,element=vtcld.mbnlirn.b1 ,at=pos_mbl    ,from=ipirn;
+install,element=mbh.ambnlirn.b1  ,at=pos_mbl+4.454,from=ipirn;
 install,element=mbh.ambnrirn.b1  ,at=pos_mbr-4.454,from=ipirn;
 install,element=s.tcld.mbnrirn.b1,at=pos_mbr-0.5,from=ipirn;
 install,element=tcld.mbnrirn.b1  ,at=pos_mbr    ,from=ipirn;
@@ -2004,11 +2004,11 @@ pos_mbr=mb.mbmmbnrirn.b2->at;
 seqedit,sequence=lhcb2;
 remove,element=mb.mbmmbnlirn.b2;
 remove,element=mb.mbmmbnrirn.b2;
-if (__mbmbm>0){
+if (mbh_rm_mcs ==1 ){
 remove,element=mcs.mbmmbnrirn.b2;
 remove,element=mcs.mbmmbnlirn.b2;
 };
-if (__mbmbm==1){
+if (mbh_rm_mcdo==1){
 remove,element=mco.mbnlirn.b2;
 remove,element=mco.mbnrirn.b2;
 remove,element=mco.mbnlirn.b2;
@@ -2029,11 +2029,11 @@ remove,element=e.tcld.mbnrirn.b2;
 remove,element=mbh.bmbnlirn.b2   ;
 remove,element=mbh.bmbnrirn.b2   ;
 remove,element=vtcld.mbnrirn.b2;
-install,element=mbh.ambnlirn.b2,  at=pos_mbl-bv_aux*4.454,from=ipirn;
+install,element=mbh.bmbnlirn.b2,  at=pos_mbl-bv_aux*4.454,from=ipirn;
 install,element=s.tcld.mbnlirn.b2,at=pos_mbl-bv_aux*0.5,from=ipirn;
 install,element=tcld.mbnlirn.b2  ,at=pos_mbl           ,from=ipirn;
 install,element=e.tcld.mbnlirn.b2,at=pos_mbl+bv_aux*0.5,from=ipirn;
-install,element=mbh.bmbnlirn.b2,  at=pos_mbl+bv_aux*4.454,from=ipirn;
+install,element=mbh.ambnlirn.b2,  at=pos_mbl+bv_aux*4.454,from=ipirn;
 install,element=mbh.ambnrirn.b2,  at=pos_mbr-bv_aux*4.454,from=ipirn;
 install,element=vtcld.mbnrirn.b2, at=pos_mbr           ,from=ipirn;
 install,element=mbh.bmbnrirn.b2,  at=pos_mbr+bv_aux*4.454,from=ipirn;
