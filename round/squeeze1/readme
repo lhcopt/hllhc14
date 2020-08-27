@@ -1,0 +1,10 @@
+The optics file name is 
+
+opt_{BETA15}_{BETA8}_{KQX2}_{SCX}.madx
+
+where:
+
+BETA15 is the pre-squeeze beta*
+BETA8  is the beta* in point 8
+KQX2 is the normalized gradient of the triplets in point 2 normalized in nominal gradient in %
+SCX is the ATS scaling factor defined as final_beta*=BETA15*SCX/10000
