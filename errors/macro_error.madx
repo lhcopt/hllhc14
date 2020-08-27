@@ -5,6 +5,11 @@
 !  and the resetIT corrector routine for new IT correctors
 !-------------------------------------------------------------------------------
 
+
+magnetic_sign=1;
+
+
+
 ON_ALL_MULT: macro = {
  ON_A1s =  1 ; ON_A1r =  1 ; ON_B1s =  1 ; ON_B1r =  1;
  ON_A2s =  1 ; ON_A2r =  1 ; ON_B2s =  1 ; ON_B2r =  1;
@@ -299,7 +304,7 @@ if (yfactref==-1){ ! odd x-sign flips
    bbb=sign*bbb;
 };
 
-erfact1=klref*(rref)^(ooo);   ! Frederik believes there is a missing factorial here: 1 / (ooo!)  see madx manual p173. However this does not change anything when the main field is a dipole or quadrupole
+erfact1=klref*(rref)^(ooo);   !  here there is a missing factorial!!!!   refact1 should be divided by (ooo!);
 erfact2=erfact1*1/rref;
 erfact3=erfact2*2/rref; erfact4=erfact3*3/rref;
 erfact5=erfact4*4/rref; erfact6=erfact5*5/rref;
@@ -309,6 +314,7 @@ erfact11=erfact10*10/rref; erfact12=erfact11*11/rref;
 erfact13=erfact12*12/rref; erfact14=erfact13*13/rref;
 erfact15=erfact14*14/rref;
 
+value, erfact1, klref, rref;
 efcomp,
 dkn:={ bbb*b1ssr*erfact1,  aaa*b2ssr*erfact2,  bbb*b3ssr*erfact3 ,
        aaa*b4ssr*erfact4,  bbb*b5ssr*erfact5,  aaa*b6ssr*erfact6 ,
@@ -491,4 +497,39 @@ average_of_randoms(to,from1,from2): macro={
     a13to = 0.5*( a13from1 + a13from2);
     a14to = 0.5*( a14from1 + a14from2);
     a15to = 0.5*( a15from1 + a15from2);
+};
+
+
+assign_sign_from_optics(target,optic,max,threshold,include_sign_if_threshold): macro={
+  exec, query_crossing;
+  if (crossing_enabled==0){exec, crossing_restore;};
+  if (crossing_enabled==-1){
+    print,text="WARNING! Some crossing knobs (but not all) are off. This might give target a wrong setting ..";
+  };
+  limit_sign_by_threshold = abs(optic/(max*threshold));
+  if (limit_sign_by_threshold <= 1) { 
+    if (include_sign_if_threshold==0){
+      target = abs(threshold);
+    } else {
+      target = abs(threshold)*optic/(abs(optic));
+    };
+  } else {
+    target = optic/(abs(optic));
+  };
+  if (crossing_enabled==0){exec, crossing_disable;};
+};
+
+
+! Assign to magnet 'slot1' the errors read from magnet 'slot2'
+Efcomp_Measured_Quad_Switch(slot1,slot2) : macro = {
+  yrotangle := table(rotations, slot1, yrota);  // rotation around vertical axis
+  srotangle := table(rotations, slot1, srota);  // rotation around beam axis
+  inout     := table(rotations, slot1, inout);  // 0: single bore    1: outer     2: inner
+  if (inout > 0 && mylhcbeam ==   2) {inout= 3 - inout;} ;    // beam 2 clockwise, bv=-1
+  if (inout > 0 && mylhcbeam ==   3) {inout= 3 - inout;} ;    // beam 2 clockwise
+  if (inout > 0 && mylhcbeam ==   4) {inout= 3 - inout;} ;    // beam 2 counter-clockwise
+  if (inout > 0 && yrotangle == 180) {inout= 3 - inout;} ;    // rotated magnet
+  if (inout == 0) {exec, Set_Quadru_Mult(slot1, slot2)   ;} ;
+  if (inout == 1) {exec, Set_Quadru_Mult(slot1, slot2.v1);} ;
+  if (inout == 2) {exec, Set_Quadru_Mult(slot1, slot2.v2);} ;
 };

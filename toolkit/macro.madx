@@ -3910,80 +3910,125 @@ get_boundary(posmarke,betx_ip5,bety_ip5): macro = {
 };
 
 get_timestamp(timestamp): macro={
-system, "date '+timestamp=%s;' >tmp_ttstamp";
-call,file=tmp_ttstamp;
-system, "rm tmp_ttstamp";
+  system, "date '+timestamp=%s;' >tmp_ttstamp";
+  call,file=tmp_ttstamp;
+  system, "rm tmp_ttstamp";
 };
-
-
-crossing_enable: macro={
-on_x1=1;on_x5=1;on_sep1=1;on_sep5=1;
-on_x2=1;on_x8=1;on_sep2=1;on_sep8=1;on_lhcb=-1;on_alice=1;
-on_disp=1;
-};
-
 
 crossing_save: macro = {
-on_x1aux=on_x1;on_sep1aux=on_sep1;
-on_x2aux=on_x2;on_sep2aux=on_sep2;on_aliceaux=on_alice;
-on_x5aux=on_x5;on_sep5aux=on_sep5;
-on_x8aux=on_x8;on_sep8aux=on_sep8;on_lhcbaux=on_lhcb;
-on_dispaux=on_disp;
-on_a1aux=on_a1;on_o1aux=on_o1;
-on_a2aux=on_a2;on_o2aux=on_o2;
-on_a5aux=on_a5;on_o5aux=on_o5;
-on_a8aux=on_a8;on_o8aux=on_o8;
+  on_x1aux=on_x1;   on_sep1aux=on_sep1;   
+  on_x2aux=on_x2;   on_sep2aux=on_sep2;   
+  on_x5aux=on_x5;   on_sep5aux=on_sep5;   
+  on_x8aux=on_x8;   on_sep8aux=on_sep8;   
+  on_a1aux=on_a1;   on_o1aux=on_o1;   
+  on_a2aux=on_a2;   on_o2aux=on_o2;   
+  on_a5aux=on_a5;   on_o5aux=on_o5;   
+  on_a8aux=on_a8;   on_o8aux=on_o8;
+  on_aliceaux=on_alice;
+  on_lhcbaux=on_lhcb;
+  on_dispaux=on_disp;
 };
 
 crossing_disable: macro={
-on_x1=0;on_x5=0;on_sep1=0;on_sep5=0;
-on_x2=0;on_x8=0;on_sep2=0;on_sep8=0;on_lhcb=0;on_alice=0;
-on_a1=0;on_o1=0;
-on_a2=0;on_o2=0;
-on_a5=0;on_o5=0;
-on_a8=0;on_o8=0;
-on_disp=0;
+  on_x1=0;   on_sep1=0;   
+  on_x2=0;   on_sep2=0;   
+  on_x5=0;   on_sep5=0;   
+  on_x8=0;   on_sep8=0;   
+  on_a1=0;   on_o1=0;   
+  on_a2=0;   on_o2=0;   
+  on_a5=0;   on_o5=0;   
+  on_a8=0;   on_o8=0;   
+  on_alice=0;
+  on_lhcb=0;
+  on_disp=0;
+};
+
+
+! sets crossing_enabled to 0 after a crossing_disable call
+! sets crossing_enabled to 1 when crossings are set
+! sets crossing_enabled to -1 when some crossings are off but other knobs are on
+query_crossing: macro={
+  all_crossings=0;
+  if (on_x1<>0) {all_crossings=all_crossings+1;};
+  if (on_x2<>0) {all_crossings=all_crossings+10;};
+  if (on_x5<>0) {all_crossings=all_crossings+100;};
+  if (on_x8<>0) {all_crossings=all_crossings+1000;};
+  if (on_a1<>0) {all_crossings=all_crossings+2;};
+  if (on_a2<>0) {all_crossings=all_crossings+20;};
+  if (on_a5<>0) {all_crossings=all_crossings+200;};
+  if (on_a8<>0) {all_crossings=all_crossings+2000;};
+  if (on_sep1<>0) {all_crossings=all_crossings+4;};   
+  if (on_sep2<>0) {all_crossings=all_crossings+40;};   
+  if (on_sep5<>0) {all_crossings=all_crossings+400;};   
+  if (on_sep8<>0) {all_crossings=all_crossings+4000;};   
+  if (on_o1<>0) {all_crossings=all_crossings+8;};   
+  if (on_o2<>0) {all_crossings=all_crossings+80;};   
+  if (on_o5<>0) {all_crossings=all_crossings+800;};   
+  if (on_o8<>0) {all_crossings=all_crossings+8000;};   
+  if (on_alice<>0) {all_crossings=all_crossings+10000;};
+  if (on_lhcb<>0) {all_crossings=all_crossings+100000;};
+  if (on_disp<>0) {all_crossings=all_crossings+1000000;};
+  if (all_crossings==0) {             ! after a crossing_disable call
+    crossing_enabled=0;
+  } elseif (on_x1==0 || on_x2==0) {   ! some crossings are off, but other knobs are on
+    crossing_enabled=-1;  
+  } elseif (on_x5==0 || on_x8==0) {
+    crossing_enabled=-1;
+  } else {
+    crossing_enabled=1;
+  };
+};
+
+print_crossing_knobs: macro={
+  value,on_x1,on_x2,on_x5,on_x8,on_sep1,on_sep2,on_sep5,on_sep8,on_a1,on_a2,on_a5,on_a8,on_o1,on_o2,on_o5,on_o8,on_x1h,on_x1v,on_x2h,on_x2v,on_x5hs,on_x5hl,on_x5vs,on_x5vl,on_x8h,on_x8v,on_sep1h,on_sep1v,on_sep2h,on_sep2v,on_sep5h,on_sep5v,on_sep8h,on_sep8v,on_alice,on_lhcb,on_disp;
 };
 
 crossing_check: macro={
-on_x1=1;on_x5=1;on_sep1=1;on_sep5=1;
-on_x2=1;on_x8=1;on_sep2=1;on_sep8=1;on_lhcb=-1;on_alice=1;
-on_a1=1;on_o1=1;
-on_a2=1;on_o2=1;
-on_a5=1;on_o5=1;
-on_a8=1;on_o8=1;
-on_disp=1;
+               ! only to test implementation of knobs not the correct values
+  on_x1=1;   on_sep1=1;
+  on_x2=1;   on_sep2=1;
+  on_x5=1;   on_sep5=1;
+  on_x8=1;   on_sep8=1;
+  on_a1=1;   on_o1=1;
+  on_a2=1;   on_o2=1;
+  on_a5=1;   on_o5=1;
+  on_a8=1;   on_o8=1;
+  on_alice=1;
+  on_lhcb=-1;
+  on_disp=1;
 };
 
 
 crossing_restore: macro={
-on_x1=on_x1aux;on_sep1=on_sep1aux;
-on_x2=on_x2aux;on_sep2=on_sep2aux;on_alice=on_aliceaux;
-on_x5=on_x5aux;on_sep5=on_sep5aux;
-on_x8=on_x8aux;on_sep8=on_sep8aux;on_lhcb=on_lhcbaux;
-on_disp=on_dispaux;
-on_a1aux=on_a1;on_o1aux=on_o1;
-on_a2aux=on_a2;on_o2aux=on_o2;
-on_a5aux=on_a5;on_o5aux=on_o5;
-on_a8aux=on_a8;on_o8aux=on_o8;
-on_x1h             := on_x1*cphi_ir1     ;
-on_sep1h           := -on_sep1*sphi_ir1  ;
-on_x1v             := on_x1*sphi_ir1     ;
-on_sep1v           := on_sep1*cphi_ir1   ;
-on_x2h             := on_x2*cphi_ir2     ;
-on_sep2h           := -on_sep2*sphi_ir2  ;
-on_x2v             := on_x2*sphi_ir2     ;
-on_sep2v           := on_sep2*cphi_ir2   ;
-on_x5hs            := (1-cd2q4)*on_x5*cphi_ir5    ;
-on_x5hl            := (cd2q4)*on_x5*cphi_ir5    ;
-on_sep5h           := -on_sep5*sphi_ir5  ;
-on_x5vs            := (1-cd2q4)*on_x5*sphi_ir5     ;
-on_x5vl            := (cd2q4)*on_x5*sphi_ir5     ;
-on_sep5v           := on_sep5*cphi_ir5   ;
-on_x8h             := on_x8*cphi_ir8     ;
-on_sep8h           := -on_sep8*sphi_ir8  ;
-on_x8v             := on_x8*sphi_ir8     ;
-on_sep8v           := on_sep8*cphi_ir8   ;
+  on_x1=on_x1aux;   on_sep1=on_sep1aux;
+  on_x2=on_x2aux;   on_sep2=on_sep2aux;
+  on_x5=on_x5aux;   on_sep5=on_sep5aux;
+  on_x8=on_x8aux;   on_sep8=on_sep8aux;
+  on_a1=on_a1aux;   on_o1=on_o1aux;
+  on_a2=on_a2aux;   on_o2=on_o2aux;
+  on_a5=on_a5aux;   on_o5=on_o5aux;
+  on_a8=on_a8aux;   on_o8=on_o8aux;
+  on_alice=on_aliceaux;
+  on_lhcb=on_lhcbaux;
+  on_disp=on_dispaux;
+  on_x1h             := on_x1*cphi_ir1     ;
+  on_sep1h           := -on_sep1*sphi_ir1  ;
+  on_x1v             := on_x1*sphi_ir1     ;
+  on_sep1v           := on_sep1*cphi_ir1   ;
+  on_x2h             := on_x2*cphi_ir2     ;
+  on_sep2h           := -on_sep2*sphi_ir2  ;
+  on_x2v             := on_x2*sphi_ir2     ;
+  on_sep2v           := on_sep2*cphi_ir2   ;
+  on_x5hs            := (1-cd2q4)*on_x5*cphi_ir5    ;
+  on_x5hl            := (cd2q4)*on_x5*cphi_ir5    ;
+  on_sep5h           := -on_sep5*sphi_ir5  ;
+  on_x5vs            := (1-cd2q4)*on_x5*sphi_ir5     ;
+  on_x5vl            := (cd2q4)*on_x5*sphi_ir5     ;
+  on_sep5v           := on_sep5*cphi_ir5   ;
+  on_x8h             := on_x8*cphi_ir8     ;
+  on_sep8h           := -on_sep8*sphi_ir8  ;
+  on_x8v             := on_x8*sphi_ir8     ;
+  on_sep8v           := on_sep8*cphi_ir8   ;
 };
 
 orbcrab_disable: macro={

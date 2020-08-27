@@ -641,5 +641,5 @@ value,kmcoxmax2*nrj/0.3/kmax_mcox,kmcoxmax1*nrj/0.3/kmax_mcox;
 value,kmcosxmax2*nrj/0.3/kmax_mcosx,kmcosxmax1*nrj/0.3/kmax_mcosxf;
 */
 
-option,echo;
+!option,echo;
 return;

@@ -19,9 +19,7 @@ option,-echo,-info;
 !---------------------------------------------------------------;
 call,file="slhc/toolkit/macro.madx";        !Call some macro facilities
 
- mylhcbeam=1 ;! LHC beam 1 (clockwise)
-!mylhcbeam=2 ;! LHC beam 2 (clockwise)
-!mylhcbeam=4 ;! LHC beam 2 (counterclockwise)
+mylhcbeam=%BEAM%; ! LHC beam 1 (clockwise), LHC beam 2 (clockwise), LHC beam 2 (counterclockwise)
 
 ! Set this flag if the file is not used as a mask file (sets %SEEDRAN to 1)
 not_a_mask=0;
@@ -30,33 +28,30 @@ correct_for_D2=0;
 ! Set this flag to correct the errors of MCBXF in the NLC (warning: this might be less reproducable in reality, use with care)
 correct_for_MCBX=0;
 
+choose_flat_optics=0;
+
+
+
 !!********************************************************************
 !!Manual Thin Sequence building
 !!********************************************************************
 Option, -echo,-warn,-info;
 if (mylhcbeam==4){
-  call,file="lhc/lhcb4.seq"; bvaux=1;
+  call,file="lhc/lhcb4.seq";
 } else {
-  call,file="lhc/lhc.seq"; bvaux=-1;
+  call,file="lhc/lhc.seq";
 };
 Option, -echo,warn,-info;
 !
 !!Install HL-LHC
 call,file="slhc/hllhc_sequence.madx";
 
-!Install MBH
-!mbh_rm_mcs=0; mbh_rm_mcdo=0; !=1 to remove spools
-!mbh_ir2q8=0;mbh_ir2q10=1;
-!mbh_ir7q8=1;mbh_ir7q10=1;
-!mbh_ir1q8=0;mbh_ir1q9=1;mbh_ir1q10=0;
-!mbh_ir5q8=0;mbh_ir5q9=1;mbh_ir5q10=0;
-!call,file="slhc/toolkit/install_mbh.madx";
-
 ! Slice nominal sequence
 exec,myslice;
 
 call,file="slhc/errors/install_mqxf_fringenl.madx";    ! adding fringe place holder
-call,file="slhc/errors/install_MCBXAB_errors.madx";    ! adding multipole correctors in IR1/5 (for errors)
+call,file="slhc/errors/install_MCBXFAB_errors.madx";   ! adding D1 corrector placeholders in IR1/5 (for errors)
+call,file="slhc/errors/install_MCBRD_errors.madx";     ! adding D2 corrector placeholders in IR1/5 (for errors)
 
 !Cycling w.r.t. to IP3 (mandatory to find closed orbit in collision in the presence of errors)
 if (mylhcbeam<3){
@@ -65,15 +60,11 @@ if (mylhcbeam<3){
 seqedit,sequence=lhcb2;flatten;cycle,start=IP3;flatten;endedit;
 
 !********************************************
-
 !NRJ= 450.0  ; ! injection
 NRJ= 7000.0 ; ! collision
 
 ! A Laundau octupole current 20A inj, -570A col
-!I_MO=0;
-!I_MO=-20;
-I_MO=-300;
-!I_MO=-570;
+I_MO=%OCT%;
 
 !General switch to select collision (0/1)
 ON_COLLISION:=0;
@@ -98,27 +89,30 @@ qy00  = 60.0;  !integer v tune
 
 if (NRJ<4999.9999){
   !Inj. optics in thin lens
-  call,file="slhc/opt_inj_thin.madx";  ! beta* [m]=6/10/6/10 in IR1/2/5/8
-  qx0 = 62.28;   qy0 = 60.31;  qprime = 3.0;
+  call,file="slhc/ramp/opt_inj_6000_thin.madx";  ! beta* [m]=6/10/6/10 in IR1/2/5/8
+  qx0 = 62.27;   qy0 = 60.295;  qprime = %CHROM%;
   if (mylhcbeam<3){
     Beam,particle=proton,sequence=lhcb1,energy=NRJ,sigt=0.130,bv=1,NPART=Nb_0,sige=4.5e-4,ex=epsx,ey=epsy;
   };
-  Beam,particle=proton,sequence=lhcb2,energy=NRJ,sigt=0.130,bv=bvaux,NPART=Nb_0,sige=4.5e-4,ex=epsx,ey=epsy;
+  Beam,particle=proton,sequence=lhcb2,energy=NRJ,sigt=0.130,bv=-bv_aux,NPART=Nb_0,sige=4.5e-4,ex=epsx,ey=epsy;
 };
 
 if (NRJ>5000.0000){
-  call,file="slhc/round/opt_round_150_1500.madx";
-  qx0 = 62.31;   qy0 = 60.32;  qprime = 3.0;
+  if (choose_flat_optics==1) {
+    call,file="slhc/flat/opt_flatvh_75_300_1500_thin.madx";
+  } else {
+    call,file="slhc/round/opt_round_150_1500_thin.madx";
+  };
+  qx0 = 62.31;   qy0 = 60.32;  qprime = %CHROM%;
   ON_QPP     :=0;  ! Correction of residual Q'' by MO's
   ON_DISP    :=1;  ! Correction of spurious dispersion
   if (mylhcbeam<3){
     Beam,particle=proton,sequence=lhcb1,energy=NRJ,sigt=sigt_col,bv=1,
         NPART=Nb_0,sige=1.1e-4,ex=epsx,ey=epsy;
   };
-  Beam,particle=proton,sequence=lhcb2,energy=NRJ,sigt=sigt_col,bv=bvaux,
+  Beam,particle=proton,sequence=lhcb2,energy=NRJ,sigt=sigt_col,bv=-bv_aux,
       NPART=Nb_0,sige=1.1e-4,ex=epsx,ey=epsy;
 };
-
 
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++;
 !   Rematch IP1 IP5 phase
@@ -143,33 +137,56 @@ mux_ip15_ref=table(twiss,IP1,mux)-table(twiss,IP5,mux);
 muy_ip15_ref=table(twiss,IP1,muy)-table(twiss,IP5,muy);
 value,mux_ip15_ref,muy_ip15_ref;
 
+
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++;
 !Set crossing angle and separations knobs
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++;
-!phi_IR1 =   90.000; phi_IR5 =   0.000; ! For round and flatvh optics
-!phi_IR1 =    0.000; phi_IR5 =   90.000; ! For round and flathv optics
-if (not_a_mask==1){ xing15=255; } else { xing15=%XING; };
-sep15=0.75;
-xing8=-250; sep8=-2; on_lhcb=+1;
-xing2= 170; sep2=2; on_alice=1;
 
-on_crab1=-190; on_crab5=-190;
+!phi_IR1 = 0.000;    phi_IR5 =   90.000;    ! these are automatically set by the optics
+
+if (NRJ<4999.9999){
+  if (not_a_mask==1){ xing15=295; } else { xing15=%XING; };
+  on_x1= xing15;      on_sep1=-2;  
+  on_x5= xing15;      on_sep5= 2;  
+  on_x2= 170;         on_sep2= 3.5;
+  on_x8=-170;         on_sep8=-3.5;
+  on_a1=  0;          on_o1= 0;  
+  on_a5=  0;          on_o5= 0;
+  on_a2=-40;          on_o2= 0;          
+  on_a8=-40;          on_o8= 0;
+  on_crab1=0;
+  on_crab5=0;
+  on_disp=0;
+};
+if (NRJ>5000.0000){
+  if (not_a_mask==1){ xing15=250; } else { xing15=%XING; };
+  on_x1= xing15;      on_sep1=-0.75;  
+  on_x5= xing15;      on_sep5= 0.75;  
+  on_x2= 170;         on_sep2= 1;
+  on_x8=-200;         on_sep8=-1;
+  on_a1= 0;           on_o1= 0;           
+  on_a5= 0;           on_o5= 0;
+  on_a2= 0;           on_o2= 0;
+  on_a8= 0;           on_o8= 0;
+  on_crab1=-190;
+  on_crab5=-190;           
+  on_disp=1;
+};
+
+! spectrometers in experiments
+on_alice=7000/nrj;
+on_lhcb =7000/nrj;
+
 !Avoid crabbing more than the crossing angle
 if ( abs(on_crab1)>abs(xing15) && on_crab1 <> 0) {on_crab1 = abs(on_crab1)/on_crab1 * abs(xing15);}
 if ( abs(on_crab5)>abs(xing15) && on_crab5 <> 0) {on_crab5 = abs(on_crab5)/on_crab5 * abs(xing15);}
 
-on_x1=xing15;
-on_sep1=sep15;
-on_x5=xing15;
-on_sep5=sep15;
-on_x2=xing2; !removing alice=1 from pyIP2b1
-on_sep2=sep2;
-on_x8=xing8; !!removing on_lhcb from pxIP8b1
-on_sep8=sep8;
-value,on_x1,on_sep1,on_x5,on_sep5,on_x2,on_sep2,on_x8,on_sep8;
+! solenoids in experiments
+on_sol_atlas=0;
+on_sol_cms=  0;
+on_sol_alice=0; 
 
-on_disp=1;
-
+exec, print_crossing_knobs;
 exec, crossing_save;
 
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++;
@@ -213,28 +230,11 @@ if (mylhcbeam<3){
   twiss, sequence=lhcb1, file=twiss.b1;system,"cat twiss.b1";
 };
 
-if (mylhcbeam==4){
-  Use, sequence=lhcb2;
-  select,flag=twiss,clear;
-  select, flag=twiss, pattern="IP1",   column=name,s,x,y,px,py;
-  select, flag=twiss, pattern="IP2",   column=name,s,x,y,px,py;
-  select, flag=twiss, pattern="IP5",   column=name,s,x,y,px,py;
-  select, flag=twiss, pattern="IP8",   column=name,s,x,y,px,py;
-  twiss, sequence=lhcb2, file=twiss.b2;system,"cat twiss.b2";
-};
-
-! weak beam reference for rematchCOIP.madx
 xnom1=table(twiss,IP1,x);pxnom1=table(twiss,IP1,px);ynom1=table(twiss,IP1,y);pynom1=table(twiss,IP1,py);
 xnom2=table(twiss,IP2,x);pxnom2=table(twiss,IP2,px);ynom2=table(twiss,IP2,y);pynom2=table(twiss,IP2,py);
 xnom5=table(twiss,IP5,x);pxnom5=table(twiss,IP5,px);ynom5=table(twiss,IP5,y);pynom5=table(twiss,IP5,py);
 xnom8=table(twiss,IP8,x);pxnom8=table(twiss,IP8,px);ynom8=table(twiss,IP8,y);pynom8=table(twiss,IP8,py);
 
-value,xnom1,xnom2,xnom5,xnom8;
-value,ynom1,ynom2,ynom5,ynom8;
-value,pxnom1,pxnom2,pxnom5,pxnom8;
-value,pynom1,pynom2,pynom5,pynom8;
-
-if (mylhcbeam<3){
 Use, sequence=lhcb2;
 select,flag=twiss,clear;
 select, flag=twiss, pattern="IP1",   column=name,s,x,y,px,py;
@@ -243,14 +243,27 @@ select, flag=twiss, pattern="IP5",   column=name,s,x,y,px,py;
 select, flag=twiss, pattern="IP8",   column=name,s,x,y,px,py;
 twiss, sequence=lhcb2, file=twiss.b2;system,"cat twiss.b2";
 
-};
+value,xnom1,xnom2,xnom5,xnom8;
+value,ynom1,ynom2,ynom5,ynom8;
+value,pxnom1,pxnom2,pxnom5,pxnom8;
+value,pynom1,pynom2,pynom5,pynom8;
+
+
+
+
+
+!  =============================================================================  FOR GIANNI
+
+
+
+
 
 
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++;
-!     Xscheme definition   & Beam-beam encounters installation
+!     Beam-beam encounters installation
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++;
 if( ON_BB_SWITCH == 1){
-        call,file="slhc/beambeam/macro_bb.madx";                  ! macros for beam-beam
+	call,file="slhc/beambeam2/macro_bb.madx";                  ! macros for beam-beam
 };
 
 n_insideD1 = 5;    !default value for the number of additionnal parasitic encounters inside D1
@@ -261,16 +274,11 @@ nho_IR5= 11;        ! number of slices for head-on in IR5 (between 0 and 201)
 nho_IR8= 11;        ! number of slices for head-on in IR8 (between 0 and 201)
 
 if( ON_BB_SWITCH == 1){
-        exec DEFINE_BB_PARAM;  !Define main beam-beam parameters
+	exec DEFINE_BB_PARAM;  !Define main beam-beam parameters
 };
 
 if (ON_COLLISION==1){
   !Switch on Xscheme in precollision
-  on_x1aux=on_x1;on_sep1aux=1;
-  on_x2aux=on_x2;on_sep2aux=1;
-  on_x5aux=on_x5;on_sep5aux=1;
-  on_x8aux=on_x8;on_sep8aux=1; on_a8aux=on_a8;
-  on_aliceaux=on_alice; on_lhcbaux=on_lhcb;
   on_disp:=0;
   halo1=0;halo2=5;halo5=0;halo8=0;  !halo collision at 5 sigma's in Alice
  ! number of collision/turn at IP1/2/5/8 - BCMS https://espace.cern.ch/HiLumi/WP2/Wiki/HL-LHC%20Parameters.aspx
@@ -390,17 +398,33 @@ if( ON_BB_SWITCH == 1){
     if(mylhcbeam>1) {exec MAKEFOOTPRINT(b2);exec PLOTFOOTPRINT(b2,0.300,0.315,0.310,0.325);};
   };
   ON_BB_CHARGE := 0;
-  on_x1=0;on_sep1=0;
-  on_x2=0;on_sep2=0;
-  on_x5=0;on_sep5=0;
-  on_x8=0;on_sep8=0; on_a8=0;
-  on_alice=0; on_lhcb=0;
-  on_disp=0;
+  exec,crossing_disable;
   */
 
   !Remove bb lens for both beams
   !exec REMOVE_BB_LENS;
 };
+
+
+
+
+
+
+
+!  =============================================================================  UNTIL FOR GIANNI
+
+
+
+
+
+
+
+
+
+print, text="=======================================";
+print, text="======  OPTICS PARAMETERS: BASE  ======";
+print, text="=======================================";
+call, file="slhc/toolkit/get_optics_params.madx";
 
 
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++;
@@ -462,6 +486,7 @@ if (mylhcbeam==1) { use,sequence=lhcb1; } else { use,sequence=lhcb2; };
  };
  twiss,  file='temp/optics0_inser.mad';
 
+call, file="slhc/toolkit/BetaBeating.madx";
 ! disable crossing bumps
 exec, crossing_disable;
 
@@ -511,12 +536,13 @@ call,file="db5/toolkit/Orbit_Routines.madx";
 call,file="slhc/errors/SelectLHCMonCor.madx";
 readtable, file="db5/measured_errors/rotations_Q2_integral.tab";
 
+
 ! Error routine and error table for new IT/D1/D2/Q4/Q5
 useMQXFAB=0;
 
 call,file="slhc/errors/macro_error.madx";   ! macros for error generation in the new IT/D1's
 
-if (useMQXFAB) {
+if (useMQXFAB==1) {
   call,file="slhc/errors/ITa_errortable_v5"; ! target error table for the new IT
   call,file="slhc/errors/ITb_errortable_v5"; ! target error table for the new IT
 } else {
@@ -531,7 +557,6 @@ if (correct_for_D2==1){
   call,file="slhc/errors/D2_empty_errortable"; ! We are only correcting the b3 errors, put the other errors to zero
 };
 
-call,file="slhc/errors/Q4_errortable_v2";! target error table for the new Q4 in IR1 and IR5
 !value,Rr_MQXCD,Rr_MBXAB,Rr_MBRD,Rr_MQYY,Rr_MQYL;
 !a2R_MQXCD_inj:=20.00;a2R_MQXCD_col:=20.00;! up to 3 mrad roll of the new MQX's (1 mrad r.m.s)
 
@@ -539,9 +564,10 @@ call,file="slhc/errors/Q4_errortable_v2";! target error table for the new Q4 in 
 !a5M_MQXCD_col  :=  0.0000 ; a5U_MQXCD_col  :=  0.4300 ; a5R_MQXCD_col  :=  0.4300 ; !..Errors as in IT_errortable_v3
 !a6M_MQXCD_col  :=  0.0000 ; a6U_MQXCD_col  :=  0.3100 ; a6R_MQXCD_col  :=  0.3100 ; !..Errors as in IT_errortable_v3
 
-! MCBX effect Disabled for the time being
-!call,file="slhc/errors/MCBXFAB_errortable_v1";
-!call,file="slhc/errors/MBH_errortable_v1";
+call,file="slhc/errors/MCBXFAB_errortable_v1";
+call,file="slhc/errors/MBH_errortable_v3";
+call,file="slhc/errors/MCBRD_errortable_v1";
+
 
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 !                Switch ON/OFF some multipole
@@ -578,6 +604,7 @@ if (not_a_mask==1){
   if (NRJ<4999.999) {readtable, file="wise/injection_errors-emfqcs-%SEEDRAN.tfs" ;};
   if (NRJ>5000.000) {readtable, file="wise/collision_errors-emfqcs-%SEEDRAN.tfs" ;};
 };
+
 
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 !             apply field errors to MB magnets
@@ -618,7 +645,7 @@ call, file="db5/measured_errors/Set_alignment_errors.madx";
 ! New IT/D1/D2/Q4/Q5
 if (not_a_mask==1){ myseed=1; } else { myseed=%SEEDRAN; }
 eoption,seed=myseed+101;
-if (useMQXFAB) {
+if (useMQXFAB==1) {
   call, file="slhc/errors/Efcomp_MQXFA.madx";      ! new IT in IR1/5
   call, file="slhc/errors/Efcomp_MQXFB.madx";
 } else {
@@ -629,17 +656,26 @@ eoption,seed=myseed+102;call, file="slhc/errors/Efcomp_MBXAB.madx";    ! new D1 
 if (correct_for_D2==1){
   use_average_errors_MBRD=1;   ! using average errors for correction algorithm
 };
-eoption,seed=myseed+103;call, file="slhc/errors/Efcomp_MBRD.madx";      ! new D2 in IR1/5
-eoption,seed=myseed+104;call, file="slhc/errors/Efcomp_MQYY.madx";     ! new Q4 in IR1/5
-!eoption,seed=myseed+106;call, file="slhc/errors/Efcomp_MCBXFAB.madx";  ! new triplet correctors in IR1/5
-ON_B2s = 0; ON_B2r = 0;
-!eoption,seed=myseed+107;call, file="slhc/errors/Efcomp_MBH.madx";
+eoption,seed=myseed+103;call, file="slhc/errors/Efcomp_MBRD.madx";   	! new D2 in IR1/5
+call, file="slhc/errors/Efcomp_MQY.madx";     ! old Q4 in IR1/5, but switched places around IP1-5
+eoption,seed=myseed+106;call, file="slhc/errors/Efcomp_MCBXFAB.madx";  ! new triplet correctors in IR1/5
+ON_B2saux=on_B2s;on_B2s=0; ON_B2raux=on_B2r;on_B2r=0;
+eoption,seed=myseed+107;call, file="slhc/errors/Efcomp_MBH.madx";
+on_B2s=ON_B2saux; on_B2r=ON_B2raux;
+eoption,seed=myseed+108;call, file="slhc/errors/Efcomp_MCBRD.madx";
 
 !exec show_error_newHLmagnet;
 
 !select, flag=error, clear;
 !select, flag=error, pattern=".";
 !esave,  file="error_all.tfs";
+
+
+print, text="===============================================";
+print, text="======  OPTICS PARAMETERS: AFTER ERRORS  ======";
+print, text="===============================================";
+call, file="slhc/toolkit/get_optics_params.madx";
+
 
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ! MO settings
@@ -715,7 +751,7 @@ if (NRJ>5000.0000){
   kcssx3.l2:=0;kcssx3.r2:=0;kcssx3.l8:=0;kcssx3.r8:=0; !switch off a3  correction in IR2 and IR8
   kcosx3.l2:=0;kcosx3.r2:=0;kcosx3.l8:=0;kcosx3.r8:=0; !switch off a4  correction in IR2 and IR8
 
-  !exec reset_MQX_corr;                             !switch off all IT multipole correction in all IR's
+  option, -echo; !exec reset_MQX_corr;                             !switch off all IT multipole correction in all IR's
 };
 
 if (correct_for_D2==1){
@@ -725,7 +761,16 @@ if (correct_for_D2==1){
   eoption,add=false;
   eoption,seed=myseed+103;
   call, file="slhc/errors/Efcomp_MBRD.madx";
+  eoption,add=true;
 };
+
+
+print, text="==================================================";
+print, text="======  OPTICS PARAMETERS: BEFORE MATCHING  ======";
+print, text="==================================================";
+call, file="slhc/toolkit/get_optics_params.madx";
+
+
 
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 !    correct orbit distortion resulting from other magnets
@@ -744,23 +789,21 @@ if((ON_A1S)^2+(ON_A1r)^2+(ON_B1S)^2+(ON_B1r)^2 >0){
   exec, final_micado(0.004);
 };
 
-
 ! end of orbit correction, now switch ON crossing scheme
 ! restoring crossing angle
-on_x1=on_x1aux;on_sep1=on_sep1aux;
-on_x2=on_x2aux;on_sep2=on_sep2aux;
-on_x5=on_x5aux;on_sep5=on_sep5aux;
-on_x8=on_x8aux;on_sep8=on_sep8aux; on_a8=on_a8aux;
-on_alice=on_aliceaux; on_lhcb=on_lhcbaux;
-on_disp=on_dispaux;
+exec, crossing_restore;
 
 ! coguess,x=x.ip1,px=px.ip1,y=y.ip1,py=py.ip1;
 
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 !   Fine tuning of coupling after CO correction and with Xscheme
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+call,file="slhc/errors/FineCouplingCorrectionSimplex.madx";
 
-call,file="slhc/errors/FineCouplingCorrection.madx";
+!+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+!                 Limit corrector strength
+!++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+call,file="slhc/errors/corr_limit.madx";
 
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 !                 matching of orbit, tune and chromaticity
@@ -776,7 +819,6 @@ if(mylhcbeam==1){
   kqtf=kqtf.b1;kqtd=kqtd.b1;kqtf.b1:=kqtf;kqtd.b1:=kqtd;
   ksf=ksf.b1;ksd=ksd.b1;ksf.b1:=ksf;ksd.b1:=ksd;
 };
-
 if(mylhcbeam>1){
   kqtf=kqtf.b2;kqtd=kqtd.b2;kqtf.b2:=kqtf;kqtd.b2:=kqtd;
   ksf=ksf.b2;ksd=ksd.b2;ksf.b2:=ksf;ksd.b2:=ksd;
@@ -810,42 +852,27 @@ if(mylhcbeam>1){
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 !                 Check corrector strength
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-call, file="slhc/errors/corr_value.madx";
+call, file="slhc/errors/corr_value_limit.madx";
 
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 !                 final twiss before sending to sixtrack
 !+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-
 ON_BB_CHARGE:=1;
-
-/*
-twiss;
- value, table(summ,q1);
- value, table(summ,q2);
- value, table(summ,dq1);
- value, table(summ,dq2);
- sixtrack, radius=0.017;
-*/
 
 if (NRJ<4999.9999) {VRF400:=8. ;LAGRF400.B1=0.5;LAGRF400.B2=0.;};
 if (NRJ>5000.0000) {VRF400:=16.;LAGRF400.B1=0.5;LAGRF400.B2=0.;};
-twiss;
-xnom1=table(twiss,IP1,x);pxnom1=table(twiss,IP1,px);ynom1=table(twiss,IP1,y);pynom1=table(twiss,IP1,py);
-xnom2=table(twiss,IP2,x);pxnom2=table(twiss,IP2,px);ynom2=table(twiss,IP2,y);pynom2=table(twiss,IP2,py);
-xnom5=table(twiss,IP5,x);pxnom5=table(twiss,IP5,px);ynom5=table(twiss,IP5,y);pynom5=table(twiss,IP5,py);
-xnom8=table(twiss,IP8,x);pxnom8=table(twiss,IP8,px);ynom8=table(twiss,IP8,y);pynom8=table(twiss,IP8,py);
 
 
-value,xnom1,xnom2,xnom5,xnom8;
-value,ynom1,ynom2,ynom5,ynom8;
-value,pxnom1,pxnom2,pxnom5,pxnom8;
-value,pynom1,pynom2,pynom5,pynom8;
-value, table(summ,q1);
-value, table(summ,q2);
-value, table(summ,dq1);
-value, table(summ,dq2);
+
+print, text="========================================";
+print, text="======  OPTICS PARAMETERS: FINAL  ======";
+print, text="========================================";
+call, file="slhc/toolkit/get_optics_params.madx";
+
+
+call, file="slhc/toolkit/BetaBeating.madx";
+twiss, chrom;
 !sixtrack,cavall, mult_auto_off,radius=0.017;
 sixtrack,cavall, radius=0.017;
 if( ON_BB_SWITCH == 1){

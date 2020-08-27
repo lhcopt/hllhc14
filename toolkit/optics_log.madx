@@ -159,8 +159,8 @@ make_opticstbl_ir6(irr):macro={
     refdxq5l6b1, refdxq4r6b1,
     refdxq5l6b2, refdxq4r6b2,
     dtct1b1  , dtct5b1  , dtct1b2  , dtct5b2  ,
-    ddtct1b1 , ddtct1b1a, ddtct5b1 , ddtct5b1a,
-    ddtct1b2 , ddtct1b2a, ddtct5b2 , ddtct5b2a,
+    ddtct1b1 , ddtct1b1a, ddtct1b1o, ddtct5b1 , ddtct5b1a, ddtct5b1o,
+    ddtct1b2 , ddtct1b2a, ddtct1b2o, ddtct5b2 , ddtct5b2a, ddtct5b2o,
     tarir6b1,tarir6b2,
     timestamp;
 };

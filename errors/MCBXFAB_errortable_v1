@@ -13,34 +13,7 @@ Rr_MCBXFAH= 0.050;
 Rr_MCBXFBH= 0.050;
 Rr_MCBXFAV=-0.050;!skew reference
 Rr_MCBXFBV=-0.050;!skew reference
-!magnetic_sign=0;
 
-sign_MCBXFAH.3L1 = 1;
-sign_MCBXFAH.3R1 = 1;
-sign_MCBXFAH.3L5 = 1;
-sign_MCBXFAH.3R5 = 1;
-sign_MCBXFAV.3L1 = 1;
-sign_MCBXFAV.3R1 = 1;
-sign_MCBXFAV.3L5 = 1;
-sign_MCBXFAV.3R5 = 1;
-
-sign_MCBXFBH.a2L1 = 1;
-sign_MCBXFBH.a2R1 = 1;
-sign_MCBXFBH.a2L5 = 1;
-sign_MCBXFBH.a2R5 = 1;
-sign_MCBXFBV.a2L1 = 1;
-sign_MCBXFBV.a2R1 = 1;
-sign_MCBXFBV.a2L5 = 1;
-sign_MCBXFBV.a2R5 = 1;
-
-sign_MCBXFBH.b2L1 = 1;
-sign_MCBXFBH.b2R1 = 1;
-sign_MCBXFBH.b2L5 = 1;
-sign_MCBXFBH.b2R5 = 1;
-sign_MCBXFBV.b2L1 = 1;
-sign_MCBXFBV.b2R1 = 1;
-sign_MCBXFBV.b2L5 = 1;
-sign_MCBXFBV.b2R5 = 1;
 
 ! -----------------------------------------------------------------------
 ! *********************** Magnet type : MCBXFA (in CP) ****************** 
@@ -200,6 +173,45 @@ a13M_MCBXFBV_col :=  0.0000 ; a13U_MCBXFBV_col :=  0. ; a13R_MCBXFBV_col :=  0. 
 a14M_MCBXFBV_col :=  0.0000 ; a14U_MCBXFBV_col :=  0. ; a14R_MCBXFBV_col :=  0. ;                               b14M_MCBXFBV_col:=0; b14U_MCBXFBV_col:=0; b14R_MCBXFBV_col:=0;
 a15M_MCBXFBV_col :=  0.0000 ; a15U_MCBXFBV_col :=  0. ; a15R_MCBXFBV_col :=  0. ;                               b15M_MCBXFBV_col:=0; b15U_MCBXFBV_col:=0; b15R_MCBXFBV_col:=0;
 
+
+
+! -----------------------------------------------------------------------
+! *********************** Sign estimates ********************************
+! -----------------------------------------------------------------------
+
+MAX_MCBXFAH = BRef_MCBXFAH*l.MCBXFA*CLIGHT/(1E9*NRJ);
+MAX_MCBXFAV = BRef_MCBXFAV*l.MCBXFA*CLIGHT/(1E9*NRJ);
+MAX_MCBXFBH = BRef_MCBXFBH*l.MCBXFB*CLIGHT/(1E9*NRJ);
+MAX_MCBXFBV = BRef_MCBXFBV*l.MCBXFB*CLIGHT/(1E9*NRJ);
+threshold=0.5;
+threshold_include_sign=0;
+
+exec assign_sign_from_optics(sign_MCBXFAH.3L1,acbxh3.l1,MAX_MCBXFAH,threshold,threshold_include_sign);
+exec assign_sign_from_optics(sign_MCBXFAH.3R1,acbxh3.r1,MAX_MCBXFAH,threshold,threshold_include_sign);
+exec assign_sign_from_optics(sign_MCBXFAH.3L5,acbxh3.l5,MAX_MCBXFAH,threshold,threshold_include_sign);
+exec assign_sign_from_optics(sign_MCBXFAH.3R5,acbxh3.r5,MAX_MCBXFAH,threshold,threshold_include_sign);
+exec assign_sign_from_optics(sign_MCBXFAV.3L1,acbxv3.l1,MAX_MCBXFAV,threshold,threshold_include_sign);
+exec assign_sign_from_optics(sign_MCBXFAV.3R1,acbxv3.r1,MAX_MCBXFAV,threshold,threshold_include_sign);
+exec assign_sign_from_optics(sign_MCBXFAV.3L5,acbxv3.l5,MAX_MCBXFAV,threshold,threshold_include_sign);
+exec assign_sign_from_optics(sign_MCBXFAV.3R5,acbxv3.r5,MAX_MCBXFAV,threshold,threshold_include_sign);
+exec assign_sign_from_optics(sign_MCBXFBH.a2L1,acbxh1.l1,MAX_MCBXFBH,threshold,threshold_include_sign);
+exec assign_sign_from_optics(sign_MCBXFBH.a2R1,acbxh1.r1,MAX_MCBXFBH,threshold,threshold_include_sign);
+exec assign_sign_from_optics(sign_MCBXFBH.a2L5,acbxh1.l5,MAX_MCBXFBH,threshold,threshold_include_sign);
+exec assign_sign_from_optics(sign_MCBXFBH.a2R5,acbxh1.r5,MAX_MCBXFBH,threshold,threshold_include_sign);
+exec assign_sign_from_optics(sign_MCBXFBV.a2L1,acbxv1.l1,MAX_MCBXFBV,threshold,threshold_include_sign);
+exec assign_sign_from_optics(sign_MCBXFBV.a2R1,acbxv1.r1,MAX_MCBXFBV,threshold,threshold_include_sign);
+exec assign_sign_from_optics(sign_MCBXFBV.a2L5,acbxv1.l5,MAX_MCBXFBV,threshold,threshold_include_sign);
+exec assign_sign_from_optics(sign_MCBXFBV.a2R5,acbxv1.r5,MAX_MCBXFBV,threshold,threshold_include_sign);
+exec assign_sign_from_optics(sign_MCBXFBH.b2L1,acbxh2.l1,MAX_MCBXFBH,threshold,threshold_include_sign);
+exec assign_sign_from_optics(sign_MCBXFBH.b2R1,acbxh2.r1,MAX_MCBXFBH,threshold,threshold_include_sign);
+exec assign_sign_from_optics(sign_MCBXFBH.b2L5,acbxh2.l5,MAX_MCBXFBH,threshold,threshold_include_sign);
+exec assign_sign_from_optics(sign_MCBXFBH.b2R5,acbxh2.r5,MAX_MCBXFBH,threshold,threshold_include_sign);
+exec assign_sign_from_optics(sign_MCBXFBV.b2L1,acbxv2.l1,MAX_MCBXFBV,threshold,threshold_include_sign);
+exec assign_sign_from_optics(sign_MCBXFBV.b2R1,acbxv2.r1,MAX_MCBXFBV,threshold,threshold_include_sign);
+exec assign_sign_from_optics(sign_MCBXFBV.b2L5,acbxv2.l5,MAX_MCBXFBV,threshold,threshold_include_sign);
+exec assign_sign_from_optics(sign_MCBXFBV.b2R5,acbxv2.r5,MAX_MCBXFBV,threshold,threshold_include_sign);
+
+value,sign_MCBXFAH.3L1,sign_MCBXFAH.3R1,sign_MCBXFAH.3L5,sign_MCBXFAH.3R5,sign_MCBXFAV.3L1,sign_MCBXFAV.3R1,sign_MCBXFAV.3L5,sign_MCBXFAV.3R5,sign_MCBXFBH.a2L1,sign_MCBXFBH.a2R1,sign_MCBXFBH.a2L5,sign_MCBXFBH.a2R5,sign_MCBXFBV.a2L1,sign_MCBXFBV.a2R1,sign_MCBXFBV.a2L5,sign_MCBXFBV.a2R5,sign_MCBXFBH.b2L1,sign_MCBXFBH.b2R1,sign_MCBXFBH.b2L5,sign_MCBXFBH.b2R5,sign_MCBXFBV.b2L1,sign_MCBXFBV.b2R1,sign_MCBXFBV.b2L5,sign_MCBXFBV.b2R5;
 
 return;
 

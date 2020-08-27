@@ -1345,13 +1345,13 @@ _crab_make_cc(nnn,side,irn,bim,fff): macro {
     vhcrabref_sideirnbim:=ahcrab_sideirnbim/fff*cosiirn*nrj*1e9/1e6;
     vvcrabref_sideirnbim:=avcrab_sideirnbim/fff*sinuirn*nrj*1e9/1e6;
     acfcah.nnnsideirn.bim: crabcavity, l=0,
-      volt:=on_crabirn*vhcrabref_sideirnbim,
-      lag:=phi_crab_sideirnbim,
-      freq=crabrf/1e6,tilt=0,rv3=1e9,rv4=1e9;
+      volt:=on_crabirn*vhcrabref_sideirnbim*bv_aux, !implements reflect.py
+      lag:=phi_crab_sideirnbim*bv_aux, !implements reflect.py 3 sign changes s,x,z
+      freq:=crabrf/1e6,tilt=0,rv3=1e9,rv4=1e9;
     acfcav.nnnsideirn.bim: crabcavity, l=0,
-      volt:=on_crabirn*vvcrabref_sideirnbim,
+      volt:=on_crabirn*vvcrabref_sideirnbim, ! 2 sign change s,z
       lag:=phi_crab_sideirnbim,
-      freq=crabrf/1e6,tilt=pi/2,rv3=1e9,rv4=1e9;
+      freq:=crabrf/1e6,tilt=pi/2,rv3=1e9,rv4=1e9;
     print,text="making acfcah.nnnsideirn.bim";
     print,text="making acfcav.nnnsideirn.bim";
 };

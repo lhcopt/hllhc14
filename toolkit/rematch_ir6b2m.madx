@@ -100,14 +100,24 @@ constraint,weight=1000,expr=refdmuxkickb2_tcsg<dmuxkickb2_tcsg;
 } else{
 constraint,weight=1000,expr= abs(refdmuxkickb2-0.250)<0.0111;!90+-4 deviation
 };
-if(bxdumpb2>0 && bydumpb2>0){
+if(bxdumpb2>0){
 constraint,expr=refbxdumpb2=bxdumpb2;
-constraint,expr=refbydumpb2=bydumpb2;
 } else {
 constraint,expr=refbxdumpb2>4000;
+};
+if(bydumpb2>0){
+constraint,expr=refbydumpb2=bydumpb2;
+} else {
 constraint,expr=refbydumpb2>3200;
+};
+if(bdumpb2>0){
+constraint,expr=refbdumpb2=bdumpb2;
+} else {
 constraint,expr=refbdumpb2>4500;
 };
+
+
+
 !constraint,sequence=lhcb2,range=MKD.H5R6.B2,betx>380;!380: nom. LHC optics, minimize kick(mkd)/sigma_x for asynch. dump
 if(betxtcdqb2>0){
   constraint,expr=refbetxtcdqb2>betxtcdqb2;

@@ -33,60 +33,65 @@
 !                           IP5
 ! ext B1 -> =(V1+) MBH.A8R5B1| |MBH.B8R5B1 (V2-)=
 ! int B2 <- =(V2-) MBH.A8R5B2| |MBH.B8R5B2 (V1+)=
-!            ARC56 IR6 ARC67 IP7 ARC78
+!                     ARC56 IR6 ARC67
 ! ext B1 -> =(V1+) MBH.B8L7B1| |MBH.A8L7B1 (V2-)=
 ! int B2 <- =(V2-) MBH.B8L7B2| |MBH.A8L7B2 (V1+)=
-!                         IP8
+!                           IP7
 ! ext B1 -> =(V1+) MBH.A8R7B1| |MBH.B8R7B1 (V2+)=
 ! int B2 <- =(V2-) MBH.A8R7B2| |MBH.B8R7B2 (V1-)=
+
+! F.F. Van der Veken Aug 2019
+! MBH.AL  and MBH.BR are inverted (while MBH.AR and MBH.BL are not)
+! Inversions were wrongly implemented (a difference was made between Beam 1 and Beam 2,
+! while the definition of whether or not a magnet is inverted is only done wrt Beam 1,
+! as the effect of Beam 2 is already accounted for in the errorgenerate script)
+
 
 exec new_magnetfamily_MB(MBH);
 
 assign_mbh_err(mbn,irn,apl,apr): macro={
-! apl aperture# Beam1 elem MBH.A
-! apr aperture# Beam1 elem MBH.B
-  value,mbh_irirnqmbn;
+! apl aperture# Beam1 elem MBH.AL
+! apr aperture# Beam1 elem MBH.AR
+  mbh_irirnqmbn=mbh_irirnqmbn+mbh_irirnqmbna+mbh_irirnqmbnb;
   if (mbh_irirnqmbn >0){
     if(mylhcbeam==1){
       if(apl==1) {iapAL=1;iapBL=2;};
       if(apl==2) {iapAL=2;iapBL=1;};
       if(apr==1) {iapAr=1;iapBr=2;};
       if(apr==2) {iapAr=2;iapBr=1;};
-      select,flag=error,clear; select,flag=error,pattern="^MBH\.BmbnLirn.*$";
-      exec new_magnetindividual(MBH,iapBL);exec errorgenerate_dip(MBH);
-      select,flag=error,clear; select,flag=error,pattern="^MBH\.AmbnLirn.*$";
-      exec new_magnetindividual(MBH,iapAL);exec errorgenerate_dip_inv(MBH);
-      select,flag=error,clear; select,flag=error,pattern="^MBH\.AmbnRirn.*$";
-      exec new_magnetindividual(MBH,iapAR);exec errorgenerate_dip(MBH);
-      select,flag=error,clear; select,flag=error,pattern="^MBH\.BmbnRirn.*$";
-      exec new_magnetindividual(MBH,iapBR);exec errorgenerate_dip_inv(MBH);
+      
     };
     if(mylhcbeam>1){
       if(apl==1) {iapAL=2;iapBL=1;};
       if(apl==2) {iapAL=1;iapBL=2;};
       if(apr==1) {iapAr=2;iapBr=1;};
       if(apr==2) {iapAr=1;iapBr=2;};
-      select,flag=error,clear; select,flag=error,pattern="^MBH\.BmbnLirn.*$";
-      exec new_magnetindividual(MBH,iapBL);exec errorgenerate_dip_inv(MBH);
-      select,flag=error,clear; select,flag=error,pattern="^MBH\.AmbnLirn.*$";
-      exec new_magnetindividual(MBH,iapAL);exec errorgenerate_dip(MBH);
-      select,flag=error,clear; select,flag=error,pattern="^MBH\.AmbnRirn.*$";
-      exec new_magnetindividual(MBH,iapAR);exec errorgenerate_dip_inv(MBH);
-      select,flag=error,clear; select,flag=error,pattern="^MBH\.BmbnRirn.*$";
-      exec new_magnetindividual(MBH,iapBR);exec errorgenerate_dip(MBH);
     };
-    value,apl,iapAL,iapBL,apr,iapAr,iapBr;
+    select,flag=error,clear; select,flag=error,pattern="^MBH\.BmbnLirn.*$";
+    exec new_magnetindividual(MBH,iapBL);exec errorgenerate_dip(MBH);
+    select,flag=error,clear; select,flag=error,pattern="^MBH\.AmbnLirn.*$";
+    exec new_magnetindividual(MBH,iapAL);exec errorgenerate_dip_inv(MBH);
+    select,flag=error,clear; select,flag=error,pattern="^MBH\.AmbnRirn.*$";
+    exec new_magnetindividual(MBH,iapAR);exec errorgenerate_dip(MBH);
+    select,flag=error,clear; select,flag=error,pattern="^MBH\.BmbnRirn.*$";
+    exec new_magnetindividual(MBH,iapBR);exec errorgenerate_dip_inv(MBH);
   };
 };
 
-exec,assign_mbh_err( 8,1,2,1);
-exec,assign_mbh_err( 9,1,2,1);
-exec,assign_mbh_err(10,1,2,1);
-exec,assign_mbh_err( 8,2,1,2);
-exec,assign_mbh_err(10,2,1,2);
-exec,assign_mbh_err( 8,5,2,1);
-exec,assign_mbh_err( 9,5,2,1);
-exec,assign_mbh_err(10,5,2,1);
-exec,assign_mbh_err( 8,7,1,1);
-exec,assign_mbh_err( 9,7,1,1);
-exec,assign_mbh_err(10,7,1,1);
+if (mbh_ir1q8 >0){ exec,assign_mbh_err( 8,1,1,1); };
+if (mbh_ir1q9 >0){ exec,assign_mbh_err( 9,1,1,1); };
+if (mbh_ir1q10>0){ exec,assign_mbh_err(10,1,1,1); };
+
+if (mbh_ir2q8 >0){ exec,assign_mbh_err( 8,2,2,2); };
+if (mbh_ir2q10>0){ exec,assign_mbh_err(10,2,2,2); };
+
+if (mbh_ir5q8 >0){ exec,assign_mbh_err( 8,5,1,1); };
+if (mbh_ir5q9 >0){ exec,assign_mbh_err( 9,5,1,1); };
+if (mbh_ir5q10>0){ exec,assign_mbh_err(10,5,1,1); };
+
+mbh_ir7q8_tot = mbh_ir7q8 + mbh_ir7q8a + mbh_ir7q8b;
+mbh_ir7q9_tot = mbh_ir7q9 + mbh_ir7q9a + mbh_ir7q9b;
+mbh_ir7q10_tot= mbh_ir7q10+ mbh_ir7q10a+ mbh_ir7q10b;
+if (mbh_ir7q8_tot >0){ exec,assign_mbh_err( 8,7,2,1); };
+if (mbh_ir7q9_tot >0){ exec,assign_mbh_err( 9,7,2,1); };
+if (mbh_ir7q10_tot>0){ exec,assign_mbh_err(10,7,2,1); };

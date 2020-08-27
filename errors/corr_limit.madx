@@ -17,7 +17,7 @@ verify_assigned_limit(magnet,maximum): macro={
 };
 
 
-option,-echo;
+!option,-echo;
 !NRJ:=450.e9;
 !NRJ:=7.e12;
 value,NRJ;
@@ -419,5 +419,5 @@ kMOmax:=0.29*6/0.017^3*0.3/NRJ;
 
 };
 
-option,echo;
+!option,echo;
 return;

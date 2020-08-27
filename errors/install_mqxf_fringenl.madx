@@ -1,7 +1,7 @@
 install_ends(refname,reftype):macro={
 refname..FL: multipole;
 refname..FR: multipole;
-print,text="refname..FL refname..FR refname";
+print,text="installing refname..FL refname..FR";
 if (mylhcbeam<3) {
         seqedit,sequence=lhcb1;
         install,element=refname..FL,at=-L.reftype/2,from=refname;

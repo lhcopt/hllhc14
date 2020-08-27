@@ -13,7 +13,6 @@ iap=0;
 !Rref_MCBXFBH=Rr_MCBXAB;
 !Rref_MCBXFAV=-Rr_MCBXAB;!skew reference
 !Rref_MCBXFBV=-Rr_MCBXAB;!skew reference
-magnetic_sign=0;
 
 
 ! -----------------------------------------------------------------------
