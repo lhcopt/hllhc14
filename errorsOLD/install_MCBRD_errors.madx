@@ -1,0 +1,29 @@
+! F.F Van der Veken 2018
+! Installing error magnets for the corrector magnets in D2.
+
+
+! Install thin multipoles at MCBRD kicker locations for imperfections
+install_thin_kicker_B12(refname):macro={
+	print,text="installing refname..r";
+	if (mylhcbeam<3){
+		refname.B1..r: multipole;
+		seqedit,sequence=lhcb1;
+		install,element=refname.B1..r,at=0,from=refname.B1;
+		endedit;
+	};
+	refname.B2..r: multipole;
+	seqedit,sequence=lhcb2;
+	install,element=refname.B2..r,at=0,from=refname.B2;
+	endedit;
+};
+
+exec, install_thin_kicker_B12(MCBRDH.4L1);
+exec, install_thin_kicker_B12(MCBRDH.4R1);
+exec, install_thin_kicker_B12(MCBRDH.4L5);
+exec, install_thin_kicker_B12(MCBRDH.4R5);
+exec, install_thin_kicker_B12(MCBRDV.4L1);
+exec, install_thin_kicker_B12(MCBRDV.4R1);
+exec, install_thin_kicker_B12(MCBRDV.4L5);
+exec, install_thin_kicker_B12(MCBRDV.4R5);
+
+return;

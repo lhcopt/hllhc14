@@ -1,0 +1,203 @@
+! F.F. Van der Veken 2019
+
+! ----------------------------------------------------------------------- 
+! Error type  : M - AVERAGE 
+!               R - STANDARD 
+!               U - UNCERTAINTY 
+! ----------------------------------------------------------------------- 
+! ----------------------------------------------------------------------- 
+! **************** Magnet type : MCBRD (new D2 correctors) ************** 
+! ----------------------------------------------------------------------- 
+
+! Units : relative field error for Rr = 35 mm in units of 10^-4
+Rr_MCBRDH= 0.035;
+Rr_MCBRDH= 0.035;
+Rr_MCBRDV=-0.035;!skew reference
+Rr_MCBRDV=-0.035;!skew reference
+!magnetic_sign=0;
+
+l.MCBRDH = l.MCBRD;
+l.MCBRDV = l.MCBRD;
+
+! -----------------------------------------------------------------------
+! *********************** Magnet type : MCBRDH **************************
+! -----------------------------------------------------------------------
+BRef_MCBRDH = 5.0/l.MCBRDH;
+
+!                bn at inj 
+b1M_MCBRDH_V1_inj  :=  0.000 ;b1M_MCBRDH_V2_inj  :=  0.000 ;b1U_MCBRDH_inj  :=  0.000 ;b1R_MCBRDH_inj  :=  0.000 ; 
+b2M_MCBRDH_V1_inj  :=  0.000 ;b2M_MCBRDH_V2_inj  :=  0.000 ;b2U_MCBRDH_inj  :=  0.000 ;b2R_MCBRDH_inj  :=  0.000 ; 
+b3M_MCBRDH_V1_inj  :=-10.000 ;b3M_MCBRDH_V2_inj  :=-10.000 ;b3U_MCBRDH_inj  :=  0.000 ;b3R_MCBRDH_inj  :=  0.000 ; 
+b4M_MCBRDH_V1_inj  :=  0.000 ;b4M_MCBRDH_V2_inj  :=  0.000 ;b4U_MCBRDH_inj  :=  0.000 ;b4R_MCBRDH_inj  :=  0.000 ; 
+b5M_MCBRDH_V1_inj  :=  0.000 ;b5M_MCBRDH_V2_inj  :=  0.000 ;b5U_MCBRDH_inj  :=  0.000 ;b5R_MCBRDH_inj  :=  0.000 ; 
+b6M_MCBRDH_V1_inj  :=  0.000 ;b6M_MCBRDH_V2_inj  :=  0.000 ;b6U_MCBRDH_inj  :=  0.000 ;b6R_MCBRDH_inj  :=  0.000 ; 
+b7M_MCBRDH_V1_inj  :=  0.000 ;b7M_MCBRDH_V2_inj  :=  0.000 ;b7U_MCBRDH_inj  :=  0.000 ;b7R_MCBRDH_inj  :=  0.000 ; 
+b8M_MCBRDH_V1_inj  :=  0.000 ;b8M_MCBRDH_V2_inj  :=  0.000 ;b8U_MCBRDH_inj  :=  0.000 ;b8R_MCBRDH_inj  :=  0.000 ; 
+b9M_MCBRDH_V1_inj  :=  0.000 ;b9M_MCBRDH_V2_inj  :=  0.000 ;b9U_MCBRDH_inj  :=  0.000 ;b9R_MCBRDH_inj  :=  0.000 ; 
+b10M_MCBRDH_V1_inj :=  0.000 ;b10M_MCBRDH_V2_inj :=  0.000 ;b10U_MCBRDH_inj :=  0.000 ;b10R_MCBRDH_inj :=  0.000 ; 
+b11M_MCBRDH_V1_inj :=  0.000 ;b11M_MCBRDH_V2_inj :=  0.000 ;b11U_MCBRDH_inj :=  0.000 ;b11R_MCBRDH_inj :=  0.000 ; 
+b12M_MCBRDH_V1_inj :=  0.000 ;b12M_MCBRDH_V2_inj :=  0.000 ;b12U_MCBRDH_inj :=  0.000 ;b12R_MCBRDH_inj :=  0.000 ; 
+b13M_MCBRDH_V1_inj :=  0.000 ;b13M_MCBRDH_V2_inj :=  0.000 ;b13U_MCBRDH_inj :=  0.000 ;b13R_MCBRDH_inj :=  0.000 ; 
+b14M_MCBRDH_V1_inj :=  0.000 ;b14M_MCBRDH_V2_inj :=  0.000 ;b14U_MCBRDH_inj :=  0.000 ;b14R_MCBRDH_inj :=  0.000 ; 
+b15M_MCBRDH_V1_inj :=  0.000 ;b15M_MCBRDH_V2_inj :=  0.000 ;b15U_MCBRDH_inj :=  0.000 ;b15R_MCBRDH_inj :=  0.000 ; 
+ 
+!                an at inj 
+a1M_MCBRDH_V1_inj  :=  0.000 ;a1M_MCBRDH_V2_inj  :=  0.000 ;a1U_MCBRDH_inj  :=  0.000 ;a1R_MCBRDH_inj  :=  0.000 ; 
+a2M_MCBRDH_V1_inj  :=  0.000 ;a2M_MCBRDH_V2_inj  :=  0.000 ;a2U_MCBRDH_inj  :=  0.000 ;a2R_MCBRDH_inj  :=  0.000 ; 
+a3M_MCBRDH_V1_inj  :=  0.000 ;a3M_MCBRDH_V2_inj  :=  0.000 ;a3U_MCBRDH_inj  :=  0.000 ;a3R_MCBRDH_inj  :=  0.000 ; 
+a4M_MCBRDH_V1_inj  :=  0.000 ;a4M_MCBRDH_V2_inj  :=  0.000 ;a4U_MCBRDH_inj  :=  0.000 ;a4R_MCBRDH_inj  :=  0.000 ; 
+a5M_MCBRDH_V1_inj  :=  0.000 ;a5M_MCBRDH_V2_inj  :=  0.000 ;a5U_MCBRDH_inj  :=  0.000 ;a5R_MCBRDH_inj  :=  0.000 ; 
+a6M_MCBRDH_V1_inj  :=  0.000 ;a6M_MCBRDH_V2_inj  :=  0.000 ;a6U_MCBRDH_inj  :=  0.000 ;a6R_MCBRDH_inj  :=  0.000 ; 
+a7M_MCBRDH_V1_inj  :=  0.000 ;a7M_MCBRDH_V2_inj  :=  0.000 ;a7U_MCBRDH_inj  :=  0.000 ;a7R_MCBRDH_inj  :=  0.000 ; 
+a8M_MCBRDH_V1_inj  :=  0.000 ;a8M_MCBRDH_V2_inj  :=  0.000 ;a8U_MCBRDH_inj  :=  0.000 ;a8R_MCBRDH_inj  :=  0.000 ; 
+a9M_MCBRDH_V1_inj  :=  0.000 ;a9M_MCBRDH_V2_inj  :=  0.000 ;a9U_MCBRDH_inj  :=  0.000 ;a9R_MCBRDH_inj  :=  0.000 ; 
+a10M_MCBRDH_V1_inj :=  0.000 ;a10M_MCBRDH_V2_inj :=  0.000 ;a10U_MCBRDH_inj :=  0.000 ;a10R_MCBRDH_inj :=  0.000 ; 
+a11M_MCBRDH_V1_inj :=  0.000 ;a11M_MCBRDH_V2_inj :=  0.000 ;a11U_MCBRDH_inj :=  0.000 ;a11R_MCBRDH_inj :=  0.000 ; 
+a12M_MCBRDH_V1_inj :=  0.000 ;a12M_MCBRDH_V2_inj :=  0.000 ;a12U_MCBRDH_inj :=  0.000 ;a12R_MCBRDH_inj :=  0.000 ; 
+a13M_MCBRDH_V1_inj :=  0.000 ;a13M_MCBRDH_V2_inj :=  0.000 ;a13U_MCBRDH_inj :=  0.000 ;a13R_MCBRDH_inj :=  0.000 ; 
+a14M_MCBRDH_V1_inj :=  0.000 ;a14M_MCBRDH_V2_inj :=  0.000 ;a14U_MCBRDH_inj :=  0.000 ;a14R_MCBRDH_inj :=  0.000 ; 
+a15M_MCBRDH_V1_inj :=  0.000 ;a15M_MCBRDH_V2_inj :=  0.000 ;a15U_MCBRDH_inj :=  0.000 ;a15R_MCBRDH_inj :=  0.000 ; 
+ 
+!                bn at col 
+b1M_MCBRDH_V1_col  :=  0.000 ;b1M_MCBRDH_V2_col  :=  0.000 ;b1U_MCBRDH_col  :=  0.000 ;b1R_MCBRDH_col  :=  0.000 ; 
+b2M_MCBRDH_V1_col  :=  0.000 ;b2M_MCBRDH_V2_col  :=  0.000 ;b2U_MCBRDH_col  :=  0.000 ;b2R_MCBRDH_col  :=  0.000 ; 
+b3M_MCBRDH_V1_col  :=-10.000 ;b3M_MCBRDH_V2_col  :=-10.000 ;b3U_MCBRDH_col  :=  0.000 ;b3R_MCBRDH_col  :=  0.000 ; 
+b4M_MCBRDH_V1_col  :=  0.000 ;b4M_MCBRDH_V2_col  :=  0.000 ;b4U_MCBRDH_col  :=  0.000 ;b4R_MCBRDH_col  :=  0.000 ; 
+b5M_MCBRDH_V1_col  :=  0.000 ;b5M_MCBRDH_V2_col  :=  0.000 ;b5U_MCBRDH_col  :=  0.000 ;b5R_MCBRDH_col  :=  0.000 ; 
+b6M_MCBRDH_V1_col  :=  0.000 ;b6M_MCBRDH_V2_col  :=  0.000 ;b6U_MCBRDH_col  :=  0.000 ;b6R_MCBRDH_col  :=  0.000 ; 
+b7M_MCBRDH_V1_col  :=  0.000 ;b7M_MCBRDH_V2_col  :=  0.000 ;b7U_MCBRDH_col  :=  0.000 ;b7R_MCBRDH_col  :=  0.000 ; 
+b8M_MCBRDH_V1_col  :=  0.000 ;b8M_MCBRDH_V2_col  :=  0.000 ;b8U_MCBRDH_col  :=  0.000 ;b8R_MCBRDH_col  :=  0.000 ; 
+b9M_MCBRDH_V1_col  :=  0.000 ;b9M_MCBRDH_V2_col  :=  0.000 ;b9U_MCBRDH_col  :=  0.000 ;b9R_MCBRDH_col  :=  0.000 ; 
+b10M_MCBRDH_V1_col :=  0.000 ;b10M_MCBRDH_V2_col :=  0.000 ;b10U_MCBRDH_col :=  0.000 ;b10R_MCBRDH_col :=  0.000 ; 
+b11M_MCBRDH_V1_col :=  0.000 ;b11M_MCBRDH_V2_col :=  0.000 ;b11U_MCBRDH_col :=  0.000 ;b11R_MCBRDH_col :=  0.000 ; 
+b12M_MCBRDH_V1_col :=  0.000 ;b12M_MCBRDH_V2_col :=  0.000 ;b12U_MCBRDH_col :=  0.000 ;b12R_MCBRDH_col :=  0.000 ; 
+b13M_MCBRDH_V1_col :=  0.000 ;b13M_MCBRDH_V2_col :=  0.000 ;b13U_MCBRDH_col :=  0.000 ;b13R_MCBRDH_col :=  0.000 ; 
+b14M_MCBRDH_V1_col :=  0.000 ;b14M_MCBRDH_V2_col :=  0.000 ;b14U_MCBRDH_col :=  0.000 ;b14R_MCBRDH_col :=  0.000 ; 
+b15M_MCBRDH_V1_col :=  0.000 ;b15M_MCBRDH_V2_col :=  0.000 ;b15U_MCBRDH_col :=  0.000 ;b15R_MCBRDH_col :=  0.000 ; 
+ 
+!                an at col 
+a1M_MCBRDH_V1_col  :=  0.000 ;a1M_MCBRDH_V2_col  :=  0.000 ;a1U_MCBRDH_col  :=  0.000 ;a1R_MCBRDH_col  :=  0.000 ; 
+a2M_MCBRDH_V1_col  :=  0.000 ;a2M_MCBRDH_V2_col  :=  0.000 ;a2U_MCBRDH_col  :=  0.000 ;a2R_MCBRDH_col  :=  0.000 ; 
+a3M_MCBRDH_V1_col  :=  0.000 ;a3M_MCBRDH_V2_col  :=  0.000 ;a3U_MCBRDH_col  :=  0.000 ;a3R_MCBRDH_col  :=  0.000 ; 
+a4M_MCBRDH_V1_col  :=  0.000 ;a4M_MCBRDH_V2_col  :=  0.000 ;a4U_MCBRDH_col  :=  0.000 ;a4R_MCBRDH_col  :=  0.000 ; 
+a5M_MCBRDH_V1_col  :=  0.000 ;a5M_MCBRDH_V2_col  :=  0.000 ;a5U_MCBRDH_col  :=  0.000 ;a5R_MCBRDH_col  :=  0.000 ; 
+a6M_MCBRDH_V1_col  :=  0.000 ;a6M_MCBRDH_V2_col  :=  0.000 ;a6U_MCBRDH_col  :=  0.000 ;a6R_MCBRDH_col  :=  0.000 ; 
+a7M_MCBRDH_V1_col  :=  0.000 ;a7M_MCBRDH_V2_col  :=  0.000 ;a7U_MCBRDH_col  :=  0.000 ;a7R_MCBRDH_col  :=  0.000 ; 
+a8M_MCBRDH_V1_col  :=  0.000 ;a8M_MCBRDH_V2_col  :=  0.000 ;a8U_MCBRDH_col  :=  0.000 ;a8R_MCBRDH_col  :=  0.000 ; 
+a9M_MCBRDH_V1_col  :=  0.000 ;a9M_MCBRDH_V2_col  :=  0.000 ;a9U_MCBRDH_col  :=  0.000 ;a9R_MCBRDH_col  :=  0.000 ; 
+a10M_MCBRDH_V1_col :=  0.000 ;a10M_MCBRDH_V2_col :=  0.000 ;a10U_MCBRDH_col :=  0.000 ;a10R_MCBRDH_col :=  0.000 ; 
+a11M_MCBRDH_V1_col :=  0.000 ;a11M_MCBRDH_V2_col :=  0.000 ;a11U_MCBRDH_col :=  0.000 ;a11R_MCBRDH_col :=  0.000 ; 
+a12M_MCBRDH_V1_col :=  0.000 ;a12M_MCBRDH_V2_col :=  0.000 ;a12U_MCBRDH_col :=  0.000 ;a12R_MCBRDH_col :=  0.000 ; 
+a13M_MCBRDH_V1_col :=  0.000 ;a13M_MCBRDH_V2_col :=  0.000 ;a13U_MCBRDH_col :=  0.000 ;a13R_MCBRDH_col :=  0.000 ; 
+a14M_MCBRDH_V1_col :=  0.000 ;a14M_MCBRDH_V2_col :=  0.000 ;a14U_MCBRDH_col :=  0.000 ;a14R_MCBRDH_col :=  0.000 ; 
+a15M_MCBRDH_V1_col :=  0.000 ;a15M_MCBRDH_V2_col :=  0.000 ;a15U_MCBRDH_col :=  0.000 ;a15R_MCBRDH_col :=  0.000 ; 
+
+
+! -----------------------------------------------------------------------
+! *********************** Magnet type : MCBRDV **************************
+! -----------------------------------------------------------------------
+BRef_MCBRDV = 5.0/l.MCBRDV;
+
+!                bn at inj 
+b1M_MCBRDV_V1_inj  :=  0.000 ;b1M_MCBRDV_V2_inj  :=  0.000 ;b1U_MCBRDV_inj  :=  0.000 ;b1R_MCBRDV_inj  :=  0.000 ; 
+b2M_MCBRDV_V1_inj  :=  0.000 ;b2M_MCBRDV_V2_inj  :=  0.000 ;b2U_MCBRDV_inj  :=  0.000 ;b2R_MCBRDV_inj  :=  0.000 ; 
+b3M_MCBRDV_V1_inj  :=  0.000 ;b3M_MCBRDV_V2_inj  :=  0.000 ;b3U_MCBRDV_inj  :=  0.000 ;b3R_MCBRDV_inj  :=  0.000 ; 
+b4M_MCBRDV_V1_inj  :=  0.000 ;b4M_MCBRDV_V2_inj  :=  0.000 ;b4U_MCBRDV_inj  :=  0.000 ;b4R_MCBRDV_inj  :=  0.000 ; 
+b5M_MCBRDV_V1_inj  :=  0.000 ;b5M_MCBRDV_V2_inj  :=  0.000 ;b5U_MCBRDV_inj  :=  0.000 ;b5R_MCBRDV_inj  :=  0.000 ; 
+b6M_MCBRDV_V1_inj  :=  0.000 ;b6M_MCBRDV_V2_inj  :=  0.000 ;b6U_MCBRDV_inj  :=  0.000 ;b6R_MCBRDV_inj  :=  0.000 ; 
+b7M_MCBRDV_V1_inj  :=  0.000 ;b7M_MCBRDV_V2_inj  :=  0.000 ;b7U_MCBRDV_inj  :=  0.000 ;b7R_MCBRDV_inj  :=  0.000 ; 
+b8M_MCBRDV_V1_inj  :=  0.000 ;b8M_MCBRDV_V2_inj  :=  0.000 ;b8U_MCBRDV_inj  :=  0.000 ;b8R_MCBRDV_inj  :=  0.000 ; 
+b9M_MCBRDV_V1_inj  :=  0.000 ;b9M_MCBRDV_V2_inj  :=  0.000 ;b9U_MCBRDV_inj  :=  0.000 ;b9R_MCBRDV_inj  :=  0.000 ; 
+b10M_MCBRDV_V1_inj :=  0.000 ;b10M_MCBRDV_V2_inj :=  0.000 ;b10U_MCBRDV_inj :=  0.000 ;b10R_MCBRDV_inj :=  0.000 ; 
+b11M_MCBRDV_V1_inj :=  0.000 ;b11M_MCBRDV_V2_inj :=  0.000 ;b11U_MCBRDV_inj :=  0.000 ;b11R_MCBRDV_inj :=  0.000 ; 
+b12M_MCBRDV_V1_inj :=  0.000 ;b12M_MCBRDV_V2_inj :=  0.000 ;b12U_MCBRDV_inj :=  0.000 ;b12R_MCBRDV_inj :=  0.000 ; 
+b13M_MCBRDV_V1_inj :=  0.000 ;b13M_MCBRDV_V2_inj :=  0.000 ;b13U_MCBRDV_inj :=  0.000 ;b13R_MCBRDV_inj :=  0.000 ; 
+b14M_MCBRDV_V1_inj :=  0.000 ;b14M_MCBRDV_V2_inj :=  0.000 ;b14U_MCBRDV_inj :=  0.000 ;b14R_MCBRDV_inj :=  0.000 ; 
+b15M_MCBRDV_V1_inj :=  0.000 ;b15M_MCBRDV_V2_inj :=  0.000 ;b15U_MCBRDV_inj :=  0.000 ;b15R_MCBRDV_inj :=  0.000 ; 
+ 
+!                an at inj 
+a1M_MCBRDV_V1_inj  :=  0.000 ;a1M_MCBRDV_V2_inj  :=  0.000 ;a1U_MCBRDV_inj  :=  0.000 ;a1R_MCBRDV_inj  :=  0.000 ; 
+a2M_MCBRDV_V1_inj  :=  0.000 ;a2M_MCBRDV_V2_inj  :=  0.000 ;a2U_MCBRDV_inj  :=  0.000 ;a2R_MCBRDV_inj  :=  0.000 ; 
+a3M_MCBRDV_V1_inj  := 10.000 ;a3M_MCBRDV_V2_inj  := 10.000 ;a3U_MCBRDV_inj  :=  0.000 ;a3R_MCBRDV_inj  :=  0.000 ; 
+a4M_MCBRDV_V1_inj  :=  0.000 ;a4M_MCBRDV_V2_inj  :=  0.000 ;a4U_MCBRDV_inj  :=  0.000 ;a4R_MCBRDV_inj  :=  0.000 ; 
+a5M_MCBRDV_V1_inj  :=  0.000 ;a5M_MCBRDV_V2_inj  :=  0.000 ;a5U_MCBRDV_inj  :=  0.000 ;a5R_MCBRDV_inj  :=  0.000 ; 
+a6M_MCBRDV_V1_inj  :=  0.000 ;a6M_MCBRDV_V2_inj  :=  0.000 ;a6U_MCBRDV_inj  :=  0.000 ;a6R_MCBRDV_inj  :=  0.000 ; 
+a7M_MCBRDV_V1_inj  :=  0.000 ;a7M_MCBRDV_V2_inj  :=  0.000 ;a7U_MCBRDV_inj  :=  0.000 ;a7R_MCBRDV_inj  :=  0.000 ; 
+a8M_MCBRDV_V1_inj  :=  0.000 ;a8M_MCBRDV_V2_inj  :=  0.000 ;a8U_MCBRDV_inj  :=  0.000 ;a8R_MCBRDV_inj  :=  0.000 ; 
+a9M_MCBRDV_V1_inj  :=  0.000 ;a9M_MCBRDV_V2_inj  :=  0.000 ;a9U_MCBRDV_inj  :=  0.000 ;a9R_MCBRDV_inj  :=  0.000 ; 
+a10M_MCBRDV_V1_inj :=  0.000 ;a10M_MCBRDV_V2_inj :=  0.000 ;a10U_MCBRDV_inj :=  0.000 ;a10R_MCBRDV_inj :=  0.000 ; 
+a11M_MCBRDV_V1_inj :=  0.000 ;a11M_MCBRDV_V2_inj :=  0.000 ;a11U_MCBRDV_inj :=  0.000 ;a11R_MCBRDV_inj :=  0.000 ; 
+a12M_MCBRDV_V1_inj :=  0.000 ;a12M_MCBRDV_V2_inj :=  0.000 ;a12U_MCBRDV_inj :=  0.000 ;a12R_MCBRDV_inj :=  0.000 ; 
+a13M_MCBRDV_V1_inj :=  0.000 ;a13M_MCBRDV_V2_inj :=  0.000 ;a13U_MCBRDV_inj :=  0.000 ;a13R_MCBRDV_inj :=  0.000 ; 
+a14M_MCBRDV_V1_inj :=  0.000 ;a14M_MCBRDV_V2_inj :=  0.000 ;a14U_MCBRDV_inj :=  0.000 ;a14R_MCBRDV_inj :=  0.000 ; 
+a15M_MCBRDV_V1_inj :=  0.000 ;a15M_MCBRDV_V2_inj :=  0.000 ;a15U_MCBRDV_inj :=  0.000 ;a15R_MCBRDV_inj :=  0.000 ; 
+ 
+!                bn at col 
+b1M_MCBRDV_V1_col  :=  0.000 ;b1M_MCBRDV_V2_col  :=  0.000 ;b1U_MCBRDV_col  :=  0.000 ;b1R_MCBRDV_col  :=  0.000 ; 
+b2M_MCBRDV_V1_col  :=  0.000 ;b2M_MCBRDV_V2_col  :=  0.000 ;b2U_MCBRDV_col  :=  0.000 ;b2R_MCBRDV_col  :=  0.000 ; 
+b3M_MCBRDV_V1_col  :=  0.000 ;b3M_MCBRDV_V2_col  :=  0.000 ;b3U_MCBRDV_col  :=  0.000 ;b3R_MCBRDV_col  :=  0.000 ; 
+b4M_MCBRDV_V1_col  :=  0.000 ;b4M_MCBRDV_V2_col  :=  0.000 ;b4U_MCBRDV_col  :=  0.000 ;b4R_MCBRDV_col  :=  0.000 ; 
+b5M_MCBRDV_V1_col  :=  0.000 ;b5M_MCBRDV_V2_col  :=  0.000 ;b5U_MCBRDV_col  :=  0.000 ;b5R_MCBRDV_col  :=  0.000 ; 
+b6M_MCBRDV_V1_col  :=  0.000 ;b6M_MCBRDV_V2_col  :=  0.000 ;b6U_MCBRDV_col  :=  0.000 ;b6R_MCBRDV_col  :=  0.000 ; 
+b7M_MCBRDV_V1_col  :=  0.000 ;b7M_MCBRDV_V2_col  :=  0.000 ;b7U_MCBRDV_col  :=  0.000 ;b7R_MCBRDV_col  :=  0.000 ; 
+b8M_MCBRDV_V1_col  :=  0.000 ;b8M_MCBRDV_V2_col  :=  0.000 ;b8U_MCBRDV_col  :=  0.000 ;b8R_MCBRDV_col  :=  0.000 ; 
+b9M_MCBRDV_V1_col  :=  0.000 ;b9M_MCBRDV_V2_col  :=  0.000 ;b9U_MCBRDV_col  :=  0.000 ;b9R_MCBRDV_col  :=  0.000 ; 
+b10M_MCBRDV_V1_col :=  0.000 ;b10M_MCBRDV_V2_col :=  0.000 ;b10U_MCBRDV_col :=  0.000 ;b10R_MCBRDV_col :=  0.000 ; 
+b11M_MCBRDV_V1_col :=  0.000 ;b11M_MCBRDV_V2_col :=  0.000 ;b11U_MCBRDV_col :=  0.000 ;b11R_MCBRDV_col :=  0.000 ; 
+b12M_MCBRDV_V1_col :=  0.000 ;b12M_MCBRDV_V2_col :=  0.000 ;b12U_MCBRDV_col :=  0.000 ;b12R_MCBRDV_col :=  0.000 ; 
+b13M_MCBRDV_V1_col :=  0.000 ;b13M_MCBRDV_V2_col :=  0.000 ;b13U_MCBRDV_col :=  0.000 ;b13R_MCBRDV_col :=  0.000 ; 
+b14M_MCBRDV_V1_col :=  0.000 ;b14M_MCBRDV_V2_col :=  0.000 ;b14U_MCBRDV_col :=  0.000 ;b14R_MCBRDV_col :=  0.000 ; 
+b15M_MCBRDV_V1_col :=  0.000 ;b15M_MCBRDV_V2_col :=  0.000 ;b15U_MCBRDV_col :=  0.000 ;b15R_MCBRDV_col :=  0.000 ; 
+ 
+!                an at col 
+a1M_MCBRDV_V1_col  :=  0.000 ;a1M_MCBRDV_V2_col  :=  0.000 ;a1U_MCBRDV_col  :=  0.000 ;a1R_MCBRDV_col  :=  0.000 ; 
+a2M_MCBRDV_V1_col  :=  0.000 ;a2M_MCBRDV_V2_col  :=  0.000 ;a2U_MCBRDV_col  :=  0.000 ;a2R_MCBRDV_col  :=  0.000 ; 
+a3M_MCBRDV_V1_col  := 10.000 ;a3M_MCBRDV_V2_col  := 10.000 ;a3U_MCBRDV_col  :=  0.000 ;a3R_MCBRDV_col  :=  0.000 ; 
+a4M_MCBRDV_V1_col  :=  0.000 ;a4M_MCBRDV_V2_col  :=  0.000 ;a4U_MCBRDV_col  :=  0.000 ;a4R_MCBRDV_col  :=  0.000 ; 
+a5M_MCBRDV_V1_col  :=  0.000 ;a5M_MCBRDV_V2_col  :=  0.000 ;a5U_MCBRDV_col  :=  0.000 ;a5R_MCBRDV_col  :=  0.000 ; 
+a6M_MCBRDV_V1_col  :=  0.000 ;a6M_MCBRDV_V2_col  :=  0.000 ;a6U_MCBRDV_col  :=  0.000 ;a6R_MCBRDV_col  :=  0.000 ; 
+a7M_MCBRDV_V1_col  :=  0.000 ;a7M_MCBRDV_V2_col  :=  0.000 ;a7U_MCBRDV_col  :=  0.000 ;a7R_MCBRDV_col  :=  0.000 ; 
+a8M_MCBRDV_V1_col  :=  0.000 ;a8M_MCBRDV_V2_col  :=  0.000 ;a8U_MCBRDV_col  :=  0.000 ;a8R_MCBRDV_col  :=  0.000 ; 
+a9M_MCBRDV_V1_col  :=  0.000 ;a9M_MCBRDV_V2_col  :=  0.000 ;a9U_MCBRDV_col  :=  0.000 ;a9R_MCBRDV_col  :=  0.000 ; 
+a10M_MCBRDV_V1_col :=  0.000 ;a10M_MCBRDV_V2_col :=  0.000 ;a10U_MCBRDV_col :=  0.000 ;a10R_MCBRDV_col :=  0.000 ; 
+a11M_MCBRDV_V1_col :=  0.000 ;a11M_MCBRDV_V2_col :=  0.000 ;a11U_MCBRDV_col :=  0.000 ;a11R_MCBRDV_col :=  0.000 ; 
+a12M_MCBRDV_V1_col :=  0.000 ;a12M_MCBRDV_V2_col :=  0.000 ;a12U_MCBRDV_col :=  0.000 ;a12R_MCBRDV_col :=  0.000 ; 
+a13M_MCBRDV_V1_col :=  0.000 ;a13M_MCBRDV_V2_col :=  0.000 ;a13U_MCBRDV_col :=  0.000 ;a13R_MCBRDV_col :=  0.000 ; 
+a14M_MCBRDV_V1_col :=  0.000 ;a14M_MCBRDV_V2_col :=  0.000 ;a14U_MCBRDV_col :=  0.000 ;a14R_MCBRDV_col :=  0.000 ; 
+a15M_MCBRDV_V1_col :=  0.000 ;a15M_MCBRDV_V2_col :=  0.000 ;a15U_MCBRDV_col :=  0.000 ;a15R_MCBRDV_col :=  0.000 ; 
+
+
+
+! -----------------------------------------------------------------------
+! *********************** Sign estimates ********************************
+! -----------------------------------------------------------------------
+
+sign_MCBRDH.4L1.B1 = 1; sign_MCBRDH.4R1.B1 = 1; sign_MCBRDH.4L5.B1 = 1; sign_MCBRDH.4R5.B1 = 1;
+sign_MCBRDH.4L1.B2 = 1; sign_MCBRDH.4R1.B2 = 1; sign_MCBRDH.4L5.B2 = 1; sign_MCBRDH.4R5.B2 = 1;
+sign_MCBRDV.4L1.B1 = 1; sign_MCBRDV.4R1.B1 = 1; sign_MCBRDV.4L5.B1 = 1; sign_MCBRDV.4R5.B1 = 1;
+sign_MCBRDV.4L1.B2 = 1; sign_MCBRDV.4R1.B2 = 1; sign_MCBRDV.4L5.B2 = 1; sign_MCBRDV.4R5.B2 = 1;
+
+assign_sign_from_optics(goal,optic,norm): macro={
+    if (optic/(abs(optic))==-1.0) { if (optic>norm) { goal = -1.0; } else { goal = 1.0; }; } else { goal = 1.0; };          ! does not work because optic is setdelayed, and here equal to zero
+};
+
+!exec assign_sign_from_optics(sign_MCBRDH.4L1.B1,acbrdh4.l1b1,0.3*BRef_MCBRDH*l.MCBRDH*CLIGHT/(1E9*NRJ));
+!exec assign_sign_from_optics(sign_MCBRDH.4R1.B1,acbrdh4.r1b1,0.3*BRef_MCBRDH*l.MCBRDH*CLIGHT/(1E9*NRJ));
+!exec assign_sign_from_optics(sign_MCBRDH.4L5.B1,acbrdh4.l5b1,0.3*BRef_MCBRDH*l.MCBRDH*CLIGHT/(1E9*NRJ));
+!exec assign_sign_from_optics(sign_MCBRDH.4R5.B1,acbrdh4.r5b1,0.3*BRef_MCBRDH*l.MCBRDH*CLIGHT/(1E9*NRJ));
+!exec assign_sign_from_optics(sign_MCBRDV.4L1.B1,acbrdv4.l1b1,0.3*BRef_MCBRDV*l.MCBRDV*CLIGHT/(1E9*NRJ));
+!exec assign_sign_from_optics(sign_MCBRDV.4R1.B1,acbrdv4.r1b1,0.3*BRef_MCBRDV*l.MCBRDV*CLIGHT/(1E9*NRJ));
+!exec assign_sign_from_optics(sign_MCBRDV.4L5.B1,acbrdv4.l5b1,0.3*BRef_MCBRDV*l.MCBRDV*CLIGHT/(1E9*NRJ));
+!exec assign_sign_from_optics(sign_MCBRDV.4R5.B1,acbrdv4.r5b1,0.3*BRef_MCBRDV*l.MCBRDV*CLIGHT/(1E9*NRJ));
+!exec assign_sign_from_optics(sign_MCBRDH.4L1.B2,acbrdh4.l1b2,0.3*BRef_MCBRDH*l.MCBRDH*CLIGHT/(1E9*NRJ));
+!exec assign_sign_from_optics(sign_MCBRDH.4R1.B2,acbrdh4.r1b2,0.3*BRef_MCBRDH*l.MCBRDH*CLIGHT/(1E9*NRJ));
+!exec assign_sign_from_optics(sign_MCBRDH.4L5.B2,acbrdh4.l5b2,0.3*BRef_MCBRDH*l.MCBRDH*CLIGHT/(1E9*NRJ));
+!exec assign_sign_from_optics(sign_MCBRDH.4R5.B2,acbrdh4.r5b2,0.3*BRef_MCBRDH*l.MCBRDH*CLIGHT/(1E9*NRJ));
+!exec assign_sign_from_optics(sign_MCBRDV.4L1.B2,acbrdv4.l1b2,0.3*BRef_MCBRDV*l.MCBRDV*CLIGHT/(1E9*NRJ));
+!exec assign_sign_from_optics(sign_MCBRDV.4R1.B2,acbrdv4.r1b2,0.3*BRef_MCBRDV*l.MCBRDV*CLIGHT/(1E9*NRJ));
+!exec assign_sign_from_optics(sign_MCBRDV.4L5.B2,acbrdv4.l5b2,0.3*BRef_MCBRDV*l.MCBRDV*CLIGHT/(1E9*NRJ));
+!exec assign_sign_from_optics(sign_MCBRDV.4R5.B2,acbrdv4.r5b2,0.3*BRef_MCBRDV*l.MCBRDV*CLIGHT/(1E9*NRJ));
+
+value,sign_MCBRDH.4L1.B1,sign_MCBRDH.4R1.B1,sign_MCBRDH.4L5.B1,sign_MCBRDH.4R5.B1,sign_MCBRDH.4L1.B2,sign_MCBRDH.4R1.B2,sign_MCBRDH.4L5.B2,sign_MCBRDH.4R5.B2,sign_MCBRDV.4L1.B1,sign_MCBRDV.4R1.B1,sign_MCBRDV.4L5.B1,sign_MCBRDV.4R5.B1,sign_MCBRDV.4L1.B2,sign_MCBRDV.4R1.B2,sign_MCBRDV.4L5.B2,sign_MCBRDV.4R5.B2;
+
+return;

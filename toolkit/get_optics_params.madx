@@ -1,0 +1,45 @@
+exec, query_crossing;
+if (crossing_enabled==0){exec, crossing_restore;};
+if (crossing_enabled==-1){
+  print,text="WARNING! Some crossing knobs (but not all) are off. This might give wrong optics parameters ..";
+};
+
+twiss,chrom;
+val_xnom1=table(twiss,IP1,x);
+val_pxnom1=table(twiss,IP1,px);
+val_ynom1=table(twiss,IP1,y);
+val_pynom1=table(twiss,IP1,py);
+val_xnom2=table(twiss,IP2,x);
+val_pxnom2=table(twiss,IP2,px);
+val_ynom2=table(twiss,IP2,y);
+val_pynom2=table(twiss,IP2,py);
+val_xnom5=table(twiss,IP5,x);
+val_pxnom5=table(twiss,IP5,px);
+val_ynom5=table(twiss,IP5,y);
+val_pynom5=table(twiss,IP5,py);
+val_xnom8=table(twiss,IP8,x);
+val_pxnom8=table(twiss,IP8,px);
+val_ynom8=table(twiss,IP8,y);
+val_pynom8=table(twiss,IP8,py);
+value,val_xnom1,val_xnom2,val_xnom5,val_xnom8;
+value,val_ynom1,val_ynom2,val_ynom5,val_ynom8;
+value,val_pxnom1,val_pxnom2,val_pxnom5,val_pxnom8;
+value,val_pynom1,val_pynom2,val_pynom5,val_pynom8;
+value, table(summ,q1);
+value, table(summ,q2);
+value, table(summ,dq1);
+value, table(summ,dq2);
+val_betx1=table(twiss,IP1,betx);
+val_bety1=table(twiss,IP1,bety);
+val_betx2=table(twiss,IP2,betx);
+val_bety2=table(twiss,IP2,bety);
+val_betx5=table(twiss,IP5,betx);
+val_bety5=table(twiss,IP5,bety);
+val_betx8=table(twiss,IP8,betx);
+val_bety8=table(twiss,IP8,bety);
+val_betxmax=table(summ,betxmax);
+val_betymax=table(summ,betymax);
+value, val_betx1, val_betx2, val_betx5, val_betx8, val_betxmax;
+value, val_bety1, val_bety2, val_bety5, val_bety8, val_betymax;
+
+if (crossing_enabled==0){exec, crossing_disable;};

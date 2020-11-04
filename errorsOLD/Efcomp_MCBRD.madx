@@ -1,0 +1,186 @@
+! F.F. Van der Veken
+! Error generation for the new D2 correctors (MCBRD).
+! The layout is (right side of IP):
+! IP  (=D2 =MCBRDH MCBRDV=)
+! The horizontal correctors have the association Beam1 -> iap1  and  Beam2 -> iap2
+! The vertical correctors have the association Beam1 -> iap2  and  Beam2 -> iap1
+
+
+! -----------------------------------------------------------------------
+! *********************** Magnet type : MCBRDH ************************
+! -----------------------------------------------------------------------
+exec new_magnetfamily_MB(MCBRDH);                 ! systematic error
+klRef_MCBRDH_abs = BRef_MCBRDH*l.MCBRDH*CLIGHT/(1E9*NRJ);
+
+!MCBRDH.L1
+inv_MCBRD=1;
+klRef_MCBRDH.B1 = sign_MCBRDH.4L1.B1*klRef_MCBRDH_abs;
+klRef_MCBRDH.B2 = sign_MCBRDH.4L1.B2*klRef_MCBRDH_abs;
+select,flag=error,clear;select,flag=error,pattern="^MCBRDH\.4L1.*\.\.r$";
+iap=1; exec new_magnetindividual(MCBRDH,iap);  exec average_of_randoms(ssrBeam1,ssr,ssr);
+iap=2; exec new_magnetindividual(MCBRDH,iap);  exec average_of_randoms(ssrBeam2,ssr,ssr);
+if(use_average_errors_MCBRD==1){ exec average_of_randoms(ssr,ssrBeam1,ssrBeam2); klRef_MCBRDH = 0.5*(klRef_MCBRDH.B1 + klRef_MCBRDH.B2);};
+if(use_average_errors_MCBRD==0){
+    if(mylhcbeam==1){
+        exec average_of_randoms(ssr,ssrBeam1,ssrBeam1);
+        klRef_MCBRDH = klRef_MCBRDH.B1;
+    };
+    if(mylhcbeam>1){
+        exec average_of_randoms(ssr,ssrBeam2,ssrBeam2);
+        klRef_MCBRDH = klRef_MCBRDH.B2;
+    };
+};
+exec errorgenerate_abs(MCBRDH, inv_MCBRD, 0, klRef_MCBRDH);
+
+!MCBRDH.R1
+inv_MCBRD=0;
+klRef_MCBRDH.B1 = sign_MCBRDH.4R1.B1*klRef_MCBRDH_abs;
+klRef_MCBRDH.B2 = sign_MCBRDH.4R1.B2*klRef_MCBRDH_abs;
+select,flag=error,clear;select,flag=error,pattern="^MCBRDH\.4R1.*\.\.r$";
+iap=1; exec new_magnetindividual(MCBRDH,iap);  exec average_of_randoms(ssrBeam1,ssr,ssr);
+iap=2; exec new_magnetindividual(MCBRDH,iap);  exec average_of_randoms(ssrBeam2,ssr,ssr);
+if(use_average_errors_MCBRD==1){ exec average_of_randoms(ssr,ssrBeam1,ssrBeam2); klRef_MCBRDH = 0.5*(klRef_MCBRDH.B1 + klRef_MCBRDH.B2);};
+if(use_average_errors_MCBRD==0){
+    if(mylhcbeam==1){
+        exec average_of_randoms(ssr,ssrBeam1,ssrBeam1);
+        klRef_MCBRDH = klRef_MCBRDH.B1;
+    };
+    if(mylhcbeam>1){
+        exec average_of_randoms(ssr,ssrBeam2,ssrBeam2);
+        klRef_MCBRDH = klRef_MCBRDH.B2;
+    };
+};
+exec errorgenerate_abs(MCBRDH, inv_MCBRD, 0, klRef_MCBRDH);
+
+!MCBRDH.L5
+inv_MCBRD=1;
+klRef_MCBRDH.B1 = sign_MCBRDH.4L5.B1*klRef_MCBRDH_abs;
+klRef_MCBRDH.B2 = sign_MCBRDH.4L5.B2*klRef_MCBRDH_abs;
+select,flag=error,clear;select,flag=error,pattern="^MCBRDH\.4L5.*\.\.r$";
+iap=1; exec new_magnetindividual(MCBRDH,iap);  exec average_of_randoms(ssrBeam1,ssr,ssr);
+iap=2; exec new_magnetindividual(MCBRDH,iap);  exec average_of_randoms(ssrBeam2,ssr,ssr);
+if(use_average_errors_MCBRD==1){ exec average_of_randoms(ssr,ssrBeam1,ssrBeam2); klRef_MCBRDH = 0.5*(klRef_MCBRDH.B1 + klRef_MCBRDH.B2);};
+if(use_average_errors_MCBRD==0){
+    if(mylhcbeam==1){
+        exec average_of_randoms(ssr,ssrBeam1,ssrBeam1);
+        klRef_MCBRDH = klRef_MCBRDH.B1;
+    };
+    if(mylhcbeam>1){
+        exec average_of_randoms(ssr,ssrBeam2,ssrBeam2);
+        klRef_MCBRDH = klRef_MCBRDH.B2;
+    };
+};
+exec errorgenerate_abs(MCBRDH, inv_MCBRD, 0, klRef_MCBRDH);
+
+!MCBRDH.R5
+inv_MCBRD=0;
+klRef_MCBRDH.B1 = sign_MCBRDH.4R5.B1*klRef_MCBRDH_abs;
+klRef_MCBRDH.B2 = sign_MCBRDH.4R5.B2*klRef_MCBRDH_abs;
+select,flag=error,clear;select,flag=error,pattern="^MCBRDH\.4R5.*\.\.r$";
+iap=1; exec new_magnetindividual(MCBRDH,iap);  exec average_of_randoms(ssrBeam1,ssr,ssr);
+iap=2; exec new_magnetindividual(MCBRDH,iap);  exec average_of_randoms(ssrBeam2,ssr,ssr);
+if(use_average_errors_MCBRD==1){ exec average_of_randoms(ssr,ssrBeam1,ssrBeam2); klRef_MCBRDH = 0.5*(klRef_MCBRDH.B1 + klRef_MCBRDH.B2);};
+if(use_average_errors_MCBRD==0){
+    if(mylhcbeam==1){
+        exec average_of_randoms(ssr,ssrBeam1,ssrBeam1);
+        klRef_MCBRDH = klRef_MCBRDH.B1;
+    };
+    if(mylhcbeam>1){
+        exec average_of_randoms(ssr,ssrBeam2,ssrBeam2);
+        klRef_MCBRDH = klRef_MCBRDH.B2;
+    };
+};
+exec errorgenerate_abs(MCBRDH, inv_MCBRD, 0, klRef_MCBRDH);
+
+
+
+! -----------------------------------------------------------------------
+! *********************** Magnet type : MCBRDV ************************
+! -----------------------------------------------------------------------
+exec new_magnetfamily_MB(MCBRDV);                 ! systematic error
+klRef_MCBRDV_abs = BRef_MCBRDV*l.MCBRDV*CLIGHT/(1E9*NRJ)*bv_aux;       ! Main field gets a sign flip in case of Beam 4  (bv_aux)
+
+!MCBRDV.L1
+inv_MCBRD=0;
+klRef_MCBRDV.B1 = sign_MCBRDV.4L1.B1*klRef_MCBRDV_abs;
+klRef_MCBRDV.B2 = sign_MCBRDV.4L1.B2*klRef_MCBRDV_abs;
+select,flag=error,clear;select,flag=error,pattern="^MCBRDV\.4L1.*\.\.r$";
+iap=2; exec new_magnetindividual(MCBRDV,iap);  exec average_of_randoms(ssrBeam1,ssr,ssr);
+iap=1; exec new_magnetindividual(MCBRDV,iap);  exec average_of_randoms(ssrBeam2,ssr,ssr);
+if(use_average_errors_MCBRD==1){ exec average_of_randoms(ssr,ssrBeam1,ssrBeam2); klRef_MCBRDV = 0.5*(klRef_MCBRDV.B1 + klRef_MCBRDV.B2);};
+if(use_average_errors_MCBRD==0){
+    if(mylhcbeam==1){
+        exec average_of_randoms(ssr,ssrBeam1,ssrBeam1);
+        klRef_MCBRDV = klRef_MCBRDV.B1;
+    };
+    if(mylhcbeam>1){
+        exec average_of_randoms(ssr,ssrBeam2,ssrBeam2);
+        klRef_MCBRDV = klRef_MCBRDV.B2;
+    };
+};
+exec errorgenerate_abs(MCBRDV, inv_MCBRD, 0, klRef_MCBRDV);
+
+!MCBRDV.R1
+inv_MCBRD=1;
+klRef_MCBRDV.B1 = sign_MCBRDV.4R1.B1*klRef_MCBRDV_abs;
+klRef_MCBRDV.B2 = sign_MCBRDV.4R1.B2*klRef_MCBRDV_abs;
+select,flag=error,clear;select,flag=error,pattern="^MCBRDV\.4R1.*\.\.r$";
+iap=2; exec new_magnetindividual(MCBRDV,iap);  exec average_of_randoms(ssrBeam1,ssr,ssr);
+iap=1; exec new_magnetindividual(MCBRDV,iap);  exec average_of_randoms(ssrBeam2,ssr,ssr);
+if(use_average_errors_MCBRD==1){ exec average_of_randoms(ssr,ssrBeam1,ssrBeam2); klRef_MCBRDV = 0.5*(klRef_MCBRDV.B1 + klRef_MCBRDV.B2);};
+if(use_average_errors_MCBRD==0){
+    if(mylhcbeam==1){
+        exec average_of_randoms(ssr,ssrBeam1,ssrBeam1);
+        klRef_MCBRDV = klRef_MCBRDV.B1;
+    };
+    if(mylhcbeam>1){
+        exec average_of_randoms(ssr,ssrBeam2,ssrBeam2);
+        klRef_MCBRDV = klRef_MCBRDV.B2;
+    };
+};
+exec errorgenerate_abs(MCBRDV, inv_MCBRD, 0, klRef_MCBRDV);
+
+!MCBRDV.L5
+inv_MCBRD=0;
+klRef_MCBRDV.B1 = sign_MCBRDV.4L5.B1*klRef_MCBRDV_abs;
+klRef_MCBRDV.B2 = sign_MCBRDV.4L5.B2*klRef_MCBRDV_abs;
+select,flag=error,clear;select,flag=error,pattern="^MCBRDV\.4L5.*\.\.r$";
+iap=2; exec new_magnetindividual(MCBRDV,iap);  exec average_of_randoms(ssrBeam1,ssr,ssr);
+iap=1; exec new_magnetindividual(MCBRDV,iap);  exec average_of_randoms(ssrBeam2,ssr,ssr);
+if(use_average_errors_MCBRD==1){ exec average_of_randoms(ssr,ssrBeam1,ssrBeam2); klRef_MCBRDV = 0.5*(klRef_MCBRDV.B1 + klRef_MCBRDV.B2);};
+if(use_average_errors_MCBRD==0){
+    if(mylhcbeam==1){
+        exec average_of_randoms(ssr,ssrBeam1,ssrBeam1);
+        klRef_MCBRDV = klRef_MCBRDV.B1;
+    };
+    if(mylhcbeam>1){
+        exec average_of_randoms(ssr,ssrBeam2,ssrBeam2);
+        klRef_MCBRDV = klRef_MCBRDV.B2;
+    };
+};
+exec errorgenerate_abs(MCBRDV, inv_MCBRD, 0, klRef_MCBRDV);
+
+!MCBRDV.R5
+inv_MCBRD=1;
+klRef_MCBRDV.B1 = sign_MCBRDV.4R5.B1*klRef_MCBRDV_abs;
+klRef_MCBRDV.B2 = sign_MCBRDV.4R5.B2*klRef_MCBRDV_abs;
+select,flag=error,clear;select,flag=error,pattern="^MCBRDV\.4R5.*\.\.r$";
+iap=2; exec new_magnetindividual(MCBRDV,iap);  exec average_of_randoms(ssrBeam1,ssr,ssr);
+iap=1; exec new_magnetindividual(MCBRDV,iap);  exec average_of_randoms(ssrBeam2,ssr,ssr);
+if(use_average_errors_MCBRD==1){ exec average_of_randoms(ssr,ssrBeam1,ssrBeam2); klRef_MCBRDV = 0.5*(klRef_MCBRDV.B1 + klRef_MCBRDV.B2);};
+if(use_average_errors_MCBRD==0){
+    if(mylhcbeam==1){
+        exec average_of_randoms(ssr,ssrBeam1,ssrBeam1);
+        klRef_MCBRDV = klRef_MCBRDV.B1;
+    };
+    if(mylhcbeam>1){
+        exec average_of_randoms(ssr,ssrBeam2,ssrBeam2);
+        klRef_MCBRDV = klRef_MCBRDV.B2;
+    };
+};
+exec errorgenerate_abs(MCBRDV, inv_MCBRD, 0, klRef_MCBRDV);
+
+
+
+use_average_errors_MCBRD=0;
+return;

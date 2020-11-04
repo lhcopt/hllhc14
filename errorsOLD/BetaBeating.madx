@@ -1,0 +1,72 @@
+! Calculate beta beating at the BPMs
+! Values are outputted in the main output
+!   Todo: retrieve this output with SixDB
+!
+! This file should be called twice:
+!    once before the assignment of errors (with crossing angle still on), and
+! 	 once at the end of the mask (just before sending to SixTrack)
+!
+! F.F. Van der Veken, 19 March 2019
+
+if (second_run_beta_beating==0){
+
+	second_run_beta_beating=1;
+	
+	! unperturbed twiss at the bpms
+	select, flag=twiss, clear;
+	select, flag=twiss, pattern=BPM, column=name,s,betx,bety;
+	twiss,file="twiss_bpm_unperturbed.tfs";
+
+} else {
+
+	second_run_beta_beating=0;
+
+	! perturbed twiss at the bpms
+	select, flag=twiss, clear;
+	select, flag=twiss, pattern=BPM, column=name,s,betx,bety;
+	twiss,file="twiss_bpm_perturbed.tfs";
+
+	assign, echo="betabeat_tempcode.py",truncate;
+
+	print,text="import csv";
+	print,text="import os";
+	print,text="";
+	print,text="if (os.path.isfile('twiss_bpm_unperturbed.tfs') and os.path.isfile('twiss_bpm_perturbed.tfs')):";
+	print,text="	with open('twiss_bpm_unperturbed.tfs') as f:";
+	print,text="		reader = csv.reader(f, delimiter=' ')";
+	print,text="		unperturbed = list(reader)";
+	print,text="	with open('twiss_bpm_perturbed.tfs') as f:";
+	print,text="		reader = csv.reader(f, delimiter=' ')";
+	print,text="		perturbed = list(reader)";
+	print,text="	";
+	print,text="	unperturbed[:] = list(map(lambda line: [x for x in line if x != ''], [x for x in unperturbed if x[0] == ''] ))";
+	print,text="	unperturbed[:] = list(map(lambda line: [line[0],float(line[1]),float(line[2]),float(line[3])], unperturbed))";
+	print,text="	unperturbed.sort(key=lambda x: x[1])";
+	print,text="	unperturbed_elements = [x[0] for x in unperturbed]";
+	print,text="	";
+	print,text="	perturbed[:] = list(map(lambda line: [x for x in line if x != ''], [x for x in perturbed if x[0] == ''] ))";
+	print,text="	perturbed[:] = list(map(lambda line: [line[0],float(line[1]),float(line[2]),float(line[3])], perturbed))";
+	print,text="	perturbed.sort(key=lambda x: x[1])";
+	print,text="	perturbed_elements = [x[0] for x in perturbed]";
+	print,text="	";
+	print,text="	if (unperturbed_elements == perturbed_elements):";
+	print,text="		print('')";
+	print,text="		print('Beta beating calculated at the BPMs:')";
+	print,text="		beating=list(map(lambda x, y: [ x[0], str((x[1]+y[1])/2), str( (y[2]-x[2])/x[2]), str( (y[3]-x[3])/x[3]) ], unperturbed, perturbed))";
+	print,text="		beating.insert(0,['NAME','s','betax_beat','betay_beat'])";
+	print,text="		col_width = max(len(elem) for line in beating for elem in line) + 2  # padding";
+	print,text="		for line in beating:";
+	print,text="			print(line[0].ljust(col_width)+line[1].ljust(col_width)+line[2].ljust(col_width)+line[3].ljust(col_width))";
+	print,text="		print('')";
+	print,text="	else:";
+	print,text="		print('Warning: twiss_bpm_unperturbed.tfs and twiss_bpm_perturbed.tfs have different elements!\nAborted calculation of beta beating.\n')";
+	print,text="else:";
+	print,text="	print('Warning: twiss_bpm_unperturbed.tfs and/or twiss_bpm_perturbed.tfs is missing!\nAborted calculation of beta beating.\n')";
+	assign;
+
+	System,"python betabeat_tempcode.py";
+	System,"rm betabeat_tempcode.py";
+	System,"rm twiss_bpm_unperturbed.tfs";
+	System,"rm twiss_bpm_perturbed.tfs";
+
+};

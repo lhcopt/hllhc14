@@ -1,0 +1,142 @@
+! F.F. Van der Veken
+! Error generation for the new D2 correctors (MCBRD).
+! The layout is:
+! B2 <-  (=MCBRDV.L.B2 MCBRDH.L.B2= D2=)  IP  (=D2 =MCBRDH.R.B1 MCBRDV.R.B1=)  -> B1
+! B1 ->  (=MCBRDH.L.B1 MCBRDV.L.B1= D2=)  IP  (=D2 =MCBRDV.R.B2 MCBRDH.R.B2=)  <- B2
+! So the apertures are:
+! MCBRDH.L: iap=2
+! MCBRDH.R: iap=1
+! MCBRDV.L: iap=1
+! MCBRDV.R: iap=2
+
+
+! -----------------------------------------------------------------------
+! *********************** Magnet type : MCBRDH ************************
+! -----------------------------------------------------------------------
+exec new_magnetfamily_MB(MCBRDH);                 ! systematic error
+klRef_MCBRDH_abs = BRef_MCBRDH*l.MCBRDH*CLIGHT/(1E9*NRJ);
+
+!MCBRDH.L1
+iap=2;
+if(mylhcbeam==1){
+    inv_MCBRD=0;
+    klRef_MCBRDH = sign_MCBRDH.4L1.B1*klRef_MCBRDH_abs;
+};
+if(mylhcbeam>1){
+    inv_MCBRD=1;
+    klRef_MCBRDH = sign_MCBRDH.4L1.B2*klRef_MCBRDH_abs;
+};
+select,flag=error,clear;select,flag=error,pattern="^MCBRDH\.4L1.*\.\.r$";
+exec new_magnetindividual(MCBRDH,iap);
+exec errorgenerate_abs(MCBRDH, inv_MCBRD, 0, klRef_MCBRDH);
+
+!MCBRDH.R1
+iap=1;
+if(mylhcbeam==1){
+    inv_MCBRD=0;
+    klRef_MCBRDH = sign_MCBRDH.4R1.B1*klRef_MCBRDH_abs;
+};
+if(mylhcbeam>1){
+    inv_MCBRD=1;
+    klRef_MCBRDH = sign_MCBRDH.4R1.B2*klRef_MCBRDH_abs;
+};
+select,flag=error,clear;select,flag=error,pattern="^MCBRDH\.4R1.*\.\.r$";
+exec new_magnetindividual(MCBRDH,iap);
+exec errorgenerate_abs(MCBRDH, inv_MCBRD, 0, klRef_MCBRDH);
+
+!MCBRDH.L5
+iap=2;
+if(mylhcbeam==1){
+    inv_MCBRD=0;
+    klRef_MCBRDH = sign_MCBRDH.4L5.B1*klRef_MCBRDH_abs;
+};
+if(mylhcbeam>1){
+    inv_MCBRD=1;
+    klRef_MCBRDH = sign_MCBRDH.4L5.B2*klRef_MCBRDH_abs;
+};
+select,flag=error,clear;select,flag=error,pattern="^MCBRDH\.4L5.*\.\.r$";
+exec new_magnetindividual(MCBRDH,iap);
+exec errorgenerate_abs(MCBRDH, inv_MCBRD, 0, klRef_MCBRDH);
+
+!MCBRDH.R5
+iap=1;
+if(mylhcbeam==1){
+    inv_MCBRD=0;
+    klRef_MCBRDH = sign_MCBRDH.4R5.B1*klRef_MCBRDH_abs;
+};
+if(mylhcbeam>1){
+    inv_MCBRD=1;
+    klRef_MCBRDH = sign_MCBRDH.4R5.B2*klRef_MCBRDH_abs;
+};
+select,flag=error,clear;select,flag=error,pattern="^MCBRDH\.4R5.*\.\.r$";
+exec new_magnetindividual(MCBRDH,iap);
+exec errorgenerate_abs(MCBRDH, inv_MCBRD, 0, klRef_MCBRDH);
+
+
+
+! -----------------------------------------------------------------------
+! *********************** Magnet type : MCBRDV ************************
+! -----------------------------------------------------------------------
+exec new_magnetfamily_MB(MCBRDV);                 ! systematic error
+klRef_MCBRDV_abs = BRef_MCBRDV*l.MCBRDV*CLIGHT/(1E9*NRJ);
+
+!MCBRDV.L1
+iap=1;
+if(mylhcbeam==1){
+    inv_MCBRD=1;
+    klRef_MCBRDV = sign_MCBRDV.4L1.B1*klRef_MCBRDV_abs;
+};
+if(mylhcbeam>1){
+    inv_MCBRD=0;
+    klRef_MCBRDV = sign_MCBRDV.4L1.B2*klRef_MCBRDV_abs;
+};
+select,flag=error,clear;select,flag=error,pattern="^MCBRDV\.4L1.*\.\.r$";
+exec new_magnetindividual(MCBRDV,iap);
+exec errorgenerate_abs(MCBRDV, inv_MCBRD, 0, klRef_MCBRDV);
+
+!MCBRDV.R1
+iap=2;
+if(mylhcbeam==1){
+    inv_MCBRD=1;
+    klRef_MCBRDV = sign_MCBRDV.4R1.B1*klRef_MCBRDV_abs;
+};
+if(mylhcbeam>1){
+    inv_MCBRD=0;
+    klRef_MCBRDV = sign_MCBRDV.4R1.B2*klRef_MCBRDV_abs;
+};
+select,flag=error,clear;select,flag=error,pattern="^MCBRDV\.4R1.*\.\.r$";
+exec new_magnetindividual(MCBRDV,iap);
+exec errorgenerate_abs(MCBRDV, inv_MCBRD, 0, klRef_MCBRDV);
+
+!MCBRDV.L5
+iap=1;
+if(mylhcbeam==1){
+    inv_MCBRD=1;
+    klRef_MCBRDV = sign_MCBRDV.4L5.B1*klRef_MCBRDV_abs;
+};
+if(mylhcbeam>1){
+    inv_MCBRD=0;
+    klRef_MCBRDV = sign_MCBRDV.4L5.B2*klRef_MCBRDV_abs;
+};
+select,flag=error,clear;select,flag=error,pattern="^MCBRDV\.4L5.*\.\.r$";
+exec new_magnetindividual(MCBRDV,iap);
+exec errorgenerate_abs(MCBRDV, inv_MCBRD, 0, klRef_MCBRDV);
+
+!MCBRDV.R5
+iap=2;
+if(mylhcbeam==1){
+    inv_MCBRD=1;
+    klRef_MCBRDV = sign_MCBRDV.4R5.B1*klRef_MCBRDV_abs;
+};
+if(mylhcbeam>1){
+    inv_MCBRD=0;
+    klRef_MCBRDV = sign_MCBRDV.4R5.B2*klRef_MCBRDV_abs;
+};
+select,flag=error,clear;select,flag=error,pattern="^MCBRDV\.4R5.*\.\.r$";
+exec new_magnetindividual(MCBRDV,iap);
+exec errorgenerate_abs(MCBRDV, inv_MCBRD, 0, klRef_MCBRDV);
+
+
+
+use_average_errors_MCBRD=0;
+return;

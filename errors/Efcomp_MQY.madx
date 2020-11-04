@@ -1,0 +1,18 @@
+! FF Van der Veken, 6/8/2019
+! As from HL-LHC v1.4 optics, Q4 is just the original MQY
+! However, they are rotated around IP1 and IP5:
+! Q4L1 <-> Q4R5
+! Q4R1 <-> Q4L5
+
+eoption, add=false;
+
+Rr = 0.017; ON_MQY = 1;
+
+exec, Efcomp_Measured_Quad_Switch(MQY.4L1, MQY.4R5);
+exec, Efcomp_Measured_Quad_Switch(MQY.4R1, MQY.4L5);
+exec, Efcomp_Measured_Quad_Switch(MQY.4L5, MQY.4R1);
+exec, Efcomp_Measured_Quad_Switch(MQY.4R5, MQY.4L1);
+
+eoption, add=true;
+
+return;
