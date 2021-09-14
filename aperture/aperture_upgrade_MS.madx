@@ -97,7 +97,7 @@ exec,aperture_2in1_def(MBRD.4,OCTAGON,hv_D2,hv_D2,angle1_D2,angle2_D2,r_tol_D2,h
 exec,aperture_2in1_def(MCBRDH.4,OCTAGON,hv_D2,hv_D2,angle1_D2,angle2_D2,r_tol_C2,h_tol_C2,v_tol_C2);
 exec,aperture_2in1_def(MCBRDV.4,OCTAGON,hv_D2,hv_D2,angle1_D2,angle2_D2,r_tol_C2,h_tol_C2,v_tol_C2);
 
-system,"rm d2_aperture";assign, echo="d2_aperture";
+system,"if [ -f d2_aperture ]; then rm d2_aperture; fi";assign, echo="d2_aperture";
 exec,write_OCTAGON(xx1,yy1,xx2,yy2);
 assign, echo=terminal;
 
